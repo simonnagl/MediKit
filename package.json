@@ -1,7 +1,7 @@
 {
   "name": "medikit",
-  "version": "1.1.1",
-  "description": "MediKit: An Ionic project",
+  "version": "0.0.1",
+  "description": "Hybrid Mobile App Project SS2016",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
