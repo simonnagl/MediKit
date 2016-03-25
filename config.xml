@@ -4,8 +4,26 @@
   <description>
         An Ionic Framework and Cordova project.
     </description>
-  <author email="you@example.com" href="http://example.com.com/">
-      Your Name Here
+  <author email="ewaldstang@outlook.de">
+      Ewald Stang
+    </author>
+  <author email="sin6332@thi.de">
+      Simon Nagl
+    </author>
+  <author email="josefgrotter@yahoo.de">
+      Josef Grotter
+    </author>
+  <author email="annaleitmann@web.de">
+      Anna Leitmann
+    </author>
+  <author email="sf@inn-it.de">
+      Frass Sergej
+    </author>
+  <author email="sin6332@thi.de">
+      Simon Nagl
+    </author>
+  <author>
+    Johann Veith
     </author>
   <content src="index.html"/>
   <access origin="*"/>
