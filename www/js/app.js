@@ -6,6 +6,11 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', [ 'ionic', 
                             'starter.controllers',
+                            'starter.historieCtrl',
+                            'starter.mediEinnahmeCtrl',
+                            'starter.mediVerwaltungCtrl',
+                            'starter.startseiteCtrl',
+                            'starter.userprofilCtrl',
                             'starter.einnahmeStorage',
                             'starter.mediStorage',
                             'starter.profilStorage',
