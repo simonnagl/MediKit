@@ -41,7 +41,8 @@ angular.module('starter', [ 'ionic',
     url: '/mediVerwaltung',
     views: {
       'menuContent': {
-        templateUrl: 'templates/mediVerwaltung.html'
+        templateUrl: 'templates/mediVerwaltung.html',
+        controller: 'mediVerwaltungCtrl',
       }
     }
   })
@@ -50,7 +51,8 @@ angular.module('starter', [ 'ionic',
     url: '/userprofil',
     views: {
       'menuContent': {
-        templateUrl: 'templates/userprofil.html'
+        templateUrl: 'templates/userprofil.html',
+        controller: 'userprofilCtrl',
       }
     }
   })
@@ -59,7 +61,8 @@ angular.module('starter', [ 'ionic',
       url: '/mediEinnahme',
       views: {
         'menuContent': {
-          templateUrl: 'templates/mediEinnahme.html'
+          templateUrl: 'templates/mediEinnahme.html',
+          controller: 'mediEinnahmeCtrl',
         }
       }
     })
@@ -68,6 +71,7 @@ angular.module('starter', [ 'ionic',
       views: {
         'menuContent': {
           templateUrl: 'templates/historie.html',
+        controller: 'historieCtrl',
         }
       }
     })
@@ -77,6 +81,7 @@ angular.module('starter', [ 'ionic',
     views: {
       'menuContent': {
         templateUrl: 'templates/startseite.html',
+        controller: 'startseiteCtrl',
       }
     }
   });
