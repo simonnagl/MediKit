@@ -37,42 +37,49 @@ angular.module('starter', [ 'ionic',
     controller: 'AppCtrl'
   })
 
-  .state('app.search', {
-    url: '/search',
+  .state('app.mediVerwaltung', {
+    url: '/mediVerwaltung',
     views: {
       'menuContent': {
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/mediVerwaltung.html'
       }
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
+  .state('app.userprofil', {
+    url: '/userprofil',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/userprofil.html'
+      }
+    }
+  })
+
+  .state('app.mediEinnahme', {
+      url: '/mediEinnahme',
       views: {
         'menuContent': {
-          templateUrl: 'templates/browse.html'
+          templateUrl: 'templates/mediEinnahme.html'
         }
       }
     })
-    .state('app.playlists', {
-      url: '/playlists',
+    .state('app.historie', {
+      url: '/historie',
       views: {
         'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
+          templateUrl: 'templates/historie.html',
         }
       }
     })
 
-  .state('app.single', {
-    url: '/playlists/:playlistId',
+  .state('app.startseite', {
+    url: '/startseite',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+        templateUrl: 'templates/startseite.html',
       }
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/startseite');
 });
