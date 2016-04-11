@@ -1,1 +1,8 @@
-/* Empty. Add your own CSS if you like */
+/* class "has-header" für Positionierung des Headers im Profil */
+.has-header { 
+    top: 44px; 
+    position:absolute; 
+    width: 100%;}
+
+/* class "profilp" zur Gestaltung des <p>-Tags im Profil */
+.profilp {font-size:15pt;  /* Größe 28pt   */}
