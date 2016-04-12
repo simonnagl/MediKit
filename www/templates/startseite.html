@@ -1,8 +1,6 @@
 <ion-view view-title="Medikit">
     <ion-content class="has-header" padding="true">
-        <br>
-        
-        
+
         <div class="card">
             <div class="item item-text-wrap">
                     Hallo {{ name }},
@@ -22,13 +20,13 @@
         </div>
 
 
-        <ion-list>
-            <button class="button button-block button-positive" ng-click="$location.path('#/mediEinnahme.html')">
-                nicht genommene Medikamente
-            </button>
-            <button class="button button-block button-positive" href="#/app/mediEinnahme">
+        
+        <button class="button button-block button-positive" ng-click="navigate('/app/mediEinnahme')">
+            nicht genommene Medikamente
+        </button>
+        <button class="button button-block button-positive" ng-click="navigate('/app/mediEinnahme')">
             Termin anlegen
-            </button>
-        </ion-list>
+        </button>
+        
     </ion-content>
 </ion-view>
