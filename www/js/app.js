@@ -76,7 +76,7 @@ angular.module('starter', [ 'ionic',
       views: {
         'menuContent': {
           templateUrl: 'templates/historie.html',
-        controller: 'historieCtrl',
+        controller: 'HistorieCtrl',
         }
       }
     })
