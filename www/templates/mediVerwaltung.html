@@ -1,0 +1,21 @@
+<ion-view view-title="Medi-Verwaltung"> 
+
+
+    <ion-nav-buttons side="secondary">
+        <button class="button button-icon ion-android-add-circle button-clear" ng-click="new_medi()">
+        </button>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-list class="list list-inset">
+
+            <div class="item item-divider">
+                Medikamente
+            </div>
+            <ion-item stype="display: inline-block" ng-repeat="medi in mediData" ng-click="edit_medi(medi)">
+                <span style="float:left">{{medi.name}}</span>
+                <span style="margin: 0 auto">{{medi.dose}}</span>
+                    <span style="float:right">{{medi.pack_gr}}</span>
+            </ion-item>
+        </ion-list>
+        </ion-content>
+    </ion-view>
