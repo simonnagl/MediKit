@@ -90,6 +90,9 @@ angular.module('starter.mediEinnahmeCtrl', [])
   
    $scope.addEinnahme = function () {
      $log.info("addEinnahme: " + $scope.einnahme.medi);
+     
+     if ($scope.einnahme.index == undefined){
+        //undefined zeigt, das es eine neue Einnahme ist, somit einfach das Objekt pushen.
         $scope.mediEinnahmeData.push({ //Man könnte auch nur das Objekt $scope.user pushen.
             "medi": $scope.einnahme.medi,
             "einnahmemenge": $scope.einnahme.einnahmemenge,
@@ -97,7 +100,16 @@ angular.module('starter.mediEinnahmeCtrl', [])
             "data": $scope.einnahme.data,
             "repeat": $scope.einnahme.repeat,
             "vibration": $scope.einnahme.vibration
-        });
+        }); 
+      } else {
+        //Andernfalls soll die Einnahme aktuallisiert werden
+          $scope.mediEinnahmeData[$scope.einnahme.index].medi = $scope.einnahme.medi;
+          $scope.mediEinnahmeData[$scope.einnahme.index].einnahmemenge = $scope.einnahme.einnahmemenge;
+          $scope.mediEinnahmeData[$scope.einnahme.index].einheit = $scope.einnahme.einheit;
+          $scope.mediEinnahmeData[$scope.einnahme.index].data = $scope.einnahme.data;
+          $scope.mediEinnahmeData[$scope.einnahme.index].repeat = $scope.einnahme.repeat;
+          $scope.mediEinnahmeData[$scope.einnahme.index].vibration = $scope.einnahme.vibration;
+      }
         //Resetfunktion in Billig:
         $scope.einnahme.medi = "";
         $scope.einnahme.einnahmemenge = "";
