@@ -1,26 +1,21 @@
 angular.module('starter.mediVerwaltungCtrl', [])
 
 .controller('mediVerwaltungCtrl', function($scope) {
-  
-    $scope.mediData = [
-        { 
-            name : "Penicilin",
-            dose : "200mg",
-            pack_gr : 20
-
+    $scope.medikamente = [
+        {
+            bez : "Penicilin",
+            dosier : "200 mg",
+            pck_gr : 20
         },
         {
-            name : "Aspirin",
-            dose : "200mg",
-            pack_gr : 50
-        } 
-  ];
-
-
-  // Eingabe mit Popup
-  // Layout keine Präferenz
-
-  $scope.edit_medi = function(mediName) {
-      $scope.mediData.push( mediName );
-  }
+            bez : "Aspirin",
+            dosier : "200 mg",
+            pck_gr : 50
+        },
+        {
+            bez : "Citerizin",
+            dosier : "10 mg",
+            pck_gr : 50
+        }
+    ];
 });

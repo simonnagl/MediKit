@@ -14,11 +14,11 @@
                     <div class="col" align="center">Dosier.</div>
                     <div class="col" align="center">Pck.gr.</div></div>
             </ion-item>
-            <ion-item stype="display: inline-block" ng-repeat="medi in mediData" ng-click="edit_medi(medi)">
+            <ion-item stype="display: inline-block" ng-repeat="medikament in medikamente" ng-click="edit_medi(medi)">
                 <div class="row">
-                <div class="col">{{medi.name}}</div>
-                <div class="col" align="center">{{medi.dose}}</div>
-                <div class="col" align="center">{{medi.pack_gr}}</div>
+                <div class="col">{{medikament.bez}}</div>
+                <div class="col" align="center">{{medikament.dosier}}</div>
+                <div class="col" align="center">{{medikament.pck_gr}}</div>
                 </div>
             </ion-item>
         </ion-list>
