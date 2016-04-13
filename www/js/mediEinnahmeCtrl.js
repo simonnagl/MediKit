@@ -1,6 +1,6 @@
 angular.module('starter.mediEinnahmeCtrl', [])
 
-.controller('mediEinnahmeCtrl', function($log, $scope, $ionicModal, $timeout) {
+.controller('mediEinnahmeCtrl', function($log, $scope, $ionicModal, $timeout, $ionicPopup) {
 
     //Controller mediEinnahmeCtrl
 
@@ -125,4 +125,45 @@ angular.module('starter.mediEinnahmeCtrl', [])
         
     };
 
+
+////Pupup
+
+   // When button is clicked, the popup will be shown...
+   $scope.showPopup = function() {
+      $scope.data = {}
+      $scope.data.model = $scope.einnahme.repeat;
+    
+      // Custom popup
+      var myPopup = $ionicPopup.show({
+         //template: '<input type = "text" ng-model = "data.model">',
+         //könnte man in eine templateUrl umändern und den viewcode extra auslagern.
+         template: '<ion-list><ion-checkbox ng-model="data.model.mo">Montag</ion-checkbox><ion-checkbox ng-model="data.model.di">Dienstag</ion-checkbox><ion-checkbox ng-model="data.model.mi">Mittwoch</ion-checkbox><ion-checkbox ng-model="data.model.do">Donnerstag</ion-checkbox><ion-checkbox ng-model="data.model.fr">Freitag</ion-checkbox><ion-checkbox ng-model="data.model.sa">Samstag</ion-checkbox><ion-checkbox ng-model="data.model.so">Sonntag</ion-checkbox></ion-list>',
+         title: 'Wiederholen',
+         subTitle: '',
+         scope: $scope,
+			
+         buttons: [
+            { text: 'Abbrechen' }, {
+               text: '<b>Ok</b>',
+               type: 'button-positive',
+                  onTap: function(e) {
+						
+                      //Ok button wurde gedrückt, übernehme dein Werte
+                      $scope.einnahme.repeat = $scope.data.model;
+                      console.log('Gesetzte Werte: ', $scope.data.model); 
+                      
+                  }
+            }
+         ]
+      });
+
+      myPopup.then(function(res) {
+         console.log('Tapped!', res);
+      });    
+   };
+///Pupup ende
+
+
 });
+
+

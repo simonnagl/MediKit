@@ -43,12 +43,12 @@
         
         <label class="item item-input">
           <span class="input-label">Uhrzeit</span>
-          <input type="text" ng-model="einnahme.data">
+          <input type="time" min="T00:00Z" max="T24:00Z" ng-model="einnahme.data">
         </label>
         
         <label class="item item-input">
           <span class="input-label">Wiederholung</span>
-          <input type="text" ng-model="einnahme.repeat">
+          <button class = "button button-clear" ng-click ="showPopup()">{{einnahme.repeat}}</button>
         </label>
                
         <ion-list>
