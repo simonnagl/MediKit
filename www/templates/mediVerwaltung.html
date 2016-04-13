@@ -1,4 +1,4 @@
-<ion-view view-title="Medi-Verwaltung"> 
+<ion-view view-title="Medikamente"> 
 
 
     <ion-nav-buttons side="secondary">
@@ -8,13 +8,18 @@
     <ion-content>
         <ion-list class="list list-inset">
 
-            <div class="item item-divider">
-                Medikamente
-            </div>
+            <ion-item class="item-divider">
+                <div class="row">
+                    <div class="col">Bez.</div>
+                    <div class="col" align="center">Dosier.</div>
+                    <div class="col" align="center">Pck.gr.</div></div>
+            </ion-item>
             <ion-item stype="display: inline-block" ng-repeat="medi in mediData" ng-click="edit_medi(medi)">
-                <span style="float:left">{{medi.name}}</span>
-                <span style="margin: 0 auto">{{medi.dose}}</span>
-                    <span style="float:right">{{medi.pack_gr}}</span>
+                <div class="row">
+                <div class="col">{{medi.name}}</div>
+                <div class="col" align="center">{{medi.dose}}</div>
+                <div class="col" align="center">{{medi.pack_gr}}</div>
+                </div>
             </ion-item>
         </ion-list>
         </ion-content>
