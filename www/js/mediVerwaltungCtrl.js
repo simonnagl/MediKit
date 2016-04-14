@@ -18,21 +18,40 @@ angular.module('starter.mediVerwaltungCtrl', [])
             pck_gr : 50
         }
     ];
-            
+
     // Create the mediVerwaltung_edit modal that we will use later
     $ionicModal.fromTemplateUrl('templates/mediVerwaltung_edit.html', {
         scope: $scope
-    }).then(function(medikament) {
-        $scope.medikament = medikament;
+    }).then(function(modal) {
+        $scope.medikament = modal;
                                                 });
             
     // Triggered in the medimedikament_neu modal to close it
-    $scope.close_medimedikament_neu = function() {
+    $scope.save_medi = function() {
+        $scope.medikament.hide();
+    };
+
+    $scope.delete_medi = function() {
         $scope.medikament.hide();
     };
             
     // Open the medimedikament_neu modal
-    $scope.open_medikament_edit = function() {
+    $scope.open_medikament_new = function() {
+        $scope.medikament.bez = "";
+        $scope.medikament.dosier = "";
+        $scope.medikament.pck_gr = "";
+        $scope.medikament.snooze = "";
+        $scope.medikament.beschreibung = "";
+        $scope.medikament.show();
+    };
+
+    // Open the medimedikament_neu modal
+    $scope.open_medikament_edit = function(medikament) {
+        $scope.medikament.bez = medikament.bez;
+        $scope.medikament.dosier = medikament.dosier;
+        $scope.medikament.pck_gr = medikament.pck_gr;
+        $scope.medikament.snooze = medikament.snooze;
+        $scope.medikament.beschreibung = medikament.beschreibung;
         $scope.medikament.show();
     };
 });
