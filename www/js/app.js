@@ -81,10 +81,11 @@ angular.module('starter', [ 'ionic',
     views: {
       'menuContent': {
         templateUrl: 'templates/startseite.html',
-        controller: 'startseiteCtrl',
+        controller: 'StartseiteCtrl',
       }
     }
   });
+  
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/startseite');
 });

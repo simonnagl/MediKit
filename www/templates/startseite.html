@@ -1,0 +1,32 @@
+<ion-view view-title="Medikit">
+    <ion-content class="has-header" padding="true">
+
+        <div class="card">
+            <div class="item item-text-wrap">
+                    Hallo {{ name }},
+                    <br>
+                    Sie haben {{count}} nicht genommene Medikamente.
+
+            </div> 
+        </div>
+        
+        <div class="card">
+            <div class="item item-text-wrap">
+                Nächste Medikamenteneinnahmen
+                <li ng-repeat="x in einnahme">
+                    {{ x.medikament + ' um ' + x.uhrzeit }}
+                </li>
+            </div>
+        </div>
+
+
+        
+        <button class="button button-block button-positive" ng-click="navigate('/app/mediEinnahme')">
+            nicht genommene Medikamente
+        </button>
+        <button class="button button-block button-positive" ng-click="navigate('/app/mediEinnahme')">
+            Termin anlegen
+        </button>
+        
+    </ion-content>
+</ion-view>
