@@ -43,7 +43,7 @@
         
         <label class="item item-input">
           <span class="input-label">Uhrzeit</span>
-          <input type="time" min="T00:00Z" max="T24:00Z" ng-model="einnahme.data">
+          <input type="time" ng-model="einnahme.data" ng-value="{{einnahme.data | date : 'HH:mm'}}">
         </label>
         
         <label class="item item-input">

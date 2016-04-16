@@ -13,9 +13,9 @@
     <div class="item item-divider">
     Aktuelle Einnahmen
   </div>
-    <div class="item" ng-repeat="einnahme in mediEinnahmeData" ng-click="mediEinnahme_edit($index)">
-      <h2>{{einnahme.medi + ' - ' + einnahme.data + ' - ' + einnahme.einnahmemenge + einnahme.einheit}} </h2>
-      {{einnahme.repeat}}
+    <div class="item" ng-repeat="einnahm in mediEinnahmeData" ng-click="mediEinnahme_edit($index)">
+      <h2>{{einnahm.data | date : "HH:mm"}} ' - ' {{einnahm.medi}} ' - ' {{einnahm.einnahmemenge + einnahm.einheit}} </h2>
+      {{einnahm.repeat}}
     </div>
 
 

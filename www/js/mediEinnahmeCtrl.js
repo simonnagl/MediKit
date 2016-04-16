@@ -91,7 +91,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
    $scope.addEinnahme = function () {
      $log.info("addEinnahme: " + $scope.einnahme.medi);
      
-     if ($scope.einnahme.index == undefined){
+     if ($scope.einnahme.index == undefined){        
         //undefined zeigt, das es eine neue Einnahme ist, somit einfach das Objekt pushen.
         $scope.mediEinnahmeData.push({ //Man könnte auch nur das Objekt $scope.user pushen.
             "medi": $scope.einnahme.medi,
@@ -102,7 +102,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
             "vibration": $scope.einnahme.vibration
         }); 
       } else {
-        //Andernfalls soll die Einnahme aktuallisiert werden
+        //Andernfalls soll die Einnahme aktuallisiert werden                
           $scope.mediEinnahmeData[$scope.einnahme.index].medi = $scope.einnahme.medi;
           $scope.mediEinnahmeData[$scope.einnahme.index].einnahmemenge = $scope.einnahme.einnahmemenge;
           $scope.mediEinnahmeData[$scope.einnahme.index].einheit = $scope.einnahme.einheit;
