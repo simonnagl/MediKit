@@ -17,13 +17,15 @@
 	<ion-content class="has-header">
     
 	
-	<div class="list list-inset">
+	<ion-list class="list list-inset">
 
-		<div class="item item-divider">Persoenliche Daten</div>
-		<div class="item">
+	    <ion-item class="item-divider">Persoenliche Daten</ion-item>
+        
+		<ion-item class="item" ng-repeat="x in persoenlicheDaten">
+            
 			<div class="row">
-						<div class="col" align="left">Name:</div>
-						<div class="col" align="left">Wert1</div>	
+						<div class="col" align="left">Nachname:</div>
+						<div class="col" align="left">{{x.nachname}}</div>	
 			</div>
 			
 			<div class="row">
@@ -31,11 +33,11 @@
 				<div class="col" align="left">Wert2</div>
 			</div>
 				
-		</div>
+		</ion-item>
 		
 			
-		<div class="item item-divider">Gesundheitsdaten</div>
-		<div class="item">
+		<ion-item class="item-divider">Gesundheitsdaten</ion-item>
+		<ion-item class="item">
 		
 			<div class="row">
 						<div class="col" align="left">Blutgruppe:</div>
@@ -58,7 +60,7 @@
 			</div>
 		
 		
-	</div>
+	    </ion-item>
 
 
 	</ion-content>

@@ -1,45 +1,47 @@
-angular.module('userprofilCtrl', [])
+angular.module('starter.userprofilCtrl', [])
 
 
 
 // Übergangsweise werden hier die Daten gespeichert.
 // Später per userprofilstorageService der die Daten im Webstorage ablegt 
 
-.controller('objectCtrl', function($scope){
-    $scope.daten = { 
-      nachname: "Schmidt", 
-      vorname: "Hans",
-	  strasse: "Hauptstrasse 3", 
-	  plz: "80331",
-	  ort: "Muenchen",
-	 // -----------------------------
-	  kontaktnachname: "Meyer",
-	  kontaktvorname: "Thomas",
-	  kontakttelefon: "0841123456",
-	  kontaktemail: "kontakt@web.de",
-	 // ------------------------------
-	  hausarztnachname: "Dr. Mueller-Wohlfahrt",
-	  hausarztvorname: "Hans-Wilhelm",
-	  hausarztstrasse: "Dienerstrasse 12",
-	  hausarztplz: "80331",
-	  hausarztort: "Muenchen",
-	  hausarzttelefon: "08945238590",
-	  hausarztart: "Sportmedizin",
-	 // ------------------------------
-	  apothekename: "Marien Apotheke",
-	  apothekestrasse: "Kupferstrasse 1",
-	  apothekeplz: "85049",
-	  apothekeort: "Ingolstadt",
-	  apotheketelefon: "0841123456",
-	 // -----------------------------
-	  blutgruppe: "AB",
-	  unvertraeglichkeiten: "Unvertraeglichkeit1",
-	  allergien: "Nuesse",
-	  erkrankungen: "Aids"
-	  	  
-    }; 
-  })
-  
+.controller('userprofilCtrl', function($scope){
+    $scope.persoenlicheDaten = [
+        {
+            nachname: "Schmidt",
+            vorname: "Hans",
+            strasse: "Hauptstrasse 3", 
+	        plz: "80331",
+	        ort: "Muenchen" 
+        }   
+        	  
+     ];
+     
+     $scope.allergie = [
+        {name: "Allergie1"},
+        {name: "Allergie2"},
+        {name: "Allergie3"}
+     ];
+     
+     
+     $scope.blutgruppe = [
+		{name: "AB"}
+	];
+     
+     
+     $scope.unvertraglichkeit = [
+         {name: "Unvertraeglichkeit1"},
+         {name: "Unvertraeglichkeit2"}
+     ];
+     
+     
+     $scope.erkrankung = [
+         {name: "Erkrankung1"},
+         {name: "Erkrankung2"}
+     ];
+});
+      
+	 
 
  .controller('ExampleController', ['$scope', function($scope) {
       $scope.master = {};

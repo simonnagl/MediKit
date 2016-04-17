@@ -7,19 +7,19 @@
 	
 	<ion-content class="has-header">
 	
-	<div class="list list-inset">
+	<ion-list class="list list-inset">
 	
-		<div class="item item-divider">Notfallkontakt</div>
-			<div class="item"></div>
+		<ion-item class="item-divider">Notfallkontakt</ion-item>
+			<div class="item" ng-repeat="x in kontakt">
+			{{x.nachname}}
+			</div>
 			
-		<div class="item item-divider">Arzt</div>
+		<ion-item class="item-divider">Arzt</ion-item>
 			<div class="item"></div>
 				
-		<div class="item item-divider">Apotheke</div>
-			<div class="item"></div>			
-				
-				
-				
-	</div>
+		<ion-item class="item-divider">Apotheke</ion-item>
+			<div class="item"></div>	
+          		
+	</ion-list>
 	
 </ion-view>
