@@ -1,0 +1,38 @@
+<ion-view view-title="Neuer Kontakt">
+
+	<ion-nav-buttons side="secondary">
+      <button class="button button-icon ion-android-add-circle button-clear" ng-click="closekontakt_neu()"></button>
+	</ion-nav-buttons>
+	
+	
+	<ion-content class="has-header">
+	    <form ng-submit="addKontakt()">
+            <div class="list">
+                <label class="item item-input">
+                    <span class="input-label">Kontaktart</span>
+                        <select ng-model="kontaktart">
+                            <option value="1">Notfallkontakt</option>
+                            <option value="2">Arzt</option>
+                            <option value="3">Apotheke</option>
+                        </select>
+                </label>
+                
+                 <label class="item item-input" ng-show="kontaktart=='1'">
+                     <span class="input-label">Notfallkontaktart</span>
+                     <!-- Sieht man nur, wenn erstes Element der Kombobox gewählt wurde -->
+                     <!-- Hier noch Unterscheidung welche in welcher Beziehung man mit dem Notfallkontakt steht. Partner? Elternteil? Bruder? -->
+                 </label>
+               
+               <label class="item item-input">
+                   <span class="input-label">Nachname</span>
+                   <input type="text" ng-model="xxxxxxxxxx" placeholder="Nachname eingeben"/> 
+                   <!-- Problem: Jenachdem was der User in Combobox gewählt hat, muss der Wert des Nachnamens ja in einem anderen Objekt gespeichert werden
+                   Also entweder in kontaktperson.nachname oder zb. arzt.nachname
+                   Ich kann ja schlecht je nach Comboboxwahl komplett andere Input Elemente anzeigen lassen ?! -->
+               </label>
+                
+            </div>
+	    </form>
+	</ion-content>
+	
+</ion-view>

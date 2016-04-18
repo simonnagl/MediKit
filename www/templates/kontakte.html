@@ -9,8 +9,8 @@
 	
 	<ion-list class="list list-inset">
 	
-		<ion-item class="item-divider">Notfallkontakt</ion-item>
-			<div class="item" ng-repeat="x in kontakt">
+		<ion-item class="item-divider" ng-click="kontakt_edit($index)">Notfallkontakt</ion-item>
+			<div class="item" ng-repeat="x in kontaktperson">
 			{{x.nachname}}
 			</div>
 			
@@ -21,5 +21,9 @@
 			<div class="item"></div>	
           		
 	</ion-list>
-	
+    
+    <!-- Übergangsweise, wegen Unklarheit Headerbar-Navigation Button -->
+    <button ng-click="kontakt_neu()">kontakt_neu()</button>
+    
+	</ion-content>
 </ion-view>
