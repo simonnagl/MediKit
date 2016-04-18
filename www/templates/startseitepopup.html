@@ -1,12 +1,16 @@
-<ion-modal-view>
-    <ion-header-bar>   
-        <div class="card">
-            <div class="item item-text-wrap">
-                Folgende Medikamente müssen noch eingenommen werden
-                <li ng-repeat="x in einnahme">
-                    {{ x.medikament }}
-                </li>
-            </div>
-        </div>^
-    </ion-content>
-</ion-modal-view>
+<div>
+    <img src="http://www.gemeinde-werkstatt.de/typo3temp/pics/4e8dbae60e.jpg">
+    </div>
+    <div>
+    Folgende Medikamente hast du noch nicht genommen
+ </div>
+ <div>   
+    <ion-list>
+        <div>
+        <ion-checkbox ng-model="isChecked">Checkbox Label1</ion-checkbox>
+        </div>
+        <div>
+        <ion-checkbox ng-model="isChecked">Checkbox Label2</ion-checkbox>
+        </div>
+    </ion-list>
+</div>
