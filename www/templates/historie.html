@@ -6,19 +6,23 @@
     <input type="text" placeholder="Suche">
   </label>
 </div>
+<ion-toggle ng-model="nicht_genommen" toggle-class="toggle-balanced">nicht genommene Medikamente</ion-toggle>
+von
+<input type="date" ng-model="von"/>
+bis
+<input type="date" ng-model="bis"/>
+<ionic-datepicker/>
 <md-input-container>
-<ng-datepicker ng-model="ctrl.date">
-</ng-datepicker>
+<!-- <ng-datepicker ng-model="ctrl.date"> 
+</ng-datepicker>-->
 </md-input-container>
-<ul class="list">
-    <li class="item"> <i class="icon ion-checkmark-circled"></i> Medikament1    200mg,   1.4.16 13:00</li>    
-    <li class="item"> <i class="icon ion-close-circled"></i> Medikament2    100mg,   2.4.16 13:00</li>    
 
-</ul>
+<ion-list>
+    <ion-item ng-repeat="x in medicine">
+       <i class="icon ion-checkmark-circled"></i> {{x}}
+    </ion-item>
+</ion-list>
 
 
   </ion-content>
 </ion-view>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment-with-locales.min.js"></script>
-<script type="text/javascript" src="src/js/ngDatepicker.min.js"></script>
