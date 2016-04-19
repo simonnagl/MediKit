@@ -11,19 +11,41 @@
 	
 		<ion-item class="item-divider" ng-click="kontakt_edit($index)">Notfallkontakt</ion-item>
 			<div class="item" ng-repeat="kontaktperson in allKontaktperson">
-			{{kontaktperson.nachname}} - {{kontaktperson.vorname}}
+				{{"Kontaktart: " + kontaktperson.art}}
+				<br>
+				{{kontaktperson.nachname + " " + kontaktperson.vorname}}
+				<br>
+				{{"Tel.: " + kontaktperson.telefon}}
+				<br>
+				{{"Email: " + kontaktperson.email}}
 			</div>
 			
 		<ion-item class="item-divider">Arzt</ion-item>
-			<div class="item"></div>
-				
+			<div class="item" ng-repeat="arzt in allArzt">
+				{{arzt.art}}
+				<br>
+				{{arzt.nachname + " " + arzt.vorname}}
+				<br>
+				{{arzt.strasse}}
+				<br>
+				{{arzt.plz + " " + arzt.ort}}
+				<br>
+				{{"Tel.: " + arzt.telefon}}
+			</div>
+			
 		<ion-item class="item-divider">Apotheke</ion-item>
-			<div class="item"></div>	
+			<div class="item" ng-repeat="apotheke in allApotheke">
+				{{apotheke.name}}
+				<br>
+				{{apotheke.strasse}}
+				<br>
+				{{apotheke.plz + " " + apotheke.ort}}
+				<br>
+				{{"Tel.: " + apotheke.telefon}}
+			</div>	
           		
 	</ion-list>
     
-    <!-- Übergangsweise, wegen Unklarheit Headerbar-Navigation Button -->
-    <button ng-click="kontakt_neu()">kontakt_neu()</button>
     
 	</ion-content>
 </ion-view>

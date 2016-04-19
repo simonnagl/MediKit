@@ -12,21 +12,21 @@ angular.module('starter.kontakteCtrl', [])
 	//----------------------------------------
 	//Weitere Teststruktur
 	$scope.kontakt = [{
-		"art": "kontaktperson",
-		"daten":[
-			{"nachname": "Meyer", "vorname": "Thomas"},
-			{"nachname": "Kontakt2", "vorname": "Kontakt2Vorname"}
+		art: "kontaktperson",
+		daten:[
+			{nachname: "Meyer", vorname: "Thomas"},
+			{nachname: "Kontakt2", vorname: "Kontakt2Vorname"}
 			]
 		},
 		{
-		"art": "arzt",
-		"daten":[
-			{"nachname": "Dr. Mueller-Wohlfahrt", "vorname": "Hans-Wilhelm", "art": "Orthop�de"}
+		art: "arzt",
+		daten:[
+			{nachname: "Dr. Mueller-Wohlfahrt", vorname: "Hans-Wilhelm", art: "Orthop�de"}
 			]
 		},
 		{
-		"art": "apotheke",
-		"daten":[]
+		art: "apotheke",
+		daten:[]
 		}
 	]
 	
@@ -34,12 +34,12 @@ angular.module('starter.kontakteCtrl', [])
 	//----------------------------------------
 	$scope.allKontaktperson = [
         {nachname: "Meyer", vorname: "Thomas", telefon: "0841123456", email: "kontakt@web.de", art: "Vater"},
-		{nachname: "Kontakt2", vorname: "Kontakt2Vorname", telefon: "0841789012", email: "kontakt2@web.de", art: "Partner"}
+		{nachname: "Huber", vorname: "Hans", telefon: "0841789012", email: "kontakt2@web.de", art: "Partner"}
      ];
      
      $scope.allArzt = [
         {nachname: "Dr. Mueller-Wohlfahrt", vorname: "Hans-Wilhelm", strasse: "Dienerstrasse 12", plz: "80331", ort: "Muenchen", telefon: "08945238590", art: "Sportmedizin"},
-		{nachname: "Arzt2", vorname: "Arzt2Vorname", strasse: "Arzt2Strasse 12", plz: "80331", ort: "Arzt2Ort", telefon: "08945238590", art: "Arzt2Art"}
+		{nachname: "Dr. Meyer", vorname: "Sepp", strasse: "Hauptstrasse 12", plz: "10115", ort: "Berlin", telefon: "08945238590", art: "Orthopäde"}
 	 ];
 	 
 	 $scope.allApotheke = [

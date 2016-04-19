@@ -7,7 +7,7 @@ angular.module('starter.userprofilCtrl', [])
 
 .controller('UserprofilCtrl', function($scope){
     
-    $scope.persoenlicheDaten = [
+    $scope.allPersoenlicheDaten = [
         {
             nachname: "Schmidt",
             vorname: "Hans",
@@ -18,27 +18,32 @@ angular.module('starter.userprofilCtrl', [])
         	  
      ];
      
-     $scope.allergie = [
+     $scope.allAllergie = [
         {name: "Allergie1"},
         {name: "Allergie2"},
         {name: "Allergie3"}
      ];
      
      
-     $scope.blutgruppe = [
+     $scope.allBlutgruppe = [
 		{name: "AB"}
 	];
      
      
-     $scope.unvertraglichkeit = [
+     $scope.allUnvertraeglichkeit = [
          {name: "Unvertraeglichkeit1"},
-         {name: "Unvertraeglichkeit2"}
+         {name: "Unvertraeglichkeit2"},
+		 {name: "Unvertraeglichkeit3"},
+		 {name: "Unvertraeglichkeit4"}
      ];
      
      
-     $scope.erkrankung = [
+     $scope.allErkrankung = [
          {name: "Erkrankung1"},
-         {name: "Erkrankung2"}
+         {name: "Erkrankung2"},
+		 {name: "Erkrankung3"},
+		 {name: "Erkrankung4"},
+		 {name: "Erkrankung5"}
      ];
 });
 
