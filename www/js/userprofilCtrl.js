@@ -5,7 +5,8 @@ angular.module('starter.userprofilCtrl', [])
 // Übergangsweise werden hier die Daten gespeichert.
 // Später per userprofilstorageService der die Daten im Webstorage ablegt 
 
-.controller('userprofilCtrl', function($scope){
+.controller('UserprofilCtrl', function($scope){
+    
     $scope.persoenlicheDaten = [
         {
             nachname: "Schmidt",
@@ -40,21 +41,6 @@ angular.module('starter.userprofilCtrl', [])
          {name: "Erkrankung2"}
      ];
 });
-      
-	 
 
- .controller('ExampleController', ['$scope', function($scope) {
-      $scope.master = {};
-
-      $scope.update = function(user) {
-        $scope.master = angular.copy(user);
-      };
-
-      $scope.reset = function() {
-        $scope.user = angular.copy($scope.master);
-      };
-
-      $scope.reset();
-    }]);
     
     

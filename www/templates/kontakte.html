@@ -10,8 +10,8 @@
 	<ion-list class="list list-inset">
 	
 		<ion-item class="item-divider" ng-click="kontakt_edit($index)">Notfallkontakt</ion-item>
-			<div class="item" ng-repeat="x in kontaktperson">
-			{{x.nachname}}
+			<div class="item" ng-repeat="kontaktperson in allKontaktperson">
+			{{kontaktperson.nachname}} - {{kontaktperson.vorname}}
 			</div>
 			
 		<ion-item class="item-divider">Arzt</ion-item>
