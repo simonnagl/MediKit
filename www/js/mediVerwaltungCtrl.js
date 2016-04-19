@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 angular.module('starter.mediVerwaltungCtrl', [])
 
 .controller('mediVerwaltungCtrl', function($scope, $ionicModal) {
@@ -57,4 +55,3 @@ angular.module('starter.mediVerwaltungCtrl', [])
         $scope.medikament.show();
     };
 });
->>>>>>> 50c006ca47a3d842d908d0bd6e55790c9e9a563c

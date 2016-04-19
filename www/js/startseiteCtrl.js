@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 angular.module('starter.startseiteCtrl', [])
 
 .controller('StartseiteCtrl', function($scope, $ionicModal, $timeout, $log, $location) {
@@ -17,4 +15,3 @@ angular.module('starter.startseiteCtrl', [])
     }
 
 });
->>>>>>> 1cd433ffb123f8086fde5f2921ea558a3c276749

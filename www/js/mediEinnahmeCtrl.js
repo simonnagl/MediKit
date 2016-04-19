@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 angular.module('starter.mediEinnahmeCtrl', [])
 
 .controller('mediEinnahmeCtrl', function($scope, $ionicModal, $timeout) {
@@ -113,4 +111,4 @@ angular.module('starter.mediEinnahmeCtrl', [])
     };
 
 });
->>>>>>> 50c006ca47a3d842d908d0bd6e55790c9e9a563c
+

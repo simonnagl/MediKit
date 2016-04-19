@@ -5,10 +5,14 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', [ 'ionic', 
+                            'starter.startseiteCtrl',
                             'starter.controllers',
                             'starter.einnahmeStorage',
                             'starter.mediStorage',
                             'starter.profilStorage',
+                            'starter.mediEinnahmeCtrl',
+                            'starter.kontakteCtrl',
+                            'starter.userprofilCtrl',
                             'starter.webStorageMain'])
 
 .run(function($ionicPlatform) {
@@ -52,7 +56,7 @@ angular.module('starter', [ 'ionic',
     views: {
       'menuContent': {
         templateUrl: 'templates/userprofil.html',
-        controller: 'userprofilCtrl',
+        controller: 'UserprofilCtrl',
       }
     }
   })
@@ -62,7 +66,7 @@ angular.module('starter', [ 'ionic',
       views: {
         'menuContent': {
           templateUrl: 'templates/mediEinnahme.html',
-          controller: 'mediEinnahmeCtrl',
+          controller: 'MediEinnahmeCtrl',
         }
       }
     })
@@ -71,7 +75,7 @@ angular.module('starter', [ 'ionic',
       views: {
         'menuContent': {
           templateUrl: 'templates/historie.html',
-        controller: 'historieCtrl',
+          controller: 'historieCtrl',
         }
       }
     })
@@ -81,7 +85,7 @@ angular.module('starter', [ 'ionic',
       views: {
         'menuContent': {
           templateUrl: 'templates/kontakte.html',
-        controller: 'kontakteCtrl',
+          controller: 'KontakteCtrl',
         }
       }
     })
