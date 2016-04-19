@@ -48,22 +48,26 @@ angular.module('starter.mediVerwaltungCtrl', [])
     $scope.saveMedi = function() {
         $scope.medis.push($scope.medi);
         $scope.medikament.hide();
+        $scope.isNewMedi = undefined;
     };
 
     $scope.deleteMedi = function() {
         index = $scope.medis.indexOf($scope.medi);
         $scope.medis.splice(index, 1);
         $scope.medikament.hide();
+        $scope.isNewMedi = undefined;
     };
             
     // Open the medimedikament_neu modal
     $scope.openNewMedi = function() {
+        $scope.isNewMedi = true;
         $scope.medi = angular.copy(default_medi);
         $scope.medikament.show();
     };
 
     // Open the medimedikament_neu modal
     $scope.openEditMedi = function(medi) {
+        $scope.isNewMedi = false;
         $scope.medi = medi;
         $scope.medikament.show();
     };
