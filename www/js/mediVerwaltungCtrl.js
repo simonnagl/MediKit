@@ -1,23 +1,41 @@
 angular.module('starter.mediVerwaltungCtrl', [])
 
-.controller('mediVerwaltungCtrl', function($scope, $ionicModal) {
-    $scope.medikamente = [
+.controller('mediVerwaltungCtrl', function($scope, $ionicModal, $log) {
+    $scope.medis = [
         {
-            bez : "Penicilin",
-            dosier : "200 mg",
-            pck_gr : 20
+            mediname : "Aspirin",
+            packungsgroesse : {
+                menge : 150,
+                einheit : "ml"
+            },
+            snoozemin : 50,
         },
         {
-            bez : "Aspirin",
-            dosier : "200 mg",
-            pck_gr : 50
+            mediname : "Citerizin",
+            packungsgroesse : {
+                menge : 150,
+                einheit : "ml"
+            },
+            snoozemin : 65,
         },
         {
-            bez : "Citerizin",
-            dosier : "10 mg",
-            pck_gr : 50
+            mediname : "Nikotin",
+            packungsgroesse : {
+                menge : 30,
+                einheit : "Tabletten"
+            },
+            snoozemin : 65,
         }
     ];
+
+    default_medi = {
+        mediname : "",
+        packungsgroesse : {
+            menge : undefined,
+            einheit : "ml"
+        },
+        snoozemin : 15,
+    }
 
     // Create the mediVerwaltung_edit modal that we will use later
     $ionicModal.fromTemplateUrl('templates/mediVerwaltung_edit.html', {
@@ -27,31 +45,26 @@ angular.module('starter.mediVerwaltungCtrl', [])
                                                 });
             
     // Triggered in the medimedikament_neu modal to close it
-    $scope.save_medi = function() {
+    $scope.saveMedi = function() {
+        $scope.medis.push($scope.medi);
         $scope.medikament.hide();
     };
 
-    $scope.delete_medi = function() {
+    $scope.deleteMedi = function() {
+        index = $scope.medis.indexOf($scope.medi);
+        $scope.medis.splice(index, 1);
         $scope.medikament.hide();
     };
             
     // Open the medimedikament_neu modal
-    $scope.open_medikament_new = function() {
-        $scope.medikament.bez = "";
-        $scope.medikament.dosier = "";
-        $scope.medikament.pck_gr = "";
-        $scope.medikament.snooze = "";
-        $scope.medikament.beschreibung = "";
+    $scope.openNewMedi = function() {
+        $scope.medi = angular.copy(default_medi);
         $scope.medikament.show();
     };
 
     // Open the medimedikament_neu modal
-    $scope.open_medikament_edit = function(medikament) {
-        $scope.medikament.bez = medikament.bez;
-        $scope.medikament.dosier = medikament.dosier;
-        $scope.medikament.pck_gr = medikament.pck_gr;
-        $scope.medikament.snooze = medikament.snooze;
-        $scope.medikament.beschreibung = medikament.beschreibung;
+    $scope.openEditMedi = function(medi) {
+        $scope.medi = medi;
         $scope.medikament.show();
     };
 });

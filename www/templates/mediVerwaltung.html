@@ -1,6 +1,6 @@
 <ion-view view-title="Medikamente">
     <ion-nav-buttons side="secondary">
-        <button class="button button-icon ion-android-add-circle button-clear" ng-click="open_medikament_new()">
+        <button class="button button-icon ion-android-add-circle button-clear" ng-click="openNewMedi()">
         </button>
     </ion-nav-buttons>
     
@@ -9,14 +9,12 @@
             <ion-item class="item-divider">
                 <div class="row">
                     <div class="col">Bez.</div>
-                    <div class="col" align="center">Dosier.</div>
-                    <div class="col" align="center">Pck.gr.</div></div>
+                    <div class="col">Packungsgröße</div></div>
             </ion-item>
-            <ion-item stype="display: inline-block" ng-repeat="medikament in medikamente" ng-click="open_medikament_edit(medikament)">
+            <ion-item stype="display: inline-block" ng-repeat="medi in medis" ng-click="openEditMedi(medi)">
                 <div class="row">
-                    <div class="col">{{medikament.bez}}</div>
-                    <div class="col" align="center">{{medikament.dosier}}</div>
-                    <div class="col" align="center">{{medikament.pck_gr}}</div>
+                    <div class="col">{{medi.mediname}}</div>
+                    <div class="col">{{medi.packungsgroesse.menge}} {{medi.packungsgroesse.einheit}}</div>
                 </div>
             </ion-item>
         </ion-list>
