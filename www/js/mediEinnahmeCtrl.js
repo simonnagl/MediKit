@@ -23,28 +23,30 @@ angular.module('starter.mediEinnahmeCtrl', [])
   });
   
   // Triggered in the mediEinnahme_neu modal to close it
-  $scope.closeMediEinnahme_neu = function() {
+  $scope.closeMediEinnahmeNeu = function() {
     $scope.einnahme.hide();
     
     //Resetfunktion in Billig:
-        $scope.einnahme.medi = "";
+        $scope.einnahme.mediname = "";
         $scope.einnahme.einnahmemenge = "";
-        $scope.einnahme.einheit = "";
-        $scope.einnahme.data = "";
-        $scope.einnahme.repeat = "";
+        $scope.einnahme.uhrzeit = "";
+        $scope.einnahme.wiederholungstag = "";
+        $scope.einnahme.wiederholungsbeginn = "";
+        $scope.einnahme.wiederholungsende = "";
         $scope.einnahme.vibration = "";
   };
   
   // Triggered in the mediEinnahme_edit modal to close it
-  $scope.closeMediEinnahme_edit = function() {
+  $scope.closeMediEinnahmeEdit = function() {
     $scope.einnahme.hide();
     
     //Resetfunktion in Billig:
-        $scope.einnahme.medi = "";
+        $scope.einnahme.mediname = "";
         $scope.einnahme.einnahmemenge = "";
-        $scope.einnahme.einheit = "";
-        $scope.einnahme.data = "";
-        $scope.einnahme.repeat = "";
+        $scope.einnahme.uhrzeit = "";
+        $scope.einnahme.wiederholungstag = "";
+        $scope.einnahme.wiederholungsbeginn = "";
+        $scope.einnahme.wiederholungsende = "";
         $scope.einnahme.vibration = "";
   };
   
@@ -52,19 +54,20 @@ angular.module('starter.mediEinnahmeCtrl', [])
   $scope.deleteMediEinnahme = function(deleteObjectIndex) {
      //Abfangen ob es sich um ein neues Objekt handelt
      if (deleteObjectIndex != undefined){
-          console.log('Delete: ' + deleteObjectIndex);
+          $log.info('Delete: ' + deleteObjectIndex);
           $scope.mediEinnahmeData.splice(deleteObjectIndex, 1);
      } else {
         //Objekt soll nicht gelöscht werden, da es ein neues Objekt war 
-          console.log('Neues Objekt, wird nur verworfen: ' + deleteObjectIndex);
+          $log.info('Neues Objekt, wird nur verworfen: ' + deleteObjectIndex);
      }
      
-     $scope.closeMediEinnahme_edit();
+     $scope.closeMediEinnahmeEdit();
   };
 
   
   // Open the mediEinnahme_neu modal
-  $scope.mediEinnahme_neu = function() {
+  $scope.mediEinnahmeNeu = function() {
+    $scope.isNewEin = true;
     $scope.einnahme.show();
     
     //kennzeichne neu bzw. undefined für Delete-Fehler abfangen.
@@ -73,55 +76,60 @@ angular.module('starter.mediEinnahmeCtrl', [])
   };
   
   // Open the mediEinnahme_edit modal
-  $scope.mediEinnahme_edit = function(editObjectIndex) {
-      console.log('Edit Object: ', editObjectIndex);
+  $scope.mediEinnahmeEdit = function(editObjectIndex) {
+    $scope.isNewEin = false;
+      $log.info('Edit Object: ', editObjectIndex);
         $scope.einnahme.index = editObjectIndex;
-        $scope.einnahme.medi = $scope.mediEinnahmeData[editObjectIndex].medi;
+        $scope.einnahme.mediname = $scope.mediEinnahmeData[editObjectIndex].mediname;
         $scope.einnahme.einnahmemenge = $scope.mediEinnahmeData[editObjectIndex].einnahmemenge;
-        $scope.einnahme.einheit = $scope.mediEinnahmeData[editObjectIndex].einheit;
-        $scope.einnahme.data = $scope.mediEinnahmeData[editObjectIndex].data;
-        $scope.einnahme.repeat = $scope.mediEinnahmeData[editObjectIndex].repeat;
+        $scope.einnahme.uhrzeit = $scope.mediEinnahmeData[editObjectIndex].uhrzeit;
+        $scope.einnahme.wiederholungstag = $scope.mediEinnahmeData[editObjectIndex].wiederholungstag;
+        $scope.einnahme.wiederholungsbeginn = $scope.mediEinnahmeData[editObjectIndex].wiederholungsbeginn;
+        $scope.einnahme.wiederholungsende = $scope.mediEinnahmeData[editObjectIndex].wiederholungsende;
         $scope.einnahme.vibration = $scope.mediEinnahmeData[editObjectIndex].vibration;
-        
     $scope.einnahme.show();
   };
   
   // Perform the mediEinnahme_neu action when the user add the einnahme form
   
    $scope.addEinnahme = function () {
-     $log.info("addEinnahme: " + $scope.einnahme.medi);
+     $log.info("addEinnahme: " + $scope.einnahme.mediname);
      
-     if ($scope.einnahme.index == undefined){        
+     if ($scope.einnahme.index == undefined){
+          
         //undefined zeigt, das es eine neue Einnahme ist, somit einfach das Objekt pushen.
         $scope.mediEinnahmeData.push({ //Man könnte auch nur das Objekt $scope.user pushen.
-            "medi": $scope.einnahme.medi,
+            "mediname": $scope.einnahme.mediname,
             "einnahmemenge": $scope.einnahme.einnahmemenge,
-            "einheit": $scope.einnahme.einheit,
-            "data": $scope.einnahme.data,
-            "repeat": $scope.einnahme.repeat,
+            "uhrzeit": $scope.einnahme.uhrzeit,
+            "wiederholungstag": $scope.einnahme.wiederholungstag,
+            "wiederholungsbeginn": $scope.einnahme.wiederholungsbeginn,
+            "wiederholungsende": $scope.einnahme.wiederholungsende,
             "vibration": $scope.einnahme.vibration
         }); 
       } else {
         //Andernfalls soll die Einnahme aktuallisiert werden                
-          $scope.mediEinnahmeData[$scope.einnahme.index].medi = $scope.einnahme.medi;
+          $scope.mediEinnahmeData[$scope.einnahme.index].mediname = $scope.einnahme.mediname;
           $scope.mediEinnahmeData[$scope.einnahme.index].einnahmemenge = $scope.einnahme.einnahmemenge;
-          $scope.mediEinnahmeData[$scope.einnahme.index].einheit = $scope.einnahme.einheit;
-          $scope.mediEinnahmeData[$scope.einnahme.index].data = $scope.einnahme.data;
-          $scope.mediEinnahmeData[$scope.einnahme.index].repeat = $scope.einnahme.repeat;
+          $scope.mediEinnahmeData[$scope.einnahme.index].uhrzeit = $scope.einnahme.uhrzeit;
+          $scope.mediEinnahmeData[$scope.einnahme.index].wiederholungstag = $scope.einnahme.wiederholungstag;
+          $scope.mediEinnahmeData[$scope.einnahme.index].wiederholungsbeginn = $scope.einnahme.wiederholungsbeginn;
+          $scope.mediEinnahmeData[$scope.einnahme.index].wiederholungsende = $scope.einnahme.wiederholungsende;
           $scope.mediEinnahmeData[$scope.einnahme.index].vibration = $scope.einnahme.vibration;
       }
         //Resetfunktion in Billig:
-        $scope.einnahme.medi = "";
+        $scope.einnahme.mediname = "";
         $scope.einnahme.einnahmemenge = "";
-        $scope.einnahme.einheit = "";
-        $scope.einnahme.data = "";
-        $scope.einnahme.repeat = "";
+        $scope.einnahme.uhrzeit = "";
+        $scope.einnahme.wiederholungstag = "";
+        $scope.einnahme.wiederholungsbeginn = "";
+        $scope.einnahme.wiederholungsende = "";
         $scope.einnahme.vibration = "";
 
     // Simulate a mediEinnahme_neu delay.
     $timeout(function() {
-      $scope.closeMediEinnahme_neu();
-    }, 1000);
+      $scope.closeMediEinnahmeNeu();
+    }, 10);
         
     };
 
@@ -131,7 +139,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
    // When button is clicked, the popup will be shown...
    $scope.showPopup = function() {
       $scope.data = {}
-      $scope.data.model = $scope.einnahme.repeat;
+      $scope.data.model = $scope.einnahme.wiederholungstag;
     
       // Custom popup
       var myPopup = $ionicPopup.show({
@@ -149,8 +157,8 @@ angular.module('starter.mediEinnahmeCtrl', [])
                   onTap: function(e) {
 						
                       //Ok button wurde gedrückt, übernehme dein Werte
-                      $scope.einnahme.repeat = $scope.data.model;
-                      console.log('Gesetzte Werte: ', $scope.data.model); 
+                      $scope.einnahme.wiederholungstag = $scope.data.model;
+                      $log.info('Gesetzte Werte: ', $scope.data.model); 
                       
                   }
             }
@@ -158,7 +166,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
       });
 
       myPopup.then(function(res) {
-         console.log('Tapped!', res);
+         $log.info('Tapped!', res);
       });    
    };
 ///Pupup ende
