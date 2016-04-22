@@ -1,6 +1,6 @@
 angular.module('starter.mediEinnahmeCtrl', [])
 
-.controller('mediEinnahmeCtrl', function($log, $scope, $ionicModal, $timeout, $ionicPopup) {
+.controller('mediEinnahmeCtrl', ['$window','$log', '$scope', '$ionicModal', '$timeout', '$ionicPopup', 'MediStorage', function($window, $log, $scope, $ionicModal, $timeout, $ionicPopup, MediStorage) {
 
     //Controller mediEinnahmeCtrl
 
@@ -14,6 +14,24 @@ angular.module('starter.mediEinnahmeCtrl', [])
   
   // Form data for the mediEinnahme_neu modal
   $scope.mediEinnahmeData = [];
+  $scope.mediData = [];
+  
+  //Alle Medikamente laden und anschließend nur die Medikamente heraussuchen die einnahmen haben
+  $scope.loadMedisForEinnahme = function() {
+    
+    $log.info('Start loadMedisForEinnahme');
+    
+    $scope.mediData = MediStorage.loadAllMedikament();
+    var mediDataLength = $scope.mediData.length;
+    for(var i=0; i < mediDataLength; i++){
+      if ($scope.mediData[i].einnahmen != undefined){
+        $scope.mediEinnahmeData.push($scope.mediData[i]);
+      }
+    }
+    $log.info('Ende loadMedisForEinnahme, Medikamente mit vorhandenen Einnahmen herausgefiltert');
+  };
+  $scope.loadMedisForEinnahme();
+ 
   
   // Create the mediEinnahme_neu modal that we will use later
     $ionicModal.fromTemplateUrl('templates/mediEinnahme_edit.html', {
@@ -106,7 +124,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
             "wiederholungsbeginn": $scope.einnahme.wiederholungsbeginn,
             "wiederholungsende": $scope.einnahme.wiederholungsende,
             "vibration": $scope.einnahme.vibration
-        }); 
+        });
       } else {
         //Andernfalls soll die Einnahme aktuallisiert werden                
           $scope.mediEinnahmeData[$scope.einnahme.index].mediname = $scope.einnahme.mediname;
@@ -172,6 +190,6 @@ angular.module('starter.mediEinnahmeCtrl', [])
 ///Pupup ende
 
 
-});
+}]);
 
 

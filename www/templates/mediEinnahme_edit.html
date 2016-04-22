@@ -19,9 +19,7 @@
         <label class="item item-input">
           <span class="input-label" >Medikament</span>
               <select ng-model="einnahme.mediname">
-                 <option>Blue</option>
-                 <option selected>Green</option>
-                 <option>Red</option>
+                 <option ng-repeat="med in mediData">{{med.mediname}}</option>                 
               </select>
         </label>
         
