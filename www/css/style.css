@@ -4,5 +4,23 @@
     position:absolute; 
     width: 100%;}
 
-/* class "profilp" zur Gestaltung des <p>-Tags im Profil */
-.profilp {font-size:15pt;  /* Größe 28pt   */}
+/* Inputfield Validierung farblich darstellen */
+.item input.ng-invalid.ng-touched {
+    background-color: #FA787E;
+  }
+
+.item input.ng-valid.ng-touched {
+    background-color: #78FA89;
+  }
+
+/* Inputfield Rahmen & Focus */
+.style-1 input[type="text"] {
+  padding: 10px;
+  border: solid 1px #dcdcdc;
+  transition: box-shadow 0.3s, border 0.3s;
+}
+.style-1 input[type="text"]:focus,
+.style-1 input[type="text"].focus {
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696;
+}

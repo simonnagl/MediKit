@@ -2,33 +2,10 @@ angular.module('starter.kontakteCtrl', [])
 
 
   
-  .controller('KontakteCtrl', function($scope, $ionicModal){
+  .controller('KontakteCtrl', function($scope, $log, $ionicModal){
     
 	//wird erst bei Neuanlage eines Kontakts durch Kombobox definiert
 	$scope.kontaktart = ""; 
-	
-		
-
-	//----------------------------------------
-	//Weitere Teststruktur
-	$scope.kontakt = [{
-		art: "kontaktperson",
-		daten:[
-			{nachname: "Meyer", vorname: "Thomas"},
-			{nachname: "Kontakt2", vorname: "Kontakt2Vorname"}
-			]
-		},
-		{
-		art: "arzt",
-		daten:[
-			{nachname: "Dr. Mueller-Wohlfahrt", vorname: "Hans-Wilhelm", art: "Orthop�de"}
-			]
-		},
-		{
-		art: "apotheke",
-		daten:[]
-		}
-	]
 	
 	
 	//----------------------------------------
@@ -55,8 +32,85 @@ angular.module('starter.kontakteCtrl', [])
 		 
 	 };
 	 
+	 // Create the kontakte_neu modal that we will use later // Sergej
+	$ionicModal.fromTemplateUrl('templates/kontakte_neu.html', {
+		scope: $scope
+		}).then(function(kontakt) {
+		$scope.kontakt = kontakt;
+	});
+  
+	 // Open the kontakte_neu modal // Sergej
+	 $scope.kontakt_neu = function() {
+		$scope.isNewEin = true;
+		$scope.kontakt.show();
+		$log.debug("kontakt_neu");
+		//kennzeichne neu bzw. undefined für Delete-Fehler abfangen.
+		$scope.kontakt.index = undefined;
+		$log.info($scope.kontakt.index);
+	 };
 	 
-	 $scope.kontakt_neu = function() {};
-    
-    $scope.kontakt_edit = function() {};
+	 
+	 /*
+	 Bzw. hier als neuer Wert dann die geänderten Werte reinspeichern lassen
+	 -> Das ist also eigentlich meine add bzw. save funkction
+	 -> "nachname": $scope.kontaktperson.nachname,  ???ß
+	 -> Siehe mediEinnahmeCtrl
+	 
+	 $scope.kontakt_neu = function() {
+		 $log.debug('kontakt_neu');
+		 $scope.allKontaktperson.push({
+		 "nachname": 'Nachname_neu',
+		 "vorname": "Vorname_neu",
+		 "telefon": "telefon_neu",
+		 "email": "mail_neu",
+		 "art": "art_neu"
+		 });
+		};
+	
+	 
+	 wenn ich neuen kontakt anlege soll quasi die selbe Form kommen, allerdings
+	 sollen die Inputfelder leer sein.
+	 Das was ich bisher gemacht habe war, dass ich einfach versucht habe 
+	 das bisherige Objekt zu leeren(?)
+	 Also evtl ein neues Objekt anlegen, aber mit leeren werten und dieses dann 
+	 anzeigen lassen in den Inputfeldern?
+	 */
+  
+	
+
+	
+	
+	
+	
+	// Testbereich:
+	 var tmpDate = new Date();
+	 $scope.newField = {};
+     $scope.editing = false;
+
+	
+
+	$scope.notfallKontakt_edit = function(field) {
+		$scope.editing = $scope.allKontaktperson.indexOf(field);
+		$scope.newField = angular.copy(field);
+		};
+
+	$scope.saveField = function(index) {
+		if ($scope.editing !== false) {
+			$scope.allKontaktperson[$scope.editing] = $scope.newField;
+			$scope.editing = false;
+			$log.debug('save done von index ' + $scope.allKontaktperson.indexOf($scope.newField));
+			
+			}      
+		else {
+			$log.debug('save failed');
+			}
+		};
+
+	$scope.cancel = function(index) {
+			if ($scope.editing !== false) {
+			$scope.allKontaktperson[$scope.editing] = $scope.newField;
+			$scope.editing = false;
+			}       
+		};
+		
   });
