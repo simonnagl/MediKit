@@ -30,7 +30,15 @@ angular.module('starter.mediEinnahmeCtrl', [])
     }
     $log.info('Ende loadMedisForEinnahme, Medikamente mit vorhandenen Einnahmen herausgefiltert');
   };
+  //Liste von Medikament und Einnahmen laden
   $scope.loadMedisForEinnahme();
+  
+  // Erstellung einer neuen Einnahme.id
+  $scope.creatId = function() {
+    var id = new Date();
+    $log.info('Neue ID :' + id);
+    return id;
+  };
  
   
   // Create the mediEinnahme_neu modal that we will use later
@@ -86,6 +94,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
   // Open the mediEinnahme_neu modal
   $scope.mediEinnahmeNeu = function() {
     $scope.isNewEin = true;
+    $scope.id = $scope.creatId();
     $scope.einnahme.show();
     
     //kennzeichne neu bzw. undefined für Delete-Fehler abfangen.
@@ -98,6 +107,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
     $scope.isNewEin = false;
       $log.info('Edit Object: ', editObjectIndex);
         $scope.einnahme.index = editObjectIndex;
+        $scope.einnahme.id = $scope.mediEinnahmeData[editObjectIndex].id;
         $scope.einnahme.mediname = $scope.mediEinnahmeData[editObjectIndex].mediname;
         $scope.einnahme.einnahmemenge = $scope.mediEinnahmeData[editObjectIndex].einnahmemenge;
         $scope.einnahme.uhrzeit = $scope.mediEinnahmeData[editObjectIndex].uhrzeit;
@@ -113,10 +123,12 @@ angular.module('starter.mediEinnahmeCtrl', [])
    $scope.addEinnahme = function () {
      $log.info("addEinnahme: " + $scope.einnahme.mediname);
      
-     if ($scope.einnahme.index == undefined){
-          
-        //undefined zeigt, das es eine neue Einnahme ist, somit einfach das Objekt pushen.
-        $scope.mediEinnahmeData.push({ //Man könnte auch nur das Objekt $scope.user pushen.
+     //Einnahme neu
+     if ($scope.isNewEin){
+        
+        // Eine neue Einnahmeobjekt erstellen, welches danach gepushed und gespeichert wird.  
+        mediEinnahmeToPush = {
+            "id": 'e-' + $scope.id,     //neue Id 
             "mediname": $scope.einnahme.mediname,
             "einnahmemenge": $scope.einnahme.einnahmemenge,
             "uhrzeit": $scope.einnahme.uhrzeit,
@@ -124,17 +136,61 @@ angular.module('starter.mediEinnahmeCtrl', [])
             "wiederholungsbeginn": $scope.einnahme.wiederholungsbeginn,
             "wiederholungsende": $scope.einnahme.wiederholungsende,
             "vibration": $scope.einnahme.vibration
+        }
+        // Eine neue Einnahme pushen/speichern
+        $scope.mediEinnahmeData.push({ //Man könnte auch nur das Objekt $scope.user pushen.
+            mediEinnahmeToPush
         });
+        
+        // Neue Einnahme für das jeweilige Medikament in der Webstorage speichern
+          //1. Medikament suchen
+          var mediDataLength = $scope.mediData.length;
+          for (var i=0; i < mediDataLength; i++){
+            if ($scope.mediData[i].mediname == $scope.einnahme.mediname){ //TODO auf medi-id suche umstellen
+              
+              //2. Die neue Einnahme im Medikament hinterlegen
+              if($scope.mediData[i].einnahmen == undefined){
+                $scope.mediData[i].einnahmen = [];
+              }
+              $scope.mediData[i].einnahmen.push(mediEinnahmeToPush);
+              
+              //3. Medikament in der Storage aktualisieren
+              MediStorage.updateMedikament($scope.mediData[i]);
+            }
+          }
+          
       } else {
-        //Andernfalls soll die Einnahme aktuallisiert werden                
-          $scope.mediEinnahmeData[$scope.einnahme.index].mediname = $scope.einnahme.mediname;
-          $scope.mediEinnahmeData[$scope.einnahme.index].einnahmemenge = $scope.einnahme.einnahmemenge;
-          $scope.mediEinnahmeData[$scope.einnahme.index].uhrzeit = $scope.einnahme.uhrzeit;
-          $scope.mediEinnahmeData[$scope.einnahme.index].wiederholungstag = $scope.einnahme.wiederholungstag;
-          $scope.mediEinnahmeData[$scope.einnahme.index].wiederholungsbeginn = $scope.einnahme.wiederholungsbeginn;
-          $scope.mediEinnahmeData[$scope.einnahme.index].wiederholungsende = $scope.einnahme.wiederholungsende;
-          $scope.mediEinnahmeData[$scope.einnahme.index].vibration = $scope.einnahme.vibration;
-      }
+        //Andernfalls soll die Einnahme aktuallisiert werden
+
+        //Einnahme für das jeweilige Medikament in der Webstorage speichern
+          //1. Medikament suchen
+          var mediDataLength = $scope.mediData.length;
+          for (var i=0; i < mediDataLength; i++){
+            if ($scope.mediData[i].mediname == $scope.einnahme.mediname){ //TODO auf medi-id suche umstellen
+              
+              //2. Die gewünschte Einnahme zum ändern Suchen
+              var einnahmenLenght = $scope.mediData[i].einnahmen.length;
+              for (var j=0; j < einnahmenLength; j++){
+                if($scope.mediData[i].einnahmen[j].id == $scope.einnahme.id){
+                //3. Die geänderte Einnahme im Medikament aktualisieren                                          
+                   $scope.mediData[i].einnahmen[j].mediname = $scope.einnahme.mediname;
+                   $scope.mediData[i].einnahmen[j].einnahmemenge = $scope.einnahme.einnahmemenge;
+                   $scope.mediData[i].einnahmen[j].uhrzeit = $scope.einnahme.uhrzeit;
+                   $scope.mediData[i].einnahmen[j].wiederholungstag = $scope.einnahme.wiederholungstag;
+                   $scope.mediData[i].einnahmen[j].wiederholungsbeginn = $scope.einnahme.wiederholungsbeginn;
+                   $scope.mediData[i].einnahmen[j].wiederholungsende = $scope.einnahme.wiederholungsende;
+                   $scope.mediData[i].einnahmen[j].vibration = $scope.einnahme.vibration;
+                   
+                   //4. Medikament in der Storage aktualisieren
+                   MediStorage.updateMedikament($scope.mediData[i]);
+                }//if ende
+              }//for ende
+              
+            }//if ende
+          }//for ende
+
+      }//else ende
+      
         //Resetfunktion in Billig:
         $scope.einnahme.mediname = "";
         $scope.einnahme.einnahmemenge = "";
@@ -143,6 +199,9 @@ angular.module('starter.mediEinnahmeCtrl', [])
         $scope.einnahme.wiederholungsbeginn = "";
         $scope.einnahme.wiederholungsende = "";
         $scope.einnahme.vibration = "";
+        
+        //Liste neu Laden
+        $scope.loadMedisForEinnahme();
 
     // Simulate a mediEinnahme_neu delay.
     $timeout(function() {
