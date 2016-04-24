@@ -1,4 +1,4 @@
-angular.module('starter.historieCtrl', [])
+angular.module('starter.historieCtrl', ['ionic', 'ionic-datepicker'])
 
 .controller('HistorieCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -27,5 +27,17 @@ angular.module('starter.historieCtrl', [])
   //    $scope.datemodal.hide();
   //    $scope.datepicker = modal;
   //  };
+  
+$scope.currentDate = new Date();
+$scope.minDate = new Date(2000, 6, 1);
+$scope.maxDate = new Date(2020, 6, 31);
+ 
+$scope.datePickerCallback = function (val) {
+	if (!val) {	
+		console.log('Date not selected');
+	} else {
+		console.log('Selected date is : ', val);
+	}
+};
     
 });

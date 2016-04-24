@@ -8,14 +8,9 @@
 </div>
 <ion-toggle ng-model="nicht_genommen" toggle-class="toggle-balanced">nicht genommene Medikamente</ion-toggle>
 von
-<input type="date" ng-model="von"/>
-bis
-<input type="date" ng-model="bis"/>
-<ionic-datepicker/>
-<md-input-container>
-<!-- <ng-datepicker ng-model="ctrl.date"> 
-</ng-datepicker>-->
-</md-input-container>
+<ionic-datepicker date="currentDate" min="minDate" max="maxDate" callback="datePickerCallback">
+    <button class="button button-block button-positive"> {{ currentDate | date:'MMMM/dd/yyyy' }} </button>
+</ionic-datepicker>
 
 <ion-list>
     <ion-item ng-repeat="x in medicine">
