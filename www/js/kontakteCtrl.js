@@ -4,8 +4,6 @@ angular.module('starter.kontakteCtrl', [])
   
   .controller('KontakteCtrl', function($scope, $log, $ionicModal){
     
-	//wird erst bei Neuanlage eines Kontakts durch Kombobox definiert
-	$scope.kontaktart = ""; 
 	
 	
 	//----------------------------------------
@@ -25,12 +23,14 @@ angular.module('starter.kontakteCtrl', [])
 	 //----------------------------------------
 	 
 	 
-	 
-	 
-	 $scope.addKontakt = function () {
-		 //Abhängig von $scope.kontaktart (switchcase?) sollen andere Datens�tze abgelegt werden
-		 
-	 };
+	//Kontaktart -> 1 = Notfallkontakt // 2 = Arzt // 3 = Apotheke
+	//wird erst bei Neuanlage eines Kontakts durch Kombobox definiert
+	//Je nach Comboboxwahl werden die Werte der Kontakte_neu.html Form in das jeweilige Objekt gespeichert
+	//Nach dem speichern eines neuen Kontaktes muss die kontaktart noch reseted werden!!
+	$scope.kontaktart = ""; 
+	
+	// ALTERNATIVE: Kontaktart prüfen per Funktion, welche von ng-if aufgerufen wird.
+	//$scope.kontaktart = function() {}
 	 
 	 // Create the kontakte_neu modal that we will use later // Sergej
 	$ionicModal.fromTemplateUrl('templates/kontakte_neu.html', {
@@ -50,50 +50,56 @@ angular.module('starter.kontakteCtrl', [])
 	 };
 	 
 	 
-	 /*
-	 Bzw. hier als neuer Wert dann die geänderten Werte reinspeichern lassen
-	 -> Das ist also eigentlich meine add bzw. save funkction
-	 -> "nachname": $scope.kontaktperson.nachname,  ???ß
-	 -> Siehe mediEinnahmeCtrl
+	  // Speichern eines neuen Kontaktes
+	 $scope.addKontakt = function () {
+		 //Abhängig von $scope.kontaktart (switchcase?) sollen andere Datensätze abgelegt werden
+		 //.push
+		 // Zurücksetzen von $scope.kontaktart
+		 $log.debug('addKontakt: ' + $scope.kontaktart);
+	 };
 	 
-	 $scope.kontakt_neu = function() {
-		 $log.debug('kontakt_neu');
-		 $scope.allKontaktperson.push({
-		 "nachname": 'Nachname_neu',
-		 "vorname": "Vorname_neu",
-		 "telefon": "telefon_neu",
-		 "email": "mail_neu",
-		 "art": "art_neu"
-		 });
-		};
-	
 	 
-	 wenn ich neuen kontakt anlege soll quasi die selbe Form kommen, allerdings
-	 sollen die Inputfelder leer sein.
-	 Das was ich bisher gemacht habe war, dass ich einfach versucht habe 
-	 das bisherige Objekt zu leeren(?)
-	 Also evtl ein neues Objekt anlegen, aber mit leeren werten und dieses dann 
-	 anzeigen lassen in den Inputfeldern?
-	 */
-  
-	
 
+	// Triggered in the kontakte_neu modal to close it // Sergej
+	$scope.closeKontakte_neu = function() {
+		$log.debug('closeKontakte_neu');
+		$scope.kontakt.hide();
+    
+		//Resetfunktion in billig für alle
+        $scope.allKontaktperson.nachname = "";
+		$scope.allKontaktperson.vorname = "";
+		$scope.allKontaktperson.telefon = "";
+		$scope.allKontaktperson.email = "";
+		$scope.allKontaktperson.art = "";
+		
+		$scope.allArzt.nachname = "";
+		$scope.allArzt.vorname = "";
+		$scope.allArzt.strasse = "";
+		$scope.allArzt.plz = "";
+		$scope.allArzt.ort = "";
+		$scope.allArzt.telefon = "";
+		
+		$scope.allApotheke.name = "";
+		$scope.allApotheke.strasse = "";
+		$scope.allApotheke.plz = "";
+		$scope.allApotheke.ort = ""; 
+		$scope.allApotheke.telefon = "";
+  };
 	
 	
 	
-	
-	// Testbereich:
+	// Testbereich für die EDIT, SAVE und CANCEL Funktionen: // Funktionsnamen ändern - siehe Userprofil!
 	 var tmpDate = new Date();
 	 $scope.newField = {};
      $scope.editing = false;
 
 	
-
+	// Editfunktion in billig nur für allKontaktperson
 	$scope.notfallKontakt_edit = function(field) {
 		$scope.editing = $scope.allKontaktperson.indexOf(field);
 		$scope.newField = angular.copy(field);
 		};
-
+	// Savefunktion in billig nur für allKontaktperson
 	$scope.saveField = function(index) {
 		if ($scope.editing !== false) {
 			$scope.allKontaktperson[$scope.editing] = $scope.newField;
@@ -105,7 +111,7 @@ angular.module('starter.kontakteCtrl', [])
 			$log.debug('save failed');
 			}
 		};
-
+	// Cancelfunktion in billig nur für allKontaktperson
 	$scope.cancel = function(index) {
 			if ($scope.editing !== false) {
 			$scope.allKontaktperson[$scope.editing] = $scope.newField;

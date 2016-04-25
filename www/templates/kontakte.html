@@ -80,6 +80,7 @@
 					<span class="label" data-ng-show="editMode">Tel.:</span>
 					<span class="label" data-ng-hide="editMode">{{arzt.telefon}}</span>
 					<input type="text" data-ng-show="editMode" data-ng-model="arzt.telefon" data-ng-required />
+					
 			</div>
 	
             
@@ -108,46 +109,10 @@
 					<span class="label" data-ng-show="editMode">Tel.:</span>
 					<span class="label" data-ng-hide="editMode">{{apotheke.telefon}}</span>
 					<input type="text" data-ng-show="editMode" data-ng-model="apotheke.telefon" data-ng-required />
+					
 			</div>
 			
-    <!--
-		<ion-item class="item-divider" ng-click="kontakt_edit($index)">Notfallkontakt</ion-item>
-			<div class="item" ng-repeat="kontaktperson in allKontaktperson">
-				{{"Kontaktart: " + kontaktperson.art}}
-				<br>
-				{{kontaktperson.nachname + " " + kontaktperson.vorname}}
-				<br>
-				{{"Tel.: " + kontaktperson.telefon}}
-				<br>
-				{{"Email: " + kontaktperson.email}}
-			</div>
-			
-		<ion-item class="item-divider">Arzt</ion-item>
-			<div class="item" ng-repeat="arzt in allArzt">
-				{{arzt.art}}
-				<br>
-				{{arzt.nachname + " " + arzt.vorname}}
-				<br>
-				{{arzt.strasse}}
-				<br>
-				{{arzt.plz + " " + arzt.ort}}
-				<br>
-				{{"Tel.: " + arzt.telefon}}
-			</div>
-			
-		<ion-item class="item-divider">Apotheke</ion-item>
-			<div class="item" ng-repeat="apotheke in allApotheke">
-				{{apotheke.name}}
-				<br>
-				{{apotheke.strasse}}
-				<br>
-				{{apotheke.plz + " " + apotheke.ort}}
-				<br>
-				{{"Tel.: " + apotheke.telefon}}
-			</div>	
-          	-->	
+
 	</ion-list>
-    
-    
 	</ion-content>
 </ion-view>

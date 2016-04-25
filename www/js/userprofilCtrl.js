@@ -5,7 +5,7 @@ angular.module('starter.userprofilCtrl', [])
 // Übergangsweise werden hier die Daten gespeichert.
 // Später per userprofilstorageService der die Daten im Webstorage ablegt 
 
-.controller('UserprofilCtrl', function($scope){
+.controller('UserprofilCtrl', function($scope, $log, $ionicModal){
     
     $scope.allPersoenlicheDaten = [
         {
@@ -45,6 +45,25 @@ angular.module('starter.userprofilCtrl', [])
 		 {name: "Erkrankung4"},
 		 {name: "Erkrankung5"}
      ];
+	 
+	 
+	
+	$scope.userprofil_edit = function() {
+		$log.debug('userprofil_edit');
+		//$log.debug('allErkrankung.name: ' + $scope.allErkrankung.name)
+		//$log.debug('allPersoenlicheDaten.nachname: ' + $scope.allPersoenlicheDaten.nachname);
+	};
+	
+	$scope.userprofil_save = function() {
+		$log.debug('userprofil_save');
+	};
+	
+	$scope.userprofil_cancel = function() { 
+		$log.debug('userprofil_cancel');
+	};
+	
+	
+	
 });
 
     

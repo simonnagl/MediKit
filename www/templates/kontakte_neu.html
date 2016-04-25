@@ -1,14 +1,11 @@
 <ion-modal-view>
   <ion-header-bar>  
     <div class="buttons">
-        <button class="button button-icon ion-reply button-clear" ng-click="closeMediEinnahme_neu()"></button>
+        <button class="button button-icon ion-reply button-clear" ng-click="closeKontakte_neu()"></button>
     </div> 
     
     <h1 class="title">Kontakt hinzufügen</h1>  
       
-    <div class="buttons">
-      <button class="button button-icon ion-trash-b button-clear" ng-click="closeMediEinnahme_neu()"></button>
-    </div>
   </ion-header-bar>
 	
 	
@@ -24,23 +21,111 @@
                         </select>
                 </label>
                 
-                 <label class="item item-input" ng-show="kontaktart=='1'">
-                     <span class="input-label">Notfallkontaktart</span>
-                     <!-- Sieht man nur, wenn erstes Element der Kombobox gewählt wurde -->
-                     <!-- Hier noch Unterscheidung welche in welcher Beziehung man mit dem Notfallkontakt steht. Partner? Elternteil? Bruder? -->
-                 </label>
-               
-               <label class="item item-input">
-                   <span class="input-label">Nachname</span>
-                   <input type="text" ng-model="xxxxxxxxxx" placeholder="Nachname eingeben"/> 
-                   <!-- Problem: Jenachdem was der User in Combobox gewählt hat, muss der Wert des Nachnamens ja in einem anderen Objekt gespeichert werden
-                   Also entweder in kontaktperson.nachname oder zb. arzt.nachname
-                   Ich kann ja schlecht je nach Comboboxwahl komplett andere Input Elemente anzeigen lassen ?!
-                   Placeholder je nach Kontaktart unterschiedlich!! -->
-               </label>
+				<!-- Ein extra DIV je nach Auswahl ist besser als bei jedem HTML-Element die Auswahl prüfen lassen -->
+				<!-- Verbesserung: function kontaktart() -->
+				<div class="list" ng-if="kontaktart=='1'">
+					<label class="item item-input">
+						<span class="input-label">Beziehungsart:</span>
+						<input type="text" ng-model="allKontaktperson.art" placeholder="Vater, Mutter, Bruder, Partner,...">
+						 <!-- Verbesserung: Vordefinierte Werte per Combobox?-->
+					</label>
+					
+					<label class="item item-input">
+					   <span class="input-label">Nachname:</span>
+					   <input type="text" ng-model="allKontaktperson.nachname" placeholder="Nachname des Kontakts"/> 
+					</label>
+					
+					<label class="item item-input">
+					   <span class="input-label">Vorname:</span>
+					   <input type="text" ng-model="allKontaktperson.vorname" placeholder="Vorname des Kontakts"/> 
+					</label>
+					
+					<label class="item item-input">
+					   <span class="input-label">Telefon:</span>
+					   <input type="text" ng-model="allKontaktperson.telefon" placeholder="0841 / 123 456"/> 
+					</label>
+					
+					<label class="item item-input">
+					   <span class="input-label">Email:</span>
+					   <input type="text" ng-model="allKontaktperson.email" placeholder="mustermann@web.de"/> 
+					</label>
+				</div>
+                 
+               <div class="list" ng-if="kontaktart=='2'">
+					<label class="item item-input">
+						<span class="input-label">Arztart:</span>
+						<input type="text" ng-model="allArzt.art" placeholder="Allgemeinarzt, Orthopäde,...">
+						<!-- Verbesserung: Vordefinierte Werte per Combobox?-->
+					</label>
+					
+					<label class="item item-input">
+						<span class="input-label">Nachname:</span>
+						<input type="text" ng-model="allArzt.nachname" placeholder="Nachname des Arztes">
+					</label>
+					
+					<label class="item item-input">
+						<span class="input-label">Vorname:</span>
+						<input type="text" ng-model="allArzt.vorname" placeholder="Vorname des Arztes">
+					</label>
+					
+					<label class="item item-input">
+						<span class="input-label">Straße:</span>
+						<input type="text" ng-model="allArzt.strasse" placeholder="Hauptstraße 5">
+					</label>
+					
+					<label class="item item-input">
+						<span class="input-label">PLZ:</span>
+						<input type="text" ng-model="allArzt.plz" placeholder="85049">
+					</label>
+					
+					<label class="item item-input">
+						<span class="input-label">Ort:</span>
+						<input type="text" ng-model="allArzt.ort" placeholder="Ingolstadt">
+					</label>
+					
+					<label class="item item-input">
+						<span class="input-label">Telefon:</span>
+						<input type="text" ng-model="allArzt.telefon" placeholder="0841 / 123 456">
+					</label>
+               </div>
+			   
+			   <div class="list" ng-if="kontaktart=='3'">
+					<label class="item item-input">
+							<span class="input-label">Name:</span>
+							<input type="text" ng-model="allApotheke.name" placeholder="Marienapotheke">
+					</label>
+					
+					<label class="item item-input">
+						<span class="input-label">Straße:</span>
+						<input type="text" ng-model="allApotheke.strasse" placeholder="Hauptstraße 5">
+					</label>
+					
+					<label class="item item-input">
+						<span class="input-label">PLZ:</span>
+						<input type="text" ng-model="allApotheke.plz" placeholder="85049">
+					</label>
+					
+					<label class="item item-input">
+						<span class="input-label">Ort:</span>
+						<input type="text" ng-model="allApotheke.ort" placeholder="Ingolstadt">
+					</label>
+					
+					<label class="item item-input">
+						<span class="input-label">Telefon:</span>
+						<input type="text" ng-model="allApotheke.telefon" placeholder="0841 / 123 456">
+					</label>
+					
+			   </div>
                 
+				<label class="item">
+				  <button class="button button-block button-positive" type="submit">Hinzufügen</button>
+				</label>
+				
+				<pre>$scope.kontaktart: {{$scope.kontaktart}}</pre>
+				<hr>
+				<pre>allKontaktperson: {{allKontaktperson|json}}</pre>
             </div>
 	    </form>
 	</ion-content>
 	
-</ion-view>
+</ion-modal-view>
