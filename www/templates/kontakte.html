@@ -1,118 +1,65 @@
 <ion-view view-title="Kontakte">
 
 	<ion-nav-buttons side="secondary">
-      <button class="button button-icon ion-android-add-circle button-clear" ng-click="kontakt_neu()"></button>
+        <button class="button button-icon ion-android-add-circle button-clear" ng-click="createNewKontakt()"></button>
 	</ion-nav-buttons>
 	
 	
-	<ion-content class="has-header">
-	
-	<ion-list class="list list-inset">
-	
-    
-			
-	<ion-item class="item-divider">Notfallkontakt</ion-item> <!-- ng-click="kontakt_edit($index) -->
-			<div class="item style-1"  data-ng-click="editMode = true; notfallKontakt_edit(kontaktperson)" data-ng-repeat="kontaktperson in allKontaktperson" data-ng-class="{danger:!kontaktperson.active}">
-				<!--{{"index: " + $index}}-->
-				
-					<span class="label">Kontaktart: </span>
-					<span data-ng-hide="editMode">{{kontaktperson.art}}</span>
-					<input type="text" data-ng-show="editMode" data-ng-model="kontaktperson.art" data-ng-required />
-				<br data-ng-hide="editMode"> <!-- Absatz im Editiermodus ausblenden -->
-					<span class="label" data-ng-show="editMode">Nachname:</span>
-					<span class="label" data-ng-hide="editMode">{{kontaktperson.nachname}}</span>
-					<input type="text" data-ng-show="editMode" data-ng-model="kontaktperson.nachname" data-ng-required />
-					
-					<span class="label" data-ng-show="editMode">Vorname:</span>
-					<span class="label" data-ng-hide="editMode">{{kontaktperson.vorname}}</span>
-					<input type="text" data-ng-show="editMode" data-ng-model="kontaktperson.vorname" data-ng-required />
-				<br data-ng-hide="editMode"> <!-- Absatz im Editiermodus ausblenden -->
-					<span class="label" data-ng-show="editMode">Tel.:</span>
-					<span class="label" data-ng-hide="editMode">{{kontaktperson.telefon}}</span>
-					<input type="text" data-ng-show="editMode" data-ng-model="kontaktperson.telefon" data-ng-required />
-				<br data-ng-hide="editMode"> <!-- Absatz im Editiermodus ausblenden -->
-					<span class="label" data-ng-show="editMode">Email:</span>
-					<span class="label" data-ng-hide="editMode">{{kontaktperson.email}}</span>
-					<input type="text" data-ng-show="editMode" data-ng-model="kontaktperson.email" data-ng-required />
-								
-				<!--
-				<button type="submit" data-ng-hide="editMode" data-ng-click="editMode = true; notfallKontakt_edit(kontaktperson)" class="btn btn-default">Edit</button>
-				-->
-				<button type="submit" data-ng-show="editMode" data-ng-click="editMode = false; saveField($index)" class="btn btn-default">Save</button>
-				<button type="submit" data-ng-show="editMode" data-ng-click="editMode = false; cancel()" class="btn btn-default">Cancel</button>
-			
-			</div>
-			<!--
-			<hr>
-				<b>debug:</b>
-				<pre>newField: {{newField|json}}</pre></br></br>
-				<pre>allKontaktperson: {{allKontaktperson|json}}</pre>
-            -->
-			
-			
-			
-	<ion-item class="item-divider">Arzt</ion-item>
-			<div class="item style-1"  data-ng-click="editMode = true; arzt_edit(arzt)" data-ng-repeat="arzt in allArzt">
-				
-					<span data-ng-hide="editMode">{{arzt.art}}</span>
-					<input type="text" data-ng-show="editMode" data-ng-model="arzt.art" data-ng-required />
-				<br data-ng-hide="editMode"> <!-- Absatz im Editiermodus ausblenden -->
-					<span class="label" data-ng-show="editMode">Nachname:</span>
-					<span class="label" data-ng-hide="editMode">{{arzt.nachname}}</span>
-					<input type="text" data-ng-show="editMode" data-ng-model="arzt.nachname" data-ng-required />
-					
-					<span class="label" data-ng-show="editMode">Vorname:</span>
-					<span class="label" data-ng-hide="editMode">{{arzt.vorname}}</span>
-					<input type="text" data-ng-show="editMode" data-ng-model="arzt.vorname" data-ng-required />
-				<br data-ng-hide="editMode"> <!-- Absatz im Editiermodus ausblenden -->
-					<span class="label" data-ng-show="editMode">Strasse:</span>
-					<span class="label" data-ng-hide="editMode">{{arzt.strasse}}</span>
-					<input type="text" data-ng-show="editMode" data-ng-model="arzt.strasse" data-ng-required />
-				<br data-ng-hide="editMode"> <!-- Absatz im Editiermodus ausblenden -->
-					<span class="label" data-ng-show="editMode">PLZ:</span>
-					<span class="label" data-ng-hide="editMode">{{arzt.plz}}</span>
-					<input type="text" data-ng-show="editMode" data-ng-model="arzt.plz" data-ng-required />
-					
-					<span class="label" data-ng-show="editMode">Ort:</span>
-					<span class="label" data-ng-hide="editMode">{{arzt.ort}}</span>
-					<input type="text" data-ng-show="editMode" data-ng-model="arzt.ort" data-ng-required />
-				<br data-ng-hide="editMode"> <!-- Absatz im Editiermodus ausblenden -->
-					<span class="label" data-ng-show="editMode">Tel.:</span>
-					<span class="label" data-ng-hide="editMode">{{arzt.telefon}}</span>
-					<input type="text" data-ng-show="editMode" data-ng-model="arzt.telefon" data-ng-required />
-					
-			</div>
-	
+    <ion-content class="has-header">
+        
+        <ion-list class="list list-inset" >
+        
+            <ion-item class="item-divider">Notfallkontakt</ion-item> 
             
-			
-	<ion-item class="item-divider">Apotheke</ion-item>
-			<div class="item style-1"  data-ng-click="editMode = true; apotheke_edit(apotheke)" data-ng-repeat="apotheke in allApotheke">
-				
-					
-				
-					<span class="label" data-ng-show="editMode">Name:</span>
-					<span class="label" data-ng-hide="editMode">{{apotheke.name}}</span>
-					<input type="text" data-ng-show="editMode" data-ng-model="apotheke.name" data-ng-required />
-				<br data-ng-hide="editMode"> <!-- Absatz im Editiermodus ausblenden -->
-					<span class="label" data-ng-show="editMode">Strasse:</span>
-					<span class="label" data-ng-hide="editMode">{{apotheke.strasse}}</span>
-					<input type="text" data-ng-show="editMode" data-ng-model="apotheke.strasse" data-ng-required />
-				<br data-ng-hide="editMode"> <!-- Absatz im Editiermodus ausblenden -->
-					<span class="label" data-ng-show="editMode">PLZ:</span>
-					<span class="label" data-ng-hide="editMode">{{apotheke.plz}}</span>
-					<input type="text" data-ng-show="editMode" data-ng-model="apotheke.plz" data-ng-required />
-					
-					<span class="label" data-ng-show="editMode">Ort:</span>
-					<span class="label" data-ng-hide="editMode">{{apotheke.ort}}</span>
-					<input type="text" data-ng-show="editMode" data-ng-model="apotheke.ort" data-ng-required />
-				<br data-ng-hide="editMode"> <!-- Absatz im Editiermodus ausblenden -->
-					<span class="label" data-ng-show="editMode">Tel.:</span>
-					<span class="label" data-ng-hide="editMode">{{apotheke.telefon}}</span>
-					<input type="text" data-ng-show="editMode" data-ng-model="apotheke.telefon" data-ng-required />
-					
-			</div>
-			
+            <div class="item style-1" ng-click="editKontakt(kontakt)" ng-if="kontakt.kontaktArt == 'notfallkontakt'" ng-repeat="kontakt in allKontakt">			
+                <span class="label">Kontaktart: {{kontaktperson.art}}</span>
+                <br > <!-- Absatz im Editiermodus ausblenden -->
+                
+                <span class="label" >Nachname: {{kontaktperson.nachname}}</span>    
+                <span class="label" >Vorname: {{kontaktperson.vorname}}</span>
+                <br > <!-- Absatz im Editiermodus ausblenden -->
+                
+                <span class="label" >Tel.: {{kontaktperson.telefon}}</span>
+                <br > <!-- Absatz im Editiermodus ausblenden -->
+                
+                <span class="label" >Email: {{kontaktperson.email}}</span>
+            </div>
+            
+            <ion-item class="item-divider">Arzt</ion-item>
 
-	</ion-list>
-	</ion-content>
+            <div class="item style-1" ng-click="editKontakt(kontakt)" ng-if="kontakt.kontaktArt == 'arzt'" ng-repeat="kontakt in allKontakt">		
+                <span class="label" >Arztart: {{kontakt.arztArt}}</span>
+                <span class="label" >Nachname: {{kontakt.name}}</span>
+                <br > <!-- Absatz im Editiermodus ausblenden -->
+                
+                <span class="label" >Strasse: {{kontakt.strasse}}</span>
+                <br > <!-- Absatz im Editiermodus ausblenden -->
+                
+                <span class="label" >PLZ: {{kontakt.plz}}</span>           
+                <span class="label" >Ort: {{kontakt.ort}}</span>
+                <br> <!-- Absatz im Editiermodus ausblenden -->
+               
+                <span class="label" >Tel.: {{kontakt.telefon}}</span>
+	
+            </div>
+        
+            <ion-item class="item-divider">Apotheke</ion-item>
+            
+            <div class="item style-1" ng-click="editKontakt(kontakt)" ng-if="kontakt.kontaktArt == 'apotheke'" ng-repeat="kontakt in allKontakt">							
+                <span class="label" >Name: {{kontakt.name}}</span>		
+                <br > <!-- Absatz im Editiermodus ausblenden -->
+                
+                <span class="label" >Strasse: {{kontakt.strasse}}</span>
+                <br > <!-- Absatz im Editiermodus ausblenden -->
+                
+                <span class="label" >PLZ: {{kontakt.plz}}</span>
+                <span class="label" >Ort: {{kontakt.ort}}</span>
+                <br > <!-- Absatz im Editiermodus ausblenden -->
+                
+                <span class="label" >Tel.: {{kontakt.telefon}}</span>
+					
+            </div>
+            
+        </ion-list>
+    </ion-content>
 </ion-view>
