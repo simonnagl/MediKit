@@ -10,7 +10,7 @@
     <div class="item item-divider">
     Aktuelle Einnahmen
   </div>
-    <div class="item" ng-repeat="einnahm in mediEinnahmeData" ng-click="mediEinnahmeEdit($index)">
+    <div class="item" ng-repeat="einnahm in mediEinnahmeData" ng-click="mediEinnahmeEdit(einnahm)">
       <div class="row">
           <div class="col">{{einnahm.uhrzeit | date : "HH:mm"}}</div>
           <div class="col">{{einnahm.mediname}}</div>

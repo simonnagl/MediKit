@@ -18,7 +18,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
   
   //Alle Medikamente laden und anschließend nur die Medikamente heraussuchen die einnahmen haben
   $scope.loadMedisForEinnahme = function() {
-    
+    $scope.mediEinnahmeData = []; //leeren
     $log.info('Start loadMedisForEinnahme');
     
     $scope.mediData = MediStorage.loadAllMedikament();
@@ -77,11 +77,34 @@ angular.module('starter.mediEinnahmeCtrl', [])
   };
   
   // deleteMediEinnahme
-  $scope.deleteMediEinnahme = function(deleteObjectIndex) {
+  $scope.deleteMediEinnahme = function(deleteMediEinnahmeId) {
      //Abfangen ob es sich um ein neues Objekt handelt
-     if (deleteObjectIndex != undefined){
-          $log.info('Delete: ' + deleteObjectIndex);
-          $scope.mediEinnahmeData.splice(deleteObjectIndex, 1);
+     if ( !$scope.isNewEin ){
+          $log.info('Delete: ' + deleteMediEinnahmeId);
+          
+     
+          //einnahme.med in einen richtiges Objekt umwandeln
+          $scope.einnahme.med = JSON.parse($scope.einnahme.med);     
+                    
+          //Einnahme für das jeweilige Medikament in der Webstorage löschen/speichern
+          //1. Medikament suchen
+          var mediDataLength = $scope.mediData.length;
+          for (var i=0; i < mediDataLength; i++){
+            if ($scope.mediData[i].mediname == $scope.einnahme.mediname){ //TODO auf medi-id suche umstellen
+              
+              //2. Einnahme im Medikament suchen und anschließend löschen
+              var mediEinnahmenLength = $scope.mediData[i].einnahmen.length;
+              for (var j=0; j < mediEinnahmenLength; j++){
+                if($scope.mediData[i].einnahmen[j].id == deleteMediEinnahmeId){
+                  $scope.mediData[i].einnahmen[j].splice(deleteMediEinnahmeId, 1);
+                }
+              }
+              
+              //3. Medikament in der Storage aktualisieren
+              MediStorage.updateMedikament($scope.mediData[i]);
+            }
+          }
+          
      } else {
         //Objekt soll nicht gelöscht werden, da es ein neues Objekt war 
           $log.info('Neues Objekt, wird nur verworfen: ' + deleteObjectIndex);
@@ -106,7 +129,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
   $scope.mediEinnahmeEdit = function(editObjectIndex) {
     $scope.isNewEin = false;
       $log.info('Edit Object: ', editObjectIndex);
-        $scope.einnahme.index = editObjectIndex;
+        /*$scope.einnahme.index = editObjectIndex;
         $scope.einnahme.id = $scope.mediEinnahmeData[editObjectIndex].id;
         $scope.einnahme.mediname = $scope.mediEinnahmeData[editObjectIndex].mediname;
         $scope.einnahme.einnahmemenge = $scope.mediEinnahmeData[editObjectIndex].einnahmemenge;
@@ -114,14 +137,28 @@ angular.module('starter.mediEinnahmeCtrl', [])
         $scope.einnahme.wiederholungstag = $scope.mediEinnahmeData[editObjectIndex].wiederholungstag;
         $scope.einnahme.wiederholungsbeginn = $scope.mediEinnahmeData[editObjectIndex].wiederholungsbeginn;
         $scope.einnahme.wiederholungsende = $scope.mediEinnahmeData[editObjectIndex].wiederholungsende;
-        $scope.einnahme.vibration = $scope.mediEinnahmeData[editObjectIndex].vibration;
+        $scope.einnahme.vibration = $scope.mediEinnahmeData[editObjectIndex].vibration;*/
+        
+        $scope.einnahme.id = editObjectIndex.einnahmen[0].id;
+        $scope.einnahme.mediname = editObjectIndex.einnahmen[0].mediname;
+        $scope.einnahme.einnahmemenge = editObjectIndex.einnahmen[0].einnahmemenge;
+        $scope.einnahme.uhrzeit = editObjectIndex.einnahmen[0].uhrzeit;
+        $scope.einnahme.wiederholungstag = editObjectIndex.einnahmen[0].wiederholungstag;
+        $scope.einnahme.wiederholungsbeginn = editObjectIndex.einnahmen[0].wiederholungsbeginn;
+        $scope.einnahme.wiederholungsende = editObjectIndex.einnahmen[0].wiederholungsende;
+        $scope.einnahme.vibration = editObjectIndex.einnahmen[0].vibration;
+        $log.debug("Einnahme: " + $scope.einnahme);
+        
     $scope.einnahme.show();
   };
   
   // Perform the mediEinnahme_neu action when the user add the einnahme form
   
    $scope.addEinnahme = function () {
-     $log.info("addEinnahme: " + $scope.einnahme.mediname);
+     //einnahme.med in einen richtiges Objekt umwandeln
+     $scope.einnahme.med = JSON.parse($scope.einnahme.med);
+     
+     $log.info("addEinnahme: " + $scope.einnahme.med.mediname);
      
      //Einnahme neu
      if ($scope.isNewEin){
@@ -129,7 +166,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
         // Eine neue Einnahmeobjekt erstellen, welches danach gepushed und gespeichert wird.  
         mediEinnahmeToPush = {
             "id": 'e-' + $scope.id,     //neue Id 
-            "mediname": $scope.einnahme.mediname,
+            "mediname": $scope.einnahme.med.mediname,
             "einnahmemenge": $scope.einnahme.einnahmemenge,
             "uhrzeit": $scope.einnahme.uhrzeit,
             "wiederholungstag": $scope.einnahme.wiederholungstag,
@@ -146,7 +183,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
           //1. Medikament suchen
           var mediDataLength = $scope.mediData.length;
           for (var i=0; i < mediDataLength; i++){
-            if ($scope.mediData[i].mediname == $scope.einnahme.mediname){ //TODO auf medi-id suche umstellen
+            if ($scope.mediData[i].mediname == $scope.einnahme.med.mediname){ //TODO auf medi-id suche umstellen
               
               //2. Die neue Einnahme im Medikament hinterlegen
               if($scope.mediData[i].einnahmen == undefined){
@@ -166,14 +203,14 @@ angular.module('starter.mediEinnahmeCtrl', [])
           //1. Medikament suchen
           var mediDataLength = $scope.mediData.length;
           for (var i=0; i < mediDataLength; i++){
-            if ($scope.mediData[i].mediname == $scope.einnahme.mediname){ //TODO auf medi-id suche umstellen
+            if ($scope.mediData[i].mediname == $scope.einnahme.med.mediname){ //TODO auf medi-id suche umstellen
               
               //2. Die gewünschte Einnahme zum ändern Suchen
               var einnahmenLenght = $scope.mediData[i].einnahmen.length;
               for (var j=0; j < einnahmenLength; j++){
                 if($scope.mediData[i].einnahmen[j].id == $scope.einnahme.id){
                 //3. Die geänderte Einnahme im Medikament aktualisieren                                          
-                   $scope.mediData[i].einnahmen[j].mediname = $scope.einnahme.mediname;
+                   $scope.mediData[i].einnahmen[j].mediname = $scope.einnahme.med.mediname;
                    $scope.mediData[i].einnahmen[j].einnahmemenge = $scope.einnahme.einnahmemenge;
                    $scope.mediData[i].einnahmen[j].uhrzeit = $scope.einnahme.uhrzeit;
                    $scope.mediData[i].einnahmen[j].wiederholungstag = $scope.einnahme.wiederholungstag;
@@ -210,6 +247,11 @@ angular.module('starter.mediEinnahmeCtrl', [])
         
     };
 
+$scope.setMediname = function(mediname) {
+  $log.debug("Setze Mediname: " + mediname);
+  $scope.einnahme.mediname = mediname;
+  
+}
 
 ////Pupup
 
