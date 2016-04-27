@@ -13,14 +13,18 @@ angular.module('starter.kontakteCtrl', [])
      ];
      
      $scope.allArzt = [
-        {nachname: "Dr. Mueller-Wohlfahrt", vorname: "Hans-Wilhelm", strasse: "Dienerstrasse 12", plz: "80331", ort: "Muenchen", telefon: "08945238590", art: "Sportmedizin"},
-		{nachname: "Dr. Meyer", vorname: "Sepp", strasse: "Hauptstrasse 12", plz: "10115", ort: "Berlin", telefon: "08945238590", art: "Orthopäde"}
+        {nachname: "Dr. Mueller-Wohlfahrt", vorname: "Hans-Wilhelm", strasse: "Dienerstraße 12", plz: "80331", ort: "München", telefon: "08945238590", art: "Sportmedizin"},
+		{nachname: "Dr. Meyer", vorname: "Sepp", strasse: "Hauptstraße 12", plz: "10115", ort: "Berlin", telefon: "08945238590", art: "Orthopäde"}
 	 ];
 	 
 	 $scope.allApotheke = [
-		{name: "Marien Apotheke", strasse: "Kupferstrasse 1", plz: "85049", ort: "Ingolstadt", telefon: "0841123456"}
+		{name: "Marien Apotheke", strasse: "Kupferstraße 1", plz: "85049", ort: "Ingolstadt", telefon: "0841123456"}
 	 ];
 	 //----------------------------------------
+	 
+	 
+	 
+	 
 	 
 	 
 	//Kontaktart -> 1 = Notfallkontakt // 2 = Arzt // 3 = Apotheke
