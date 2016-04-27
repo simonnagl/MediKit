@@ -1,12 +1,11 @@
-angular.module('starter.historieCtrl', ['ionic', 'ionic-datepicker'])
+angular.module('starter.historieCtrl', ['ionic'])
 
-.controller('HistorieCtrl', function($scope, $ionicModal, $timeout) {
+.controller('HistorieCtrl', function($scope, $ionicModal, $timeout, $log) {
 
     //Controller historieCtrl
     
-    $scope.von = new Date();
-    $scope.bis = new Date();
-    $scope.medicine = ["Aspirin 200mg 19.4.2016 8:00", "Paracetamol 200mg 19.4.2016 12:00", "Antibiotika 100mg 14:00"];
+    $scope.medicine = [{id:"123", mediname:"Aspirin", medidosis:"200mg", einnahmemenge:"2Tabletten", einnahmezeitsoll:"1.4.2016 18:00", einnahmezeitist:""},
+                        {id:"234", mediname:"Paracetamol", medidosis:"100mg", einnahmemenge:"1Tablette", einnahmezeitsoll:"2.4.2016 12:00", einnahmezeitist:"2.4.2016 12:05"}];
   //  $ionicModal.fromTemplateUrl('templates/datemodal.html', 
   //      function(modal) {
   //          $scope.datemodal = modal;
@@ -28,16 +27,56 @@ angular.module('starter.historieCtrl', ['ionic', 'ionic-datepicker'])
   //    $scope.datepicker = modal;
   //  };
   
+  
+  
 $scope.currentDate = new Date();
 $scope.minDate = new Date(2000, 6, 1);
-$scope.maxDate = new Date(2020, 6, 31);
+$scope.maxDate = new Date();
  
-$scope.datePickerCallback = function (val) {
-	if (!val) {	
-		console.log('Date not selected');
-	} else {
-		console.log('Selected date is : ', val);
-	}
+$scope.onezoneDatepickervon = {
+    date: new Date(), // MANDATORY                    
+    mondayFirst: false,             
+   // months: months,                 
+   // daysOfTheWeek: daysOfTheWeek,   
+    startDate: new Date(1900, 1, 1),           
+    endDate: new Date(),                   
+    disablePastDays: false,
+    disableSwipe: false,
+    disableWeekend: false,
+   // disableDates: disableDates,
+   // disableDaysOfWeek: disableDaysOfWeek,
+    showDatepicker: false,
+    showTodayButton: true,
+    calendarMode: false,
+    hideCancelButton: false,
+    hideSetButton: false,
+    //highlights: highlights,
+    callback: function(value){
+        // your code
+    }
+};
+
+$scope.onezoneDatepickerbis = {
+    date: new Date(), // MANDATORY                    
+    mondayFirst: false,             
+   // months: months,                 
+   // daysOfTheWeek: daysOfTheWeek,   
+    startDate: new Date(1900, 1, 1),           
+    endDate: new Date(),                   
+    disablePastDays: false,
+    disableSwipe: false,
+    disableWeekend: false,
+   // disableDates: disableDates,
+   // disableDaysOfWeek: disableDaysOfWeek,
+    showDatepicker: false,
+    showTodayButton: true,
+    calendarMode: false,
+    hideCancelButton: false,
+    hideSetButton: false,
+    //highlights: highlights,
+    callback: function(value){
+        // your code
+    }
 };
     
 });

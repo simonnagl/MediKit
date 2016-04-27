@@ -3,18 +3,31 @@
 <div class="list list-inset">
   <label class="item item-input">
     <i class="icon ion-search placeholder-icon"></i>
-    <input type="text" placeholder="Suche">
+    <input type="text" placeholder="Suche" ng-model="searchText">
   </label>
 </div>
 <ion-toggle ng-model="nicht_genommen" toggle-class="toggle-balanced">nicht genommene Medikamente</ion-toggle>
-von
-<ionic-datepicker date="currentDate" min="minDate" max="maxDate" callback="datePickerCallback">
-    <button class="button button-block button-positive"> {{ currentDate | date:'MMMM/dd/yyyy' }} </button>
-</ionic-datepicker>
+
+<div class="row">
+  <div class="col">
+          <onezone-datepicker datepicker-object="onezoneDatepickervon">
+    <button class="button button-block button-positive show-onezone-datepicker">
+        {{onezoneDatepickervon.date | date:'dd MMMM yyyy'}} 
+    </button>
+</onezone-datepicker>
+  </div>
+
+  <div class="col"><onezone-datepicker datepicker-object="onezoneDatepickerbis">
+    <button class="button button-block button-positive show-onezone-datepicker">
+        {{onezoneDatepickerbis.date | date:'dd MMMM yyyy'}} 
+    </button> 
+</onezone-datepicker></div>
+</div>
 
 <ion-list>
-    <ion-item ng-repeat="x in medicine">
-       <i class="icon ion-checkmark-circled"></i> {{x}}
+    <div class="item item-divider"> Medikamentenhistorie </div>
+    <ion-item ng-repeat="x in medicine | filter:searchText">
+       <i class="icon ion-checkmark-circled"></i> {{x.mediname}} {{x.medidosis}} {{x.einnahmezeitsoll}}
     </ion-item>
 </ion-list>
 
