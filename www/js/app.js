@@ -5,6 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', [ 'ionic', 
+							'ngCordova',
                             'starter.startseiteCtrl',
                             'starter.controllers',
                             'starter.einnahmeStorage',

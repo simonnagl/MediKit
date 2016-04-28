@@ -1,8 +1,37 @@
 angular.module('starter.userprofilCtrl', [])
 
 
-.controller('UserprofilCtrl', function($scope, $log, $ionicModal){
+.controller('UserprofilCtrl', function($scope, $log, $ionicModal, $cordovaDialogs){
     
+	
+	$scope.showDialogConfirm = function(message, title, button1, button2) {		
+		$cordovaDialogs.confirm(message, title, [button1,button2])
+			.then(function(buttonIndex) {
+			  // no button = 0, 'OK' = 1, 'Cancel' = 2
+			  var btnIndex = buttonIndex;
+			  console.log(btnIndex);
+			});
+	};
+	
+	//Returns Object with user input as result.input1 and button index as result.buttonIndex
+	$scope.showDialogPrompt= function(message, title, button1, button2, defaulttext) {		
+		$cordovaDialogs.prompt(message, title, [button1, button2], defaulttext)
+			.then(function(result) {
+			var input = result.input1;
+			var btnIndex = result.buttonIndex;
+			  
+			if (result.buttonIndex == 1) {
+				// clicked OK
+				console.log('Neue Eingabe: ' + result.input1);
+				// Zurückspeichern der neuen Eingabe
+			} else {
+				 // clicked Cancel
+				 console.log('Cancel');
+				}
+			});
+	};
+	
+	
     $scope.allPersoenlicheDaten = [
         {
             nachname: "Schmidt",
@@ -20,6 +49,7 @@ angular.module('starter.userprofilCtrl', [])
         {name: "Allergie3"}
      ];
      
+	 $scope.test = "hallo";
      
      $scope.allBlutgruppe = [
 		{name: "AB"}

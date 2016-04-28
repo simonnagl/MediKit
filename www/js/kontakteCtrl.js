@@ -29,7 +29,7 @@ angular.module('starter.kontakteCtrl', [])
 	 ];
 	 //----------------------------------------
 	 
-<<<<<<< HEAD
+
 	 
 	 
 	 
@@ -44,8 +44,8 @@ angular.module('starter.kontakteCtrl', [])
 	// ALTERNATIVE: Kontaktart prüfen per Funktion, welche von ng-if aufgerufen wird.
 	//$scope.kontaktart = function() {}
 	 
-=======
->>>>>>> c4c5a3f29cb6e39167e0c86ec6440dd64e5d67d4
+
+
 	 // Create the kontakte_neu modal that we will use later // Sergej
 	$ionicModal.fromTemplateUrl('templates/kontakte_neu.html', {scope: $scope}).then(function(kontakt) {
         $scope.kontakt = kontakt;

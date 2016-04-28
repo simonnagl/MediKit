@@ -1,6 +1,6 @@
 /* class "has-header" für Positionierung des Headers im Profil */
 .has-header { 
-    top: 44px; 
+    top: 40px; 
     position:absolute; 
     width: 100%;}
 
@@ -24,3 +24,7 @@
   border: solid 1px #707070;
   box-shadow: 0 0 5px 1px #969696;
 }
+
+/* Icon eines Item-dividers rechtsbündig */
+.item-divider i {  
+	float: right; }
