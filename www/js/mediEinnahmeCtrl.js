@@ -1,7 +1,7 @@
 angular.module('starter.mediEinnahmeCtrl', [])
 
 
-.controller('mediEinnahmeCtrl', ['$window','$log', '$scope', '$ionicModal', '$timeout', '$ionicPopup', 'MediStorage', function($window, $log, $scope, $ionicModal, $timeout, $ionicPopup, MediStorage) {
+.controller('mediEinnahmeCtrl', ['$window','$log', '$scope', '$ionicModal', '$timeout', '$ionicPopup', '$cordovaDialogs', 'MediStorage',  function($window, $log, $scope, $ionicModal, $timeout, $ionicPopup , $cordovaDialogs, MediStorage) {
 
     //Controller mediEinnahmeCtrl
 
@@ -188,12 +188,45 @@ angular.module('starter.mediEinnahmeCtrl', [])
   $scope.checkInput = function () {
     if( $scope.einnahme.med == undefined){
       $scope.whichinvalid = "Medikament";
+          $cordovaDialogs.alert('Kein gültiges Medikament ausgewählt!', 'Medikament Fehlerhaft', 'OK')
+              .then(function() {
+             // callback success
+          });
       return false;
     } else if ($scope.einnahme.einnahmemenge.menge == undefined) {
       $scope.whichinvalid = "Einnahme Menge";
+          $cordovaDialogs.alert('Kein gültige Einnahme Menge ausgewählt!', 'Einnahme Menge Fehlerhaft', 'OK')
+             .then(function() {
+             // callback success
+          });
       return false;
     } else if ($scope.einnahme.einnahmemenge.einheit == undefined) {
       $scope.whichinvalid = "Einheit Menge";
+           $cordovaDialogs.alert('Kein gültige Einnahme Einheit ausgewählt!', 'Einnahme Einheit Fehlerhaft', 'OK')
+             .then(function() {
+              // callback success
+           });
+      return false;
+    } else if ($scope.einnahme.uhrzeit == undefined) {
+      $scope.whichinvalid = "Uhrzeit";
+           $cordovaDialogs.alert('Keine gültige Uhrzeit ausgewählt!', 'Uhrzeit Fehlerhaft', 'OK')
+             .then(function() {
+              // callback success
+           });
+      return false;
+    } else if ($scope.einnahme.wiederholungsbeginn == undefined) {
+      $scope.whichinvalid = "Wiederholungsbeginn";
+           $cordovaDialogs.alert('Kein gültige Einnahmebeginn Menge ausgewählt!', 'Wiederholungsbeginn Fehlerhaft', 'OK')
+             .then(function() {
+              // callback success
+           });
+      return false;
+    } else if ($scope.einnahme.wiederholungsende == undefined){
+      $scope.whichinvalid = "Wiederholungsende";
+           $cordovaDialogs.alert('Kein gültige Einnahmeende Menge ausgewählt!', 'Wiederholungsende Fehlerhaft', 'OK')
+             .then(function() {
+              // callback success
+           });
       return false;
     } else {
       return true;

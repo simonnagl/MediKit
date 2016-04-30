@@ -65,7 +65,10 @@
         
         <label class="item item-input">
           <span class="input-label col col-50">Einnahme Beginn</span>
-          <input type="date" ng-model="einnahme.wiederholungsbeginn">
+          <input type="date" name="Fwiederholungsbeginn" ng-model="einnahme.wiederholungsbeginn">
+          <span class="col" style="color:red" ng-show="einnahmeForm.Fwiederholungsbeginn.$invalid">
+            <span ng-show="einnahmeForm.Fwiederholungsbeginn.$error.required"> *</span>
+          </span>
         </label>
         
         <label class="item item-input">
