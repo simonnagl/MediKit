@@ -4,7 +4,8 @@
         <button class="button button-icon ion-reply button-clear" ng-click="closeKontaktModal()"></button>
     </div> 
     
-    <h1 class="title">Kontakt hinzufügen</h1>  
+    <h1 class="title" ng-if="isNewKontakt">Kontakt hinzufügen</h1>  
+	<h1 class="title" ng-if="!isNewKontakt">Kontakt bearbeiten</h1>  
       
   </ion-header-bar>
 	
@@ -25,7 +26,7 @@
                     
                         <label class="item item-input" ng-if="selectedKontakt.kontaktArt == 'notfallkontakt'">
                             <span class="input-label">Beziehungsart:</span>
-                            <input type="text" ng-model="allKontaktperson.art" placeholder="Vater, Mutter, Bruder, Partner,...">
+                            <input type="text" ng-model="selectedKontakt.kontaktBeziehung" placeholder="Vater, Mutter, Bruder, Partner,...">
                             <!-- Verbesserung: Vordefinierte Werte per Combobox?-->
                         </label>
                         
@@ -35,11 +36,21 @@
                             <!-- Verbesserung: Vordefinierte Werte per Combobox?-->
                         </label>
                         
-                        <label class="item item-input">
-                            <span class="input-label">Name:</span>
-                            <input type="text" ng-model="selectedKontakt.name" placeholder="Nachname des Arztes">
+                        <label class="item item-input" ng-if="selectedKontakt.kontaktArt == 'notfallkontakt' || selectedKontakt.kontaktArt == 'arzt'">
+                            <span class="input-label">Nachname:</span>
+                            <input type="text" ng-model="selectedKontakt.nachname" placeholder="Nachname des Arztes">
                         </label>
                         
+						 <label class="item item-input" ng-if="selectedKontakt.kontaktArt == 'notfallkontakt' || selectedKontakt.kontaktArt == 'arzt'">
+                            <span class="input-label">Vorname:</span>
+                            <input type="text" ng-model="selectedKontakt.vorname" placeholder="Vorname des Arztes">
+                        </label>
+						
+						<label class="item item-input" ng-if="selectedKontakt.kontaktArt == 'apotheke'">
+                            <span class="input-label">Name:</span>
+                            <input type="text" ng-model="selectedKontakt.nachname" placeholder="Apothekenname">
+                        </label>
+						
                         <label class="item item-input">
                             <span class="input-label">Straße:</span>
                             <input type="text" ng-model="selectedKontakt.strasse" placeholder="Hauptstraße 5">
@@ -62,25 +73,22 @@
                         
                         <label class="item item-input">
                         <span class="input-label">Email:</span>
-                        <input type="text" ng-model="allKontaktperson.email" placeholder="mustermann@web.de"/> 
+                        <input type="text" ng-model="selectedKontakt.email" placeholder="mustermann@web.de"/> 
                         </label>
                 </div>
                 
 				<label class="item">
-				  <button class="button button-block button-positive" type="submit">Hinzufügen</button>
+				  <button class="button button-block button-positive" type="submit" ng-if="isNewKontakt">Hinzufügen</button>
+				  <button class="button button-block button-positive" type="submit" ng-if="!isNewKontakt">Speichern</button>
 				</label>
-				
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<pre>$scope.kontaktart: {{$scope.kontaktart}}</pre>
-				<hr>
-				<pre>allKontaktperson: {{allKontaktperson|json}}</pre>
             </div>
 	    </form>
+		
+		
+		<label class="item">
+			<button class="button button-block ion-trash-b button-assertive" ng-click="deleteKontakt()" ng-if="!isNewKontakt">Kontakt löschen</button>
+		</label>
+		
 	</ion-content>
 	
 </ion-modal-view>

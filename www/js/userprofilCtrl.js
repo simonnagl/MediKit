@@ -9,7 +9,7 @@ angular.module('starter.userprofilCtrl', [])
 			.then(function(buttonIndex) {
 			  // no button = 0, 'OK' = 1, 'Cancel' = 2
 			  var btnIndex = buttonIndex;
-			  console.log(btnIndex);
+			  $log.debug(btnIndex);
 			});
 	};
 	
@@ -22,11 +22,12 @@ angular.module('starter.userprofilCtrl', [])
 			  
 			if (result.buttonIndex == 1) {
 				// clicked OK
-				console.log('Neue Eingabe: ' + result.input1);
+				$log.debug('Neue Eingabe: ' + result.input1);
 				// Zurückspeichern der neuen Eingabe
+				$scope.saveUserprofil();
 			} else {
 				 // clicked Cancel
-				 console.log('Cancel');
+				 $log.debug('Cancel');
 				}
 			});
 	};
@@ -40,21 +41,20 @@ angular.module('starter.userprofilCtrl', [])
 	        plz: "80331",
 	        ort: "München" 
         }   
-        	  
      ];
      
+	 
+	$scope.allBlutgruppe = [
+		{name: "AB"}
+	];
+	
+	
      $scope.allAllergie = [
         {name: "Allergie1"},
         {name: "Allergie2"},
         {name: "Allergie3"}
      ];
-     
-	 $scope.test = "hallo";
-     
-     $scope.allBlutgruppe = [
-		{name: "AB"}
-	];
-     
+        
      
      $scope.allUnvertraeglichkeit = [
          {name: "Unvertraeglichkeit1"},
@@ -72,24 +72,25 @@ angular.module('starter.userprofilCtrl', [])
 		 {name: "Erkrankung5"}
      ];
 	 
-	 
 	
-	$scope.userprofil_edit = function() {
-		$log.debug('userprofil_edit');
-		//$log.debug('allErkrankung.name: ' + $scope.allErkrankung.name)
-		//$log.debug('allPersoenlicheDaten.nachname: ' + $scope.allPersoenlicheDaten.nachname);
+	$scope.saveUserprofil = function() {
+		// TODO: Save Funktion implementieren
+		// Wenn neuer Wert leer ist, heißt das, dass der Wert gelöscht werden soll
+		$log.debug("UserprofilCtrl: Save Userprofil -> END WITH SUCCESS");
 	};
 	
-	$scope.userprofil_save = function() {
-		$log.debug('userprofil_save');
-	};
+
+	$scope.addAllergie = function() {
+		$log.debug("UserprofilCtrl: addAllergie -> END WITH SUCCESS");
+	}
 	
-	$scope.userprofil_cancel = function() { 
-		$log.debug('userprofil_cancel');
-	};
+	$scope.addUnvertraeglichkeit = function() {
+		$log.debug("UserprofilCtrl: addUnvertraeglichkeit -> END WITH SUCCESS");
+	}
 	
-	
-	
+	$scope.addErkrankung = function() {
+		$log.debug("UserprofilCtrl: addErkrankung -> END WITH SUCCESS");
+	}
 });
 
     
