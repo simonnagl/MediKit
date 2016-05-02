@@ -55,9 +55,9 @@ angular.module('starter.einnahmeStorage', [])
     }
     ;
     
-    function deleteEinnahme() {
+    function deleteEinnahme(id) {
         $log.debug("WebStorage: deleteEinnahme -> START");  
-        WebStorageMain.deleteObject("e-" + einnahme.id);
+        WebStorageMain.deleteObject("e-" + id);
         $log.debug("WebStorage: deleteEinnahme -> END WITH SUCCESS");
     }
     ;
