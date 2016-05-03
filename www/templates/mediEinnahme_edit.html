@@ -1,0 +1,70 @@
+<ion-modal-view>
+  <ion-header-bar>  
+    <div class="buttons">
+        <button class="button button-icon ion-reply button-clear" ng-click="addEinnahme()"></button>
+    </div> 
+    
+    <h1 class="title">Medi-Einnahme {{einnahme.mediname}}</h1> 
+      
+    <div class="buttons">
+      <button ng-if=!isNewEin class="button button-icon ion-trash-b button-clear" ng-click="deleteMediEinnahme(einnahme.id)"></button>
+      <button ng-if=isNewEin class="button button-icon ion-close-round button-clear" ng-click="deleteMediEinnahme(einnahme.id)"></button>
+
+    </div>
+  </ion-header-bar>
+  
+  <ion-content >
+    <form>
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label" >Medikament</span>
+              <select ng-model="einnahme.med">
+                 <option ng-repeat="med in mediData" value="{{med}}" ng-selected="med.mediname == einnahme.mediname">{{med.mediname}}</option>
+              </select>
+        </label>
+   
+        <label class="item item-input">
+          <span class="input-label">Einnahmemenge</span>
+               <select ng-model="einnahme.einnahmemenge.menge">
+                 <option>1/2</option>
+                 <option selected>1</option>
+                 <option>2</option>
+              </select>
+        </label>
+        
+        <label class="item item-input">
+          <span class="input-label">Einheit Menge</span>
+              <select ng-model="einnahme.einnahmemenge.einheit">
+                 <option>Tablette</option>
+                 <option selected>ml</option>
+                 <option>mg</option>
+              </select>
+        </label>
+        
+        <label class="item item-input">
+          <span class="input-label">Uhrzeit</span>
+          <input type="time" ng-model="einnahme.uhrzeit" ng-value="{{einnahme.uhrzeit | date : 'HH:mm'}}">
+        </label>
+        
+        <label class="item item-input">
+          <span class="input-label">Wiederholung</span>
+          <button class = "button button-clear" ng-click ="showPopup()">{{einnahme.wiederholungstag}}</button>
+        </label>
+        
+        <label class="item item-input">
+          <span class="input-label">Einnahme Beginn</span>
+          <input type="date" ng-model="einnahme.wiederholungsbeginn">
+        </label>
+        
+        <label class="item item-input">
+          <span class="input-label">Einnahme Ende</span>
+          <input type="date" ng-model="einnahme.wiederholungsende">
+        </label>
+               
+        <ion-list>
+         <ion-checkbox ng-model="einnahme.vibration">Vibration</ion-checkbox>
+        </ion-list>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

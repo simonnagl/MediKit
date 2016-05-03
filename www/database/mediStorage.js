@@ -1,7 +1,7 @@
 angular.module('starter.mediStorage', [])
 
-.factory('MediStorage', ['$window', '$log', '_', 'WebStorageMain', 
-    function($window, $log, _, WebStorageMain) {
+.factory('MediStorage', ['$window', '$log', 'WebStorageMain', 
+    function($window, $log, WebStorageMain) {
     
 	var mediStorage = {
         loadAllMedikament : loadAllMedikament,
@@ -17,11 +17,12 @@ angular.module('starter.mediStorage', [])
         var allMedikamente = []; 
         allMedikamente = WebStorageMain.loadAllObject('medi-');
         $log.debug("WebStorage: loadAllMedikament -> END WITH SUCCESS");
+        return allMedikamente;
     }
     
     function loadMedikament(madikament) {
         $log.debug("WebStorage: loadMedikament -> START");
-        var value = WebStorageMain.loadObject("medi-" + medikament.name);  
+        var value = WebStorageMain.loadObject("medi-" + medikament.id);  
         
         if (value != null) {
             $log.debug("WebStorage: loadMedikament -> END WITH SUCCESS");
@@ -37,7 +38,7 @@ angular.module('starter.mediStorage', [])
     //Wird aufgerufen wenn ein Medikament bearbeitet wurde
     function updateMedikament(medikament) {
         $log.debug("WebStorage: updateMedikament -> START"); 
-        WebStorageMain.saveObject("medi-" + medikament.name, medikament);
+        WebStorageMain.saveObject("medi-" + medikament.id, medikament);
         $log.debug("WebStorage: updateMedikament -> END WITH SUCCESS");  
     }
     ;
@@ -51,9 +52,9 @@ angular.module('starter.mediStorage', [])
      */   
     function saveMedikament(medikament) {
         $log.debug("WebStorage: saveMedikament -> START"); 
-        if(WebStorageMain.isKeyAvailable("medi-" + medikament.name)){
+        if(WebStorageMain.isKeyAvailable("medi-" + medikament.id)){
                       
-            WebStorageMain.saveObject("medi-" + medikament.name, medikament);
+            WebStorageMain.saveObject("medi-" + medikament.id, medikament);
             $log.debug("WebStorage: saveMedikament -> END WITH SUCCESS");     
             return true;                   
             
@@ -64,9 +65,9 @@ angular.module('starter.mediStorage', [])
     }
     ;
     
-    function deleteMedikament() {
+    function deleteMedikament(medikament) {
         $log.debug("WebStorage: deleteMedikament -> START");  
-        WebStorageMain.deleteObject("medi-" + medikament.name);
+        WebStorageMain.deleteObject("medi-" + medikament.id);
         $log.debug("WebStorage: deleteMedikament -> END WITH SUCCESS");
     }
     ;

@@ -1,7 +1,7 @@
 angular.module('starter.profilStorage', [])
 
-.factory('ProfilStorage', ['$window', '$log', '_', 'WebStorageMain', 
-    function($window, $log, _, WebStorageMain) {
+.factory('ProfilStorage', ['$window', '$log', 'WebStorageMain', 
+    function($window, $log, WebStorageMain) {
     
 	var profilStorage = {
         loadProfil : loadProfil,

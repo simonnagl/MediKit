@@ -1,0 +1,16 @@
+    <div align="center">
+        <img  src="http://www.gemeinde-werkstatt.de/typo3temp/pics/4e8dbae60e.jpg">
+    </div>
+    <div align="center">
+        Folgende Medikamente hast du noch nicht genommen
+    </div>
+    <div>   
+    <ion-list show-delete="data.showDelete" on-delete="onItemDelete(item)" option-buttons="itemButtons">
+        <ion-item ng-repeat="item in items" item="item" >
+            <label class="checkbox">
+                <input type="checkbox" ng-click="clickItem(item); $event.stopPropagation();" ng-model="item.checked">
+            </label>
+           Medikament {{ item.id }}
+        </ion-item>
+    </ion-list>
+    </div>
