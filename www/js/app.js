@@ -5,16 +5,18 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', [ 'ionic', 
+			    'ngCordova',
                             'onezone-datepicker',
                             'starter.controllers',
+                            'starter.einnahmeStorage',
                             'starter.historieCtrl',
+                            'starter.kontakteCtrl',
                             'starter.mediEinnahmeCtrl',
+                            'starter.mediStorage',
                             'starter.mediVerwaltungCtrl',
+                            'starter.profilStorage',
                             'starter.startseiteCtrl',
                             'starter.userprofilCtrl',
-                            'starter.einnahmeStorage',
-                            'starter.mediStorage',
-                            'starter.profilStorage',
                             'starter.webStorageMain'])
 
 .run(function($ionicPlatform) {
@@ -58,7 +60,7 @@ angular.module('starter', [ 'ionic',
     views: {
       'menuContent': {
         templateUrl: 'templates/userprofil.html',
-        controller: 'userprofilCtrl',
+        controller: 'UserprofilCtrl',
       }
     }
   })
@@ -68,7 +70,7 @@ angular.module('starter', [ 'ionic',
       views: {
         'menuContent': {
           templateUrl: 'templates/mediEinnahme.html',
-          controller: 'mediEinnahmeCtrl',
+          controller: 'MediEinnahmeCtrl',
         }
       }
     })
@@ -78,6 +80,16 @@ angular.module('starter', [ 'ionic',
         'menuContent': {
           templateUrl: 'templates/historie.html',
           controller: 'historieCtrl',
+        }
+      }
+    })
+	
+	.state('app.kontakte', {
+      url: '/kontakte',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/kontakte.html',
+          controller: 'KontakteCtrl',
         }
       }
     })
