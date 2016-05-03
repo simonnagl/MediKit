@@ -6,20 +6,21 @@
     <input type="text" placeholder="Suche" ng-model="searchText">
   </label>
 </div>
-<ion-toggle ng-model="nicht_genommen" toggle-class="toggle-balanced">nicht genommene Medikamente</ion-toggle>
+<ion-toggle ng-model="nicht_genommen" toggle-class="toggle-positive">nicht genommene Medikamente</ion-toggle>
+
 
 <div class="row">
   <div class="col">
           <onezone-datepicker datepicker-object="onezoneDatepickervon">
     <button class="button button-block button-positive show-onezone-datepicker">
-        {{onezoneDatepickervon.date | date:'dd MMMM yyyy'}} 
+        von: {{onezoneDatepickervon.date | date:'dd MMMM yyyy'}} 
     </button>
 </onezone-datepicker>
   </div>
 
   <div class="col"><onezone-datepicker datepicker-object="onezoneDatepickerbis">
     <button class="button button-block button-positive show-onezone-datepicker">
-        {{onezoneDatepickerbis.date | date:'dd MMMM yyyy'}} 
+        bis: {{onezoneDatepickerbis.date | date:'dd MMMM yyyy'}} 
     </button> 
 </onezone-datepicker></div>
 </div>
