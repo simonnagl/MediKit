@@ -33,7 +33,7 @@ angular.module('starter.startseiteCtrl', [])
                type: 'button-positive',
                   onTap: function(e) {
                        
-						 $scope.navigate('/app/historie')       
+						 $scope.navigate('/app/historie/true')       
                       
                   }
             }

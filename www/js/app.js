@@ -72,11 +72,11 @@ angular.module('starter', [ 'ionic',
       }
     })
     .state('app.historie', {
-      url: '/historie',
+      url: '/historie/{isNichtEingenommen}',
       views: {
         'menuContent': {
           templateUrl: 'templates/historie.html',
-        controller: 'historieCtrl',
+          controller: 'historieCtrl',
         }
       }
     })
