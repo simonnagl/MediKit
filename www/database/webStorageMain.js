@@ -1,6 +1,6 @@
 angular.module('starter.webStorageMain', [])
 
-.factory('WebStorageMain', ['$window', '$log', '_', function($window, $log, _) {
+.factory('WebStorageMain', ['$window', '$log', function($window, $log) {
     
 	var webStorage = {
         loadObject : loadObject,
@@ -32,12 +32,12 @@ angular.module('starter.webStorageMain', [])
             for(var i = 0; i < storageLength; i++){
                 var key = $window.localStorage.key(i);
                 if (key.indexOf(prefix) == 0) {
-                    var object = getObject($window.localStorage.key(i));
-                    allObject.push(geraet)
+                    var object = JSON.parse($window.localStorage.getItem(key));
+                    allObject.push(object);
                 }
             }
             
-            $log.debug("WebStorage: loadAllObject : AllObject -> " + JSON.stringify(allObject));
+            $log.debug("WebStorage: loadAllObject : AllObject -> " + allObject);
             $log.debug("WebStorage: loadAllObject -> END WITH SUCCESS");
             return allObject;
             
@@ -50,7 +50,7 @@ angular.module('starter.webStorageMain', [])
     function saveObject(key, value) {
         try {
             $log.debug("WebStorage: SaveObject -> START");  
-            $window.localStorage.setItem(key, value);
+            $window.localStorage.setItem(key, JSON.stringify(value));
             $log.debug("WebStorage: SaveObject : ObjectKey -> " + JSON.stringify(key) + " ObjectValue -> " + JSON.stringify(value));
             $log.debug("WebStorage: SaveObject -> END WITH SUCCESS");
             

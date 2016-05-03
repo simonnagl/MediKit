@@ -5,6 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', [ 'ionic', 
+                            'onezone-datepicker',
                             'starter.controllers',
                             'starter.historieCtrl',
                             'starter.mediEinnahmeCtrl',
@@ -72,11 +73,11 @@ angular.module('starter', [ 'ionic',
       }
     })
     .state('app.historie', {
-      url: '/historie',
+      url: '/historie/{isNichtEingenommen}',
       views: {
         'menuContent': {
           templateUrl: 'templates/historie.html',
-        controller: 'historieCtrl',
+          controller: 'historieCtrl',
         }
       }
     })
@@ -86,10 +87,11 @@ angular.module('starter', [ 'ionic',
     views: {
       'menuContent': {
         templateUrl: 'templates/startseite.html',
-        controller: 'startseiteCtrl',
+        controller: 'StartseiteCtrl',
       }
     }
   });
+  
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/startseite');
 });

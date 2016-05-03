@@ -1,7 +1,7 @@
 angular.module('starter.einnahmeStorage', [])
 
-.factory('EinnahmeStorage', ['$window', '$log', '_', 'WebStorageMain', 
-    function($window, $log, _, WebStorageMain) {
+.factory('EinnahmeStorage', ['$window', '$log', 'WebStorageMain', 
+    function($window, $log, WebStorageMain) {
     
 	var einnahmeStorage = {
         loadAllEinnahme : loadAllEinnahme,
@@ -17,6 +17,7 @@ angular.module('starter.einnahmeStorage', [])
         var allEinnahme = []; 
         allEinnahme = WebStorageMain.loadAllObject('e-');
         $log.debug("WebStorage: loadAllEinnahme -> END WITH SUCCESS");
+        return allEinnahme;
     }
     
     function loadEinnahme(einnahme) {
@@ -54,9 +55,9 @@ angular.module('starter.einnahmeStorage', [])
     }
     ;
     
-    function deleteEinnahme() {
+    function deleteEinnahme(id) {
         $log.debug("WebStorage: deleteEinnahme -> START");  
-        WebStorageMain.deleteObject("e-" + einnahme.id);
+        WebStorageMain.deleteObject("e-" + id);
         $log.debug("WebStorage: deleteEinnahme -> END WITH SUCCESS");
     }
     ;
