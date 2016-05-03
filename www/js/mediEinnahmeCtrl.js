@@ -1,7 +1,7 @@
 angular.module('starter.mediEinnahmeCtrl', [])
 
 
-.controller('mediEinnahmeCtrl', ['$window','$log', '$scope', '$ionicModal', '$timeout', '$ionicPopup', '$cordovaDialogs', 'MediStorage', 'EinnahmeStorage',  function($window, $log, $scope, $ionicModal, $timeout, $ionicPopup , $cordovaDialogs, MediStorage, EinnahmeStorage) {
+.controller('MediEinnahmeCtrl', ['$window','$log', '$scope', '$ionicModal', '$timeout', '$ionicPopup', '$cordovaDialogs', 'MediStorage', 'EinnahmeStorage',  function($window, $log, $scope, $ionicModal, $timeout, $ionicPopup , $cordovaDialogs, MediStorage, EinnahmeStorage) {
 
     //Controller mediEinnahmeCtrl
 
