@@ -1,6 +1,6 @@
 angular.module('starter.startseiteCtrl', [])
 
-.controller('StartseiteCtrl', function($scope, $ionicModal, $timeout, $log, $location, $ionicPopup) {
+.controller('StartseiteCtrl', function($scope, $ionicModal, $timeout, $log, $location, $ionicPopup, $state) {
 
     $scope.name = 'John';
     $scope.count = "3";
@@ -9,7 +9,7 @@ angular.module('starter.startseiteCtrl', [])
         {medikament:'Antibiotika',uhrzeit:'16:00'},
         {medikament:'Ibuprofen',uhrzeit:'17:30'}
     ];
-    
+
     $scope.navigate = function(path) {
         $location.path(path);
     }
@@ -54,5 +54,9 @@ angular.module('starter.startseiteCtrl', [])
         {medikament:'Antibiotika',uhrzeit:'16:00'},
         {medikament:'Ibuprofen',uhrzeit:'17:30'}
     ];
+    
+    
+    
+
 
 });
