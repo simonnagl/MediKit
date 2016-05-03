@@ -1,1 +1,30 @@
-/* Empty. Add your own CSS if you like */
+/* class "has-header" für Positionierung des Headers im Profil */
+.has-header { 
+    top: 40px; 
+    position:absolute; 
+    width: 100%;}
+
+/* Inputfield Validierung farblich darstellen */
+.item input.ng-invalid.ng-touched {
+    background-color: #FA787E;
+  }
+
+.item input.ng-valid.ng-touched {
+    background-color: #78FA89;
+  }
+
+/* Inputfield Rahmen & Focus */
+.style-1 input[type="text"] {
+  padding: 10px;
+  border: solid 1px #dcdcdc;
+  transition: box-shadow 0.3s, border 0.3s;
+}
+.style-1 input[type="text"]:focus,
+.style-1 input[type="text"].focus {
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696;
+}
+
+/* Icon eines Item-dividers rechtsbündig */
+.item-divider i {  
+	float: right; }

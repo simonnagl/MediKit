@@ -1,0 +1,84 @@
+<ion-view view-title="Kontakte">
+
+	<ion-nav-buttons side="secondary">
+        <button class="button button-icon ion-android-add-circle button-clear" ng-click="createNewKontakt()"></button>
+	</ion-nav-buttons>
+	
+	
+    <ion-content class="has-header">
+        
+        <ion-list class="list list-inset" >
+        
+            <ion-item class="item-divider">Notfallkontakt</ion-item> 
+            
+            <div class="item style-1" ng-click="editKontakt(kontakt)" ng-if="kontakt.kontaktArt == 'notfallkontakt'" ng-repeat="kontakt in allKontakt">			
+                <span class="label">Kontaktbeziehung: {{kontakt.kontaktBeziehung}}</span>
+                <br > <!-- Absatz im Editiermodus ausblenden -->
+                
+                <span class="label" >Nachname: {{kontakt.nachname}}</span>    
+				<br>
+				
+                <span class="label" >Vorname: {{kontakt.vorname}}</span>
+                <br > <!-- Absatz im Editiermodus ausblenden -->
+                
+				<span class="label" >{{kontakt.strasse}}</span>
+                <br >
+                
+                <span class="label" >{{kontakt.plz}}</span>           
+                <span class="label" > {{kontakt.ort}}</span>
+                <br>
+				
+                <span class="label" >Tel.: {{kontakt.telefon}}</span>
+                <br > <!-- Absatz im Editiermodus ausblenden -->
+                
+                <span class="label" >Email: {{kontakt.email}}</span>
+            </div>
+            
+            <ion-item class="item-divider">Arzt</ion-item>
+
+            <div class="item style-1" ng-click="editKontakt(kontakt)" ng-if="kontakt.kontaktArt == 'arzt'" ng-repeat="kontakt in allKontakt">		
+                <span class="label" >Arztart: {{kontakt.arztArt}}</span>
+				<br>
+				
+                <span class="label">Nachname: {{kontakt.nachname}}</span>
+                <br > <!-- Absatz im Editiermodus ausblenden -->
+                
+				 <span class="label">Vorname: {{kontakt.vorname}}</span>
+				 <br>
+				 
+                <span class="label">{{kontakt.strasse}}</span>
+                <br > <!-- Absatz im Editiermodus ausblenden -->
+                
+                <span class="label">{{kontakt.plz}}</span>           
+                <span class="label"> {{kontakt.ort}}</span>
+                <br> <!-- Absatz im Editiermodus ausblenden -->
+               
+                <span class="label">Tel.: {{kontakt.telefon}}</span>
+				<br>
+				
+				<span class="label">Email: {{kontakt.email}}</span>
+	
+            </div>
+        
+            <ion-item class="item-divider">Apotheke</ion-item>
+            
+            <div class="item style-1" ng-click="editKontakt(kontakt)" ng-if="kontakt.kontaktArt == 'apotheke'" ng-repeat="kontakt in allKontakt">							
+                <span class="label" >Name: {{kontakt.nachname}}</span>		
+                <br > <!-- Absatz im Editiermodus ausblenden -->
+                
+                <span class="label" >{{kontakt.strasse}}</span>
+                <br > <!-- Absatz im Editiermodus ausblenden -->
+                
+                <span class="label" >{{kontakt.plz}}</span>
+                <span class="label" > {{kontakt.ort}}</span>
+                <br > <!-- Absatz im Editiermodus ausblenden -->
+                
+                <span class="label" >Tel.: {{kontakt.telefon}}</span>
+				<br>
+				
+				<span class="label" >Email: {{kontakt.email}}</span>
+            </div>
+            
+        </ion-list>
+    </ion-content>
+</ion-view>

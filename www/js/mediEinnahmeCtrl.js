@@ -495,4 +495,3 @@ $scope.setEinnahmeMed = function(checkMediname){
 
 }]);
 
-
