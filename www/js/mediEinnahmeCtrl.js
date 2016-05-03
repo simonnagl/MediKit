@@ -1,6 +1,7 @@
 angular.module('starter.mediEinnahmeCtrl', [])
 
-.controller('mediEinnahmeCtrl', ['$window','$log', '$scope', '$ionicModal', '$timeout', '$ionicPopup', 'MediStorage', function($window, $log, $scope, $ionicModal, $timeout, $ionicPopup, MediStorage) {
+
+.controller('mediEinnahmeCtrl', ['$window','$log', '$scope', '$ionicModal', '$timeout', '$ionicPopup', '$cordovaDialogs', 'MediStorage', 'EinnahmeStorage',  function($window, $log, $scope, $ionicModal, $timeout, $ionicPopup , $cordovaDialogs, MediStorage, EinnahmeStorage) {
 
     //Controller mediEinnahmeCtrl
 
@@ -15,6 +16,28 @@ angular.module('starter.mediEinnahmeCtrl', [])
   // Form data for the mediEinnahme_neu modal
   $scope.mediEinnahmeData = [];
   $scope.mediData = [];
+  $scope.checkvalid = {};
+  
+  default_einnahme = {
+        mediname : "",
+        einnahmemenge : {
+            menge : undefined,
+            einheit : undefined
+        },
+        uhrzeit : new Date(new Date().toString().slice(0,21)),
+        wiederholungstag : {
+          mo : false,
+          di : false,
+          mi : false,
+          do : false,
+          fr : false,
+          sa : false,
+          so : false, 
+        },
+        wiederholungsbeginn : new Date(),
+        wiederholungsende : "",
+        vibration : false,
+    }
   
   //Alle Medikamente laden und anschließend nur die Medikamente heraussuchen die einnahmen haben
   $scope.loadMedisForEinnahme = function() {
@@ -46,13 +69,13 @@ angular.module('starter.mediEinnahmeCtrl', [])
   // Create the mediEinnahme_neu modal that we will use later
     $ionicModal.fromTemplateUrl('templates/mediEinnahme_edit.html', {
     scope: $scope
-  }).then(function(einnahme) {
-    $scope.einnahme = einnahme;
+  }).then(function(modal) {
+    $scope.einnahmeview = modal;
   });
   
   // Triggered in the mediEinnahme_neu modal to close it
   $scope.closeMediEinnahmeNeu = function() {
-    $scope.einnahme.hide();
+    $scope.einnahmeview.hide();
     
     //Resetfunktion in Billig:
         $scope.einnahme.mediname = "";
@@ -66,7 +89,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
   
   // Triggered in the mediEinnahme_edit modal to close it
   $scope.closeMediEinnahmeEdit = function() {
-    $scope.einnahme.hide();
+    $scope.einnahmeview.hide();
     
     //Resetfunktion in Billig:
         $scope.einnahme.mediname = "";
@@ -84,6 +107,8 @@ angular.module('starter.mediEinnahmeCtrl', [])
      if ( !$scope.isNewEin ){
           $log.info('Delete: ' + deleteMediEinnahmeId);
           
+          //Zukünftige Einnahmen in der Webstorage ebenfalls löschen
+          EinnahmeStorage.deleteEinnahme(deleteMediEinnahmeId);
      
           //einnahme.med in einen richtiges Objekt umwandeln
           //$scope.einnahme.med = JSON.parse($scope.einnahme.med);
@@ -124,19 +149,25 @@ angular.module('starter.mediEinnahmeCtrl', [])
   
 //// Open the mediEinnahme_neu modal
   $scope.mediEinnahmeNeu = function() {
-    $scope.isNewEin = true;
+    $scope.isNewEin = true;             //kennzeichnet neue Einnahme
     $scope.id = $scope.creatId();
-    $scope.einnahme.show();
+    $scope.einnahme = angular.copy(default_einnahme);
+    $log.debug("Uhrzeit: " + $scope.einnahme.uhrzeit);
+    $scope.einnahmeview.show();
     
-    //kennzeichne neu bzw. undefined für Delete-Fehler abfangen.
-    $scope.einnahme.index = undefined;
-    $log.info($scope.einnahme.index);
   };
   
 //// Open the mediEinnahme_edit modal
   $scope.mediEinnahmeEdit = function(editObject) {
     $scope.isNewEin = false;
       $log.info('Edit Object: ', editObject);
+        
+        //Falls $scope.einnahme aus irgendwelchen Gründen nicht vorhanden ist,
+        //um Fehler abzufangen, wird eine neue Instanz vorläufig geladen
+        if($scope.einnahme == undefined){
+          $scope.einnahme = angular.copy(default_einnahme);
+        }
+        
         
         //$scope.einnahme.med muss gesetzt werden
         $scope.setEinnahmeMed(editObject.mediname);
@@ -152,15 +183,164 @@ angular.module('starter.mediEinnahmeCtrl', [])
         $scope.einnahme.vibration = editObject.vibration;
         $log.debug("Einnahme: " + $scope.einnahme);
         
-    $scope.einnahme.show();
+    $scope.einnahmeview.show();
   };
   
-  // Perform the mediEinnahme_neu action when the user add the einnahme form
+//// Validation
+  $scope.checkInput = function () {
+    if( $scope.einnahme.med == undefined){
+      $scope.whichinvalid = "Medikament";
+          $cordovaDialogs.alert('Kein gültiges Medikament ausgewählt!', 'Medikament Fehlerhaft', 'OK')
+              .then(function() {
+             // callback success
+          });
+      return false;
+    } else if ($scope.einnahme.einnahmemenge.menge == undefined) {
+      $scope.whichinvalid = "Einnahme Menge";
+          $cordovaDialogs.alert('Kein gültige Einnahme Menge ausgewählt!', 'Einnahme Menge Fehlerhaft', 'OK')
+             .then(function() {
+             // callback success
+          });
+      return false;
+    } else if ($scope.einnahme.einnahmemenge.einheit == undefined) {
+      $scope.whichinvalid = "Einheit Menge";
+           $cordovaDialogs.alert('Kein gültige Einnahme Einheit ausgewählt!', 'Einnahme Einheit Fehlerhaft', 'OK')
+             .then(function() {
+              // callback success
+           });
+      return false;
+    } else if ($scope.einnahme.uhrzeit == undefined) {
+      $scope.whichinvalid = "Uhrzeit";
+           $cordovaDialogs.alert('Keine gültige Uhrzeit ausgewählt!', 'Uhrzeit Fehlerhaft', 'OK')
+             .then(function() {
+              // callback success
+           });
+      return false;
+    } else if ($scope.einnahme.wiederholungsbeginn == undefined) {
+      $scope.whichinvalid = "Wiederholungsbeginn";
+           $cordovaDialogs.alert('Kein gültige Einnahmebeginn Menge ausgewählt!', 'Wiederholungsbeginn Fehlerhaft', 'OK')
+             .then(function() {
+              // callback success
+           });
+      return false;
+    } else if ($scope.einnahme.wiederholungsende == undefined){
+      $scope.whichinvalid = "Wiederholungsende";
+           $cordovaDialogs.alert('Kein gültige Wiederholungsende ausgewählt!', 'Wiederholungsende Fehlerhaft', 'OK')
+             .then(function() {
+              // callback success
+           });
+      return false;
+    } else {
+      return true;
+    }
+  }  
   
+//// Zukünftige Einnahmen berechnen und speichern
+   $scope.setNextEinnahmen = function (nextMediEinnahme){
+     var tempNextEinnahme = nextMediEinnahme;
+     nextMediEinnahme.wanneinnahmen = [];
+     
+     if (nextMediEinnahme.wiederholungstag.mo || nextMediEinnahme.wiederholungstag.di || nextMediEinnahme.wiederholungstag.mi || nextMediEinnahme.wiederholungstag.do || nextMediEinnahme.wiederholungstag.fr || nextMediEinnahme.wiederholungstag.sa || nextMediEinnahme.wiederholungstag.so ){
+        
+        //erst soll ermittelt werden, welche Zeitangabe verwendet werden soll 
+        //bzw. ob eine Wiederholungsbeginn hinter Aktuell liegt.
+        if (nextMediEinnahme.uhrzeit < nextMediEinnahme.wiederholungsbeginn){
+         
+          //die Uhrzeit von Wiederholungsbeginn müsste angepasst werden. 
+          var minusbeginnuhrzeit = nextMediEinnahme.wiederholungsbeginn.getHours()*60*60*1000 + nextMediEinnahme.wiederholungsbeginn.getMinutes()*60*1000 + nextMediEinnahme.wiederholungsbeginn.getMilliseconds();
+          var minusuhrzeit = nextMediEinnahme.uhrzeit.getHours()*60*60*1000 + nextMediEinnahme.uhrzeit.getMinutes()*60*1000 + nextMediEinnahme.uhrzeit.getMilliseconds();
+          var resttage = (nextMediEinnahme.wiederholungsbeginn.getTime() - minusbeginnuhrzeit) - (nextMediEinnahme.uhrzeit.getTime() - minusuhrzeit);
+          
+          tempNextEinnahme.wiederholungsbeginn.setTime(nextMediEinnahme.uhrzeit.getTime() + resttage);
+          $log.debug("Welcher Zeitpunkt ist größer 'Beginn': " + tempNextEinnahme.wiederholungsbeginn);
+          
+          
+        } else {
+          //sonst setze tempBeginn auf das aktuellere Datum/Zeitpunkt
+          tempNextEinnahme.wiederholungsbeginn = nextMediEinnahme.uhrzeit;
+          $log.debug("Welcher Zeitpunkt ist größer 'Uhrzeit': " + tempNextEinnahme.wiederholungsbeginn);
+        }
+        
+        var tag = 1*24*60*60*1000; //Tag in Millisekunden
+        var zweistunden = 2*60*60*1000; //Zwei Stunden in Millisekunden
+        var diffTage =  (((((tempNextEinnahme.wiederholungsende.getTime() - tempNextEinnahme.wiederholungsbeginn.getTime())/24)/60)/60)/1000);
+        $log.debug("diffTage: " + diffTage);
+        
+        for(var i = 0; i < diffTage; i++){ //evtl. besser: while(tempNextEinnahme.wiederholungsbeginn < tempNextEinnahme.wiederholungsende)
+ 
+          if (tempNextEinnahme.wiederholungsbeginn.getDay() == 0 && nextMediEinnahme.wiederholungstag.so){
+            //Einnahme speichern und einen Tag hochzählen
+            $log.debug("Einnahmezeitpunkt So: " + tempNextEinnahme.wiederholungsbeginn);
+            nextMediEinnahme.wanneinnahmen.push({zeitpunkt: new Date(tempNextEinnahme.wiederholungsbeginn.getTime() +zweistunden), genommen: false});
+            tempNextEinnahme.wiederholungsbeginn.setTime(tempNextEinnahme.wiederholungsbeginn.getTime() + tag);
+          
+          } else if (tempNextEinnahme.wiederholungsbeginn.getDay() == 1 && nextMediEinnahme.wiederholungstag.mo){
+            //Einnahme speichern und einen Tag hochzählen
+            $log.debug("Einnahmezeitpunkt Mo: " + tempNextEinnahme.wiederholungsbeginn);
+            nextMediEinnahme.wanneinnahmen.push({zeitpunkt: new Date(tempNextEinnahme.wiederholungsbeginn.getTime() + zweistunden), genommen: false});
+            tempNextEinnahme.wiederholungsbeginn.setTime(tempNextEinnahme.wiederholungsbeginn.getTime() + tag);
+          
+          } else if (tempNextEinnahme.wiederholungsbeginn.getDay() == 2 && nextMediEinnahme.wiederholungstag.di){
+            //Einnahme speichern und einen Tag hochzählen
+            $log.debug("Einnahmezeitpunkt Di: " + tempNextEinnahme.wiederholungsbeginn);
+            nextMediEinnahme.wanneinnahmen.push({zeitpunkt: new Date(tempNextEinnahme.wiederholungsbeginn.getTime() + zweistunden), genommen: false});
+            tempNextEinnahme.wiederholungsbeginn.setTime(tempNextEinnahme.wiederholungsbeginn.getTime() + tag);
+          
+          } else if (tempNextEinnahme.wiederholungsbeginn.getDay() == 3 && nextMediEinnahme.wiederholungstag.mi){
+            //Einnahme speichern und einen Tag hochzählen
+            $log.debug("Einnahmezeitpunkt Mi: " + tempNextEinnahme.wiederholungsbeginn);
+            nextMediEinnahme.wanneinnahmen.push({zeitpunkt: new Date(tempNextEinnahme.wiederholungsbeginn.getTime() + zweistunden), genommen: false});
+            tempNextEinnahme.wiederholungsbeginn.setTime(tempNextEinnahme.wiederholungsbeginn.getTime() + tag);
+          
+          } else if (tempNextEinnahme.wiederholungsbeginn.getDay() == 4 && nextMediEinnahme.wiederholungstag.do){
+            //Einnahme speichern und einen Tag hochzählen
+            $log.debug("Einnahmezeitpunkt Do: " + tempNextEinnahme.wiederholungsbeginn);
+            nextMediEinnahme.wanneinnahmen.push({zeitpunkt: new Date(tempNextEinnahme.wiederholungsbeginn.getTime() + zweistunden), genommen: false});
+            tempNextEinnahme.wiederholungsbeginn.setTime(tempNextEinnahme.wiederholungsbeginn.getTime() + tag);
+          
+          } else if (tempNextEinnahme.wiederholungsbeginn.getDay() == 5 && nextMediEinnahme.wiederholungstag.fr){
+            //Einnahme speichern und einen Tag hochzählen
+            $log.debug("Einnahmezeitpunkt Fr: " + tempNextEinnahme.wiederholungsbeginn);
+            nextMediEinnahme.wanneinnahmen.push({zeitpunkt: new Date(tempNextEinnahme.wiederholungsbeginn.getTime() + zweistunden), genommen: false});
+            tempNextEinnahme.wiederholungsbeginn.setTime(tempNextEinnahme.wiederholungsbeginn.getTime() + tag);
+          
+          } else if (tempNextEinnahme.wiederholungsbeginn.getDay() == 6 && nextMediEinnahme.wiederholungstag.sa){
+            //Einnahme speichern und einen Tag hochzählen
+            $log.debug("Einnahmezeitpunkt Sa: " + tempNextEinnahme.wiederholungsbeginn);
+            nextMediEinnahme.wanneinnahmen.push({zeitpunkt: new Date(tempNextEinnahme.wiederholungsbeginn.getTime() + zweistunden), genommen: false});
+            tempNextEinnahme.wiederholungsbeginn.setTime(tempNextEinnahme.wiederholungsbeginn.getTime() + tag);
+          
+          } else {
+            //sonst einen Tag hochzählen ohne Einnahme zu speichern.
+            tempNextEinnahme.wiederholungsbeginn.setTime(tempNextEinnahme.wiederholungsbeginn.getTime() + tag);
+          }
+        
+        }//For zu ende
+        
+        //Speichern im Webstorage
+        $log.debug(" - Zukünftige Einnahmen werden gesichert -");
+        EinnahmeStorage.saveEinnahme(nextMediEinnahme);
+        
+        
+     }//End If
+     
+   }//Ende Einnahmen-Berechnung
+  
+  
+//// Perform the mediEinnahme_neu action when the user add the einnahme form 
    $scope.addEinnahme = function () {
+     
+     //Validation von Eingaben
+     if(!$scope.checkInput()){
+       $log.debug("Nicht Valide: " + $scope.whichinvalid);
+       return "Nicht Valide";
+     }
+     
      //einnahme.med in einen richtiges Objekt umwandeln
      $log.debug("Format von einname.med vor parse: " + $scope.einnahme.med);
-     $scope.einnahme.med = JSON.parse($scope.einnahme.med);
+     if($scope.isNewEin){
+       $scope.einnahme.med = JSON.parse($scope.einnahme.med);
+     }
      
      $log.info("addEinnahme: " + $scope.einnahme.med.mediname);
      
@@ -199,6 +379,9 @@ angular.module('starter.mediEinnahmeCtrl', [])
               MediStorage.updateMedikament($scope.mediData[i]);
             }
           }
+        
+        //zukünftige Einnahmen berechnen und im Webstorage separat speichern
+        $scope.setNextEinnahmen(mediEinnahmeToPush);
           
       } else {
         //Andernfalls soll die Einnahme aktuallisiert werden
@@ -224,6 +407,11 @@ angular.module('starter.mediEinnahmeCtrl', [])
                    
                    //4. Medikament in der Storage aktualisieren
                    MediStorage.updateMedikament($scope.mediData[i]);
+                             
+                   //Zukünftige Einnahmen in der Webstorage ebenfalls aktualisieren, durch erst löschen, neu berechnen und speichern.
+                   EinnahmeStorage.deleteEinnahme($scope.einnahme.id);
+                   $scope.setNextEinnahmen($scope.mediData[i].einnahmen[j]);
+          
                 }//if ende
               }//for ende
               
@@ -233,13 +421,13 @@ angular.module('starter.mediEinnahmeCtrl', [])
       }//else ende
       
         //Resetfunktion in Billig:
-        $scope.einnahme.mediname = "";
+        /*$scope.einnahme.mediname = "";
         $scope.einnahme.einnahmemenge = "";
         $scope.einnahme.uhrzeit = "";
         $scope.einnahme.wiederholungstag = "";
         $scope.einnahme.wiederholungsbeginn = "";
         $scope.einnahme.wiederholungsende = "";
-        $scope.einnahme.vibration = "";
+        $scope.einnahme.vibration = "";*/
         
         //Liste neu Laden
         $scope.loadMedisForEinnahme();

@@ -14,51 +14,66 @@
   </ion-header-bar>
   
   <ion-content >
-    <form>
+    <form name="einnahmeForm" novalidate>
       <div class="list">
         <label class="item item-input">
-          <span class="input-label" >Medikament</span>
-              <select ng-model="einnahme.med">
+          <span class="input-label col col-50" >Medikament</span>
+              <select class="col"name="Fmed" ng-model="einnahme.med" required autofocus>
                  <option ng-repeat="med in mediData" value="{{med}}" ng-selected="med.mediname == einnahme.mediname">{{med.mediname}}</option>
               </select>
+           <span class="col" style="color:red" ng-show="einnahmeForm.Fmed.$invalid">     
+             <span ng-show="einnahmeForm.Fmed.$error.required"> *</span>
+          </span>
         </label>
    
         <label class="item item-input">
-          <span class="input-label">Einnahmemenge</span>
-               <select ng-model="einnahme.einnahmemenge.menge">
+          <span class="input-label col col-50">Einnahmemenge</span>
+               <select class="col" name="Fmenge" ng-model="einnahme.einnahmemenge.menge" required autofocus>
                  <option>1/2</option>
                  <option selected>1</option>
                  <option>2</option>
               </select>
+             <span style="color:red" class="col" ng-show="einnahmeForm.Fmenge.$invalid">
+                <span ng-show="einnahmeForm.Fmenge.$error.required"> *</span>
+             </span>              
         </label>
         
         <label class="item item-input">
-          <span class="input-label">Einheit Menge</span>
-              <select ng-model="einnahme.einnahmemenge.einheit">
+          <span class="input-label col col-50">Einheit Menge</span>
+              <select class="col" name="Feinheitmenge" ng-model="einnahme.einnahmemenge.einheit" ng-valid required autofocus>
                  <option>Tablette</option>
-                 <option selected>ml</option>
+                 <option>ml</option>
                  <option>mg</option>
               </select>
+         <span class="col" style="color:red" ng-show="einnahmeForm.Feinheitmenge.$invalid">     
+          <span ng-show="einnahmeForm.Feinheitmenge.$error.required"> *</span>
+         </span>
         </label>
         
         <label class="item item-input">
-          <span class="input-label">Uhrzeit</span>
-          <input type="time" ng-model="einnahme.uhrzeit" ng-value="{{einnahme.uhrzeit | date : 'HH:mm'}}">
+          <span class="input-label col col-50">Uhrzeit</span>
+          <input class="col" name="Fuhrzeit" type="time" ng-model="einnahme.uhrzeit"  required autofocus>
+          <span class="col" style="color:red" ng-show="einnahmeForm.Fuhrzeit.$invalid">
+            <span ng-show="einnahmeForm.Fuhrzeit.$error.required"> *</span>
+          </span>
         </label>
         
         <label class="item item-input">
-          <span class="input-label">Wiederholung</span>
-          <button class = "button button-clear" ng-click ="showPopup()">{{einnahme.wiederholungstag}}</button>
+          <span class="input-label col col-50">Wiederholung</span>
+          <button class = "button button-clear" ng-click ="showPopup()"><h5>{{einnahme.wiederholungstag}}</h5></button>
         </label>
         
         <label class="item item-input">
-          <span class="input-label">Einnahme Beginn</span>
-          <input type="date" ng-model="einnahme.wiederholungsbeginn">
+          <span class="input-label col col-50">Einnahme Beginn</span>
+          <input type="date" name="Fwiederholungsbeginn" ng-model="einnahme.wiederholungsbeginn">
+          <span class="col" style="color:red" ng-show="einnahmeForm.Fwiederholungsbeginn.$invalid">
+            <span ng-show="einnahmeForm.Fwiederholungsbeginn.$error.required"> *</span>
+          </span>
         </label>
         
         <label class="item item-input">
-          <span class="input-label">Einnahme Ende</span>
-          <input type="date" ng-model="einnahme.wiederholungsende">
+          <span class="input-label col col-50">Einnahme Ende</span>
+          <input type="date" ng-model="einnahme.wiederholungsende">  
         </label>
                
         <ion-list>
