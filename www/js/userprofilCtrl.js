@@ -1,38 +1,8 @@
 angular.module('starter.userprofilCtrl', [])
 
 
-.controller('UserprofilCtrl', function($scope, $log, $ionicModal, $cordovaDialogs){
+.controller('UserprofilCtrl', function($scope, $log, $ionicModal, $cordovaDialogs, ProfilStorage){
     
-	
-	$scope.showDialogConfirm = function(message, title, button1, button2) {		
-		$cordovaDialogs.confirm(message, title, [button1,button2])
-			.then(function(buttonIndex) {
-			  // no button = 0, 'OK' = 1, 'Cancel' = 2
-			  var btnIndex = buttonIndex;
-			  $log.debug(btnIndex);
-			});
-	};
-	
-	//Returns Object with user input as result.input1 and button index as result.buttonIndex
-	$scope.showDialogPrompt= function(message, title, button1, button2, defaulttext) {		
-		$cordovaDialogs.prompt(message, title, [button1, button2], defaulttext)
-			.then(function(result) {
-			var input = result.input1;
-			var btnIndex = result.buttonIndex;
-			  
-			if (result.buttonIndex == 1) {
-				// clicked OK
-				$log.debug('Neue Eingabe: ' + result.input1);
-				// Zurückspeichern der neuen Eingabe
-				$scope.saveUserprofil();
-			} else {
-				 // clicked Cancel
-				 $log.debug('Cancel');
-				}
-			});
-	};
-	
-	
     $scope.allPersoenlicheDaten = [
         {
             nachname: "Schmidt",
@@ -72,15 +42,72 @@ angular.module('starter.userprofilCtrl', [])
 		 {name: "Erkrankung5"}
      ];
 	 
+
+	//Returns Object with user input as result.input1 and button index as result.buttonIndex
+	$scope.showDialogPrompt= function(message, title, defaulttext) {	
+		
+		// In der tmpVariable wird der bisherige defaulttext gespeichert
+		var tmpVariable = defaulttext;
+		
+		$log.debug('tmpVariable = ' + tmpVariable);
+		$log.debug('defaulttext = ' + defaulttext);
+		
+		
+		$cordovaDialogs.prompt(message, title, ['btn 1','btn 2'], tmpVariable)
+			.then(function(result) {
+			var input = result.input1;
+			var btnIndex = result.buttonIndex;
+		  
+			if (result.buttonIndex == 1) {
+				// clicked OK
+				$log.debug('Eingabe: ' + result.input1);
+				
+				//Zurückschreiben des result.input1 in die View
+				tmpVariable = result.input1;
+				$log.debug('tmpVariable_neu = ' + tmpVariable);
+				
+				// Speicherung
+				//$scope.saveUserprofil();
+			} else {
+				 // clicked Cancel
+				 $log.debug('Cancel');
+				}
+		});
+		
+	};
 	
-	$scope.saveUserprofil = function() {
-		// TODO: Save Funktion implementieren
+	
+	$scope.userprofilData = []; 
+	
+	$scope.saveUserprofil = function(Profil) {
+		// TODO: Save Funktion vollständig implementieren
 		// Wenn neuer Wert leer ist, heißt das, dass der Wert gelöscht werden soll
+		ProfilStorage.saveProfil(Profil);
 		$log.debug("UserprofilCtrl: Save Userprofil -> END WITH SUCCESS");
 	};
 	
 
+	$scope.loadUserprofil = function() {
+		$log.debug("UserprofilCtrl: Start loadUserprofil");
+		// Alles in ein Key/Value-Paar rein oder nach Persönliche Daten u. Gesunheitsdaten unterscheiden?
+		$scope.userprofilData = []; 
+		$scope.userprofilData = ProfilStorage.loadProfil(xxxx);
+		$log.debug("UserprofilCtrl: Ende loadUserprofil");
+	}
+	
+
 	$scope.addAllergie = function() {
+		// Dialog anzeigen
+		$cordovaDialogs.prompt();
+		
+		// Dialog result.input1 verarbeiten
+		//allergieToPush = {name: $scope.dialogRückgabePlatzhalter}
+		// if($scope.dialogRückgabePlatzhalter == '') -> Eintrag löschen
+		allergieToPush = {name: 'Allergie_NEU'} //Dummy
+		
+		$scope.allAllergie.push(allergieToPush);
+
+		$scope.saveUserprofil(xxxx);
 		$log.debug("UserprofilCtrl: addAllergie -> END WITH SUCCESS");
 	}
 	
@@ -91,6 +118,8 @@ angular.module('starter.userprofilCtrl', [])
 	$scope.addErkrankung = function() {
 		$log.debug("UserprofilCtrl: addErkrankung -> END WITH SUCCESS");
 	}
+	
+	
 });
 
     
