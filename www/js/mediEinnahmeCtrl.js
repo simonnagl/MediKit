@@ -18,7 +18,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
   $scope.mediData = [];
   $scope.checkvalid = {};
   
-  default_einnahme = {
+  defaultEinnahme = {
         mediname : "",
         einnahmemenge : {
             menge : undefined,
@@ -76,29 +76,13 @@ angular.module('starter.mediEinnahmeCtrl', [])
   // Triggered in the mediEinnahme_neu modal to close it
   $scope.closeMediEinnahmeNeu = function() {
     $scope.einnahmeview.hide();
-    
-    //Resetfunktion in Billig:
-        $scope.einnahme.mediname = "";
-        $scope.einnahme.einnahmemenge = "";
-        $scope.einnahme.uhrzeit = "";
-        $scope.einnahme.wiederholungstag = "";
-        $scope.einnahme.wiederholungsbeginn = "";
-        $scope.einnahme.wiederholungsende = "";
-        $scope.einnahme.vibration = "";
+    $scope.einnahme = angular.copy(defaultEinnahme); //Reset
   };
   
   // Triggered in the mediEinnahme_edit modal to close it
   $scope.closeMediEinnahmeEdit = function() {
     $scope.einnahmeview.hide();
-    
-    //Resetfunktion in Billig:
-        $scope.einnahme.mediname = "";
-        $scope.einnahme.einnahmemenge = "";
-        $scope.einnahme.uhrzeit = "";
-        $scope.einnahme.wiederholungstag = "";
-        $scope.einnahme.wiederholungsbeginn = "";
-        $scope.einnahme.wiederholungsende = "";
-        $scope.einnahme.vibration = "";
+    $scope.einnahme = angular.copy(defaultEinnahme); //Reset
   };
   
 //// deleteMediEinnahme
@@ -151,7 +135,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
   $scope.mediEinnahmeNeu = function() {
     $scope.isNewEin = true;             //kennzeichnet neue Einnahme
     $scope.id = $scope.creatId();
-    $scope.einnahme = angular.copy(default_einnahme);
+    $scope.einnahme = angular.copy(defaultEinnahme);
     $log.debug("Uhrzeit: " + $scope.einnahme.uhrzeit);
     $scope.einnahmeview.show();
     
@@ -165,7 +149,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
         //Falls $scope.einnahme aus irgendwelchen Gründen nicht vorhanden ist,
         //um Fehler abzufangen, wird eine neue Instanz vorläufig geladen
         if($scope.einnahme == undefined){
-          $scope.einnahme = angular.copy(default_einnahme);
+          $scope.einnahme = angular.copy(defaultEinnahme);
         }
         
         
@@ -182,6 +166,9 @@ angular.module('starter.mediEinnahmeCtrl', [])
         $scope.einnahme.wiederholungsende = new Date(editObject.wiederholungsende);
         $scope.einnahme.vibration = editObject.vibration;
         $log.debug("Einnahme: " + $scope.einnahme);
+        
+        //wichtig für später zur Überprüfung ob Medikament für eine vorhandene Einnahme geändert wurde. 
+        $scope.tempMediId = $scope.einnahme.med.id;
         
     $scope.einnahmeview.show();
   };
@@ -337,15 +324,20 @@ angular.module('starter.mediEinnahmeCtrl', [])
      }
      
      //einnahme.med in einen richtiges Objekt umwandeln
-     $log.debug("Format von einname.med vor parse: " + $scope.einnahme.med);
+     /*$log.debug("Format von einname.med vor parse: " + $scope.einnahme.med);
      if($scope.isNewEin){
        $scope.einnahme.med = JSON.parse($scope.einnahme.med);
      }
      
-     $log.info("addEinnahme: " + $scope.einnahme.med.mediname);
+     $log.info("addEinnahme: " + $scope.einnahme.med.mediname);*/
      
      //Einnahme neu
      if ($scope.isNewEin){
+        
+        //einnahme.med in einen richtiges Object umwandeln
+        $log.debug("Format von einname.med vor parse: " + $scope.einnahme.med);
+        $scope.einnahme.med = JSON.parse($scope.einnahme.med);
+        $log.info("addEinnahme: " + $scope.einnahme.med.mediname);
         
         // Eine neue Einnahmeobjekt erstellen, welches danach gepushed und gespeichert wird.  
         mediEinnahmeToPush = {
@@ -385,10 +377,55 @@ angular.module('starter.mediEinnahmeCtrl', [])
           
       } else {
         //Andernfalls soll die Einnahme aktuallisiert werden
-
+        
+        var mediDataLength = $scope.mediData.length;
+        
+        //Überprüfung ob Einname-Medikament geändert wurde
+        if ($scope.tempMediId != $scope.einnahme.med.id){
+          
+          //einnahme.med in einen richtiges Object umwandeln
+          $log.debug("Format von einname.med vor parse: " + $scope.einnahme.med);
+          $scope.einnahme.med = JSON.parse($scope.einnahme.med);
+          $log.info("addEinnahme: " + $scope.einnahme.med.mediname);
+        
+          //wenns ungleich ist, somit hat sich das Medikament geändert 
+          //und man müsste im alten Medikament die Einnahme löschen 
+          //und dazu gehörende Zukunfts Termin ebenfalls löschen
+          //und die Einnahme unter dem neuen Medikament neu erstellen sowie die zukünftigen Termine erstellen
+          //1. Medikament suchen
+          for (var i=0; i < mediDataLength; i++){
+            if ($scope.mediData[i].id == $scope.tempMediId){
+                            
+              //2. Einnahme im Medikament suchen und anschließend löschen
+              var mediEinnahmenLength = $scope.mediData[i].einnahmen.length;
+              for (var j=0; j < mediEinnahmenLength; j++){
+                if($scope.mediData[i].einnahmen[j].id == $scope.einnahme.id){
+                  $log.debug("mediData[i].einnahmen[j] " + $scope.mediData[i].einnahmen[j].id);                  
+                  $scope.mediData[i].einnahmen.splice(j, 1);
+                  break;
+                }
+              }
+              
+              //3. Medikament in der Storage aktualisieren
+              MediStorage.updateMedikament($scope.mediData[i]);
+            }          
+          }
+          //4.Zukünftige Einnahmen in der Webstorage ebenfalls löschen
+          EinnahmeStorage.deleteEinnahme($scope.einnahme.id);
+          
+          //nach dem die Einnahme und Historie mit dem alten Medikament bereinigt wurde,
+          //wird im Prenzip ein neue Einnahme erstellt und gespeichert
+          //somit erst Vorkerungen treffen damit auch eine neue Einnahme gültig ist.
+          $scope.isNewEin = true;
+          $scope.einnahme.med = JSON.stringify($scope.einnahme.med);
+          $scope.addEinnahme();
+          
+        } else {
+        //Ansonsten nur die Einnahme in dem nicht geänderten Medikament aktualisieren 
+        
         //Einnahme für das jeweilige Medikament in der Webstorage speichern
           //1. Medikament suchen
-          var mediDataLength = $scope.mediData.length;
+          
           for (var i=0; i < mediDataLength; i++){
             if ($scope.mediData[i].mediname == $scope.einnahme.med.mediname){ //TODO auf medi-id suche umstellen
               
@@ -417,17 +454,9 @@ angular.module('starter.mediEinnahmeCtrl', [])
               
             }//if ende
           }//for ende
+        }//inneres else ende
 
       }//else ende
-      
-        //Resetfunktion in Billig:
-        /*$scope.einnahme.mediname = "";
-        $scope.einnahme.einnahmemenge = "";
-        $scope.einnahme.uhrzeit = "";
-        $scope.einnahme.wiederholungstag = "";
-        $scope.einnahme.wiederholungsbeginn = "";
-        $scope.einnahme.wiederholungsende = "";
-        $scope.einnahme.vibration = "";*/
         
         //Liste neu Laden
         $scope.loadMedisForEinnahme();
@@ -439,20 +468,56 @@ angular.module('starter.mediEinnahmeCtrl', [])
         
     };
 
-$scope.setMediname = function(mediname) {
-  $log.debug("Setze Mediname: " + mediname);
-  $scope.einnahme.mediname = mediname;
-  
-}
+////setMediname
+  $scope.setMediname = function(mediname) {
+    $log.debug("Setze Mediname: " + mediname);
+    $scope.einnahme.mediname = mediname;
+  }
 
 /////////setEinnahmeMed
-$scope.setEinnahmeMed = function(checkMediname){
+  $scope.setEinnahmeMed = function(checkMediname){
   
-  for(var i=0; i < $scope.mediData.length; i++)
-    if($scope.mediData[i].mediname == checkMediname){
-      $scope.einnahme.med = $scope.mediData[i];
+    for(var i=0; i < $scope.mediData.length; i++)
+      if($scope.mediData[i].mediname == checkMediname){
+        $scope.einnahme.med = $scope.mediData[i];
+      }
+  }
+
+////getDayname
+  $scope.getDayname = function(days){
+    var dayAsString = "";
+    if (days != undefined){
+      if(days.mo != undefined && days.mo){
+        dayAsString = dayAsString + "Mo. ";
+      } 
+      if(days.di != undefined && days.di){
+        dayAsString = dayAsString + "Di. ";
+      }   
+      if(days.mi != undefined && days.mi){
+        dayAsString = dayAsString + "Mi. ";
+      }  
+      if(days.do != undefined && days.do){
+        dayAsString = dayAsString + "Do. ";
+      }  
+      if(days.fr != undefined && days.fr){
+        dayAsString = dayAsString + "Fr. ";
+      }  
+      if(days.sa != undefined && days.sa){
+        dayAsString = dayAsString + "Sa. ";
+      }
+      if(days.so != undefined && days.so){
+        dayAsString = dayAsString + "So. ";
+      }
+      if(days.mo && days.di && days.mi && days.do && days.fr && days.sa && days.so){
+        dayAsString = "Täglich";
+      }  
+      if(!days.mo && !days.di && !days.mi && !days.do && !days.fr && !days.sa && !days.so){
+        dayAsString = "keine Wdh.";
+      }
     }
-}
+  
+    return dayAsString;
+  }
 
 
 ////Pupup
@@ -489,8 +554,7 @@ $scope.setEinnahmeMed = function(checkMediname){
       myPopup.then(function(res) {
          $log.info('Tapped!', res);
       });    
-   };
-///Pupup ende
+   };///Pupup ende
 
 
 }]);

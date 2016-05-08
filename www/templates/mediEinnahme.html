@@ -17,7 +17,7 @@
             <div class="col">{{einnahm.einnahmemenge.menge + einnahm.einnahmemenge.einheit}}</div> 
         </div>
         <div class="row">
-          <div class="col">{{einnahm.wiederholungstag}}</div>
+          <div class="col" ng-bind="getDayname(einnahm.wiederholungstag)"></div>
         </div> 
         <div class="row">
           <div class="col">{{einnahm.wiederholungsbeginn | date : "dd.MM.yyyy"}}  -  {{einnahm.wiederholungsende | date : "dd.MM.yyyy"}}</div>

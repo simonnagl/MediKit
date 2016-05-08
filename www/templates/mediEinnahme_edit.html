@@ -60,7 +60,7 @@
         
         <label class="item item-input">
           <span class="input-label col col-50">Wiederholung</span>
-          <button class = "button button-clear" ng-click ="showPopup()"><h5>{{einnahme.wiederholungstag}}</h5></button>
+          <button class = "button button-clear" ng-click ="showPopup()"><div class="col" ng-bind="getDayname(einnahme.wiederholungstag)"></div></button>
         </label>
         
         <label class="item item-input">
