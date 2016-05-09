@@ -1,7 +1,7 @@
 angular.module('starter.startseiteCtrl', [])
 
 .controller('StartseiteCtrl', function($scope, $ionicModal, $timeout, $log, $location, $ionicPopup, $state) {
-
+    $scope.seen = 'false';
     $scope.name = 'John';
     $scope.count = "3";
     $scope.einnahme = [
@@ -13,7 +13,12 @@ angular.module('starter.startseiteCtrl', [])
     $scope.navigate = function(path) {
         $location.path(path);
     }
-    
+    if($scope.seen =='false'){
+    $scope.$on("$ionicView.loaded", function(){
+        $scope.showPopup();
+        $scope.seen ='true';
+        });}
+        
     ////Pupup
 
    // When button is clicked, the popup will be shown...
@@ -28,12 +33,13 @@ angular.module('starter.startseiteCtrl', [])
          scope: $scope,
 			
          buttons: [
-            { text: 'Abbrechen' }, {
+            { text: 'Abbrechen',
+               }, {
                text: '<b>Historie anzeigen</b>',
                type: 'button-positive',
                   onTap: function(e) {
                        
-						 $scope.navigate('/app/historie/true')       
+						 $scope.navigate('/app/historie/true')      
                       
                   }
             }
