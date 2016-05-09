@@ -46,12 +46,8 @@ angular.module('starter.userprofilCtrl', [])
 	//Returns Object with user input as result.input1 and button index as result.buttonIndex
 	$scope.showDialogPrompt= function(message, title, defaulttext) {	
 		
-		// In der tmpVariable wird der bisherige defaulttext gespeichert
+		// Zwischenspeicherung
 		var tmpVariable = defaulttext;
-		
-		$log.debug('tmpVariable = ' + tmpVariable);
-		$log.debug('defaulttext = ' + defaulttext);
-		
 		
 		$cordovaDialogs.prompt(message, title, ['btn 1','btn 2'], tmpVariable)
 			.then(function(result) {
@@ -62,9 +58,10 @@ angular.module('starter.userprofilCtrl', [])
 				// clicked OK
 				$log.debug('Eingabe: ' + result.input1);
 				
-				//Zurückschreiben des result.input1 in die View
-				tmpVariable = result.input1;
-				$log.debug('tmpVariable_neu = ' + tmpVariable);
+				//Zurückschreiben
+				//defaulttext = angular.copy(result.input1);
+				defaulttext = result.input1;
+				$log.debug('defaulttext = ' + defaulttext);
 				
 				// Speicherung
 				//$scope.saveUserprofil();
@@ -73,7 +70,6 @@ angular.module('starter.userprofilCtrl', [])
 				 $log.debug('Cancel');
 				}
 		});
-		
 	};
 	
 	
@@ -107,7 +103,7 @@ angular.module('starter.userprofilCtrl', [])
 		
 		$scope.allAllergie.push(allergieToPush);
 
-		$scope.saveUserprofil(xxxx);
+		//$scope.saveUserprofil(xxxx);
 		$log.debug("UserprofilCtrl: addAllergie -> END WITH SUCCESS");
 	}
 	

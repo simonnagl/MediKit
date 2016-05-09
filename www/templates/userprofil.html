@@ -10,31 +10,24 @@
 	
 	<ion-list class="list list-inset">
 	
-	<ion-item class="item-divider">Persönliche Daten</ion-item>
-		<ion-item class="item" ng-repeat="persoenlicheDaten in allPersoenlicheDaten">
-            
-			<div class="row" data-ng-click="showDialogPrompt('Nachname:', 'Titel', 'Yes', 'No', '{{persoenlicheDaten.nachname}}')">
-						<div class="col" align="left">Nachname:</div>
-						<div class="col" align="left">
-							{{persoenlicheDaten.nachname}}
-						</div>	
-			</div>
-			
-			<div class="row" data-ng-click="showDialogPrompt('Vorname:', 'Titel', 'Yes', 'No', '{{persoenlicheDaten.vorname}}')">
-				<div class="col" align="left">Vorname:</div>
-				<div class="col" align="left">
-					{{persoenlicheDaten.vorname}}
-				</div>
-			</div>
-
-		</ion-item>
-		
-		
-	<ion-item class="item-divider"> <!--item-icon-right-->
-		Blutgruppe
+	<ion-item class="item-divider">
+			Persönliche Daten
 	</ion-item>
 
-	 <ion-item class="item" ng-repeat="blutgruppe in allBlutgruppe" ng-click="showDialogPrompt('Blutgruppe:', 'Titel', '{{blutgruppe.name}}')">
+	<ion-item class="item" ng-repeat="persoenlicheDaten in allPersoenlicheDaten" ng-click="showDialogPrompt('Nachname:', 'Titel', persoenlicheDaten.nachname)">
+			Nachname: {{persoenlicheDaten.nachname}}			
+	</ion-item>
+		
+	<ion-item class="item" ng-repeat="persoenlicheDaten in allPersoenlicheDaten" ng-click="showDialogPrompt('Vorname:', 'Titel', persoenlicheDaten.vorname)">
+			Vorname: {{persoenlicheDaten.vorname}}
+	</ion-item>
+
+
+	<ion-item class="item-divider"> <!--item-icon-right-->
+			Blutgruppe
+	</ion-item>
+
+	 <ion-item class="item" ng-repeat="blutgruppe in allBlutgruppe" ng-click="showDialogPrompt('Blutgruppe:', 'Titel', blutgruppe.name)">
 			{{blutgruppe.name}}
 	 </ion-item>
 	 
@@ -45,7 +38,7 @@
 	</ion-item>
 	
 
-	<ion-item class="item" ng-repeat="allergie in allAllergie"  ng-click="showDialogPrompt('Allergie:', 'Titel', '{{allergie.name}}')">
+	<ion-item class="item" ng-repeat="allergie in allAllergie"  ng-click="showDialogPrompt('Allergie:', 'Titel', allergie.name)">
 			{{allergie.name}}
 	 </ion-item>
 	
@@ -55,7 +48,7 @@
 		<i class="ion-android-add-circle" ng-click="addUnvertraeglichkeit()"></i>
 	</ion-item>
 	
-	<ion-item class="item" ng-repeat="unvertraeglichkeit in allUnvertraeglichkeit" ng-click="showDialogPrompt('Unverträglichkeit:', 'Titel', '{{unvertraeglichkeit.name}}')">
+	<ion-item class="item" ng-repeat="unvertraeglichkeit in allUnvertraeglichkeit" ng-click="showDialogPrompt('Unverträglichkeit:', 'Titel', unvertraeglichkeit.name)">
 			{{unvertraeglichkeit.name}}
 	 </ion-item>
 	 
@@ -65,7 +58,7 @@
 		<i class="ion-android-add-circle" ng-click="addErkrankung()"></i>
 	</ion-item>
 	
-	<ion-item class="item" ng-repeat="erkrankung in allErkrankung" ng-click="showDialogPrompt('Erkrankung:', 'Titel', '{{erkrankung.name}}')">
+	<ion-item class="item" ng-repeat="erkrankung in allErkrankung" ng-click="showDialogPrompt('Erkrankung:', 'Titel', erkrankung.name)">
 			{{erkrankung.name}}
 	 </ion-item>
 	 
