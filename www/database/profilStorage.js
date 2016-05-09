@@ -30,7 +30,7 @@ angular.module('starter.profilStorage', [])
      */   
     function saveProfil(Profil) {
         $log.debug("WebStorage: saveProfil -> START");                     
-        WebStorageMain.saveObject("profil");
+        WebStorageMain.saveObject("profil", Profil);
         $log.debug("WebStorage: saveProfil -> END WITH SUCCESS");     
     }
     ;

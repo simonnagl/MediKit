@@ -14,24 +14,27 @@
 			Persönliche Daten
 	</ion-item>
 
-	<ion-item class="item" ng-repeat="persoenlicheDaten in allPersoenlicheDaten" ng-click="showDialogPrompt('Nachname:', 'Titel', persoenlicheDaten.nachname)">
+	<ion-item class="item" ng-repeat="persoenlicheDaten in allPersoenlicheDaten" ng-click="changeNachname(persoenlicheDaten)">
 			Nachname: {{persoenlicheDaten.nachname}}			
 	</ion-item>
 		
-	<ion-item class="item" ng-repeat="persoenlicheDaten in allPersoenlicheDaten" ng-click="showDialogPrompt('Vorname:', 'Titel', persoenlicheDaten.vorname)">
+	<ion-item class="item" ng-repeat="persoenlicheDaten in allPersoenlicheDaten" ng-click="changeVorname(persoenlicheDaten)">
 			Vorname: {{persoenlicheDaten.vorname}}
 	</ion-item>
 
 
-	<ion-item class="item-divider"> <!--item-icon-right-->
+	<ion-item class="item-divider" ng-click="addNewBlutgruppe()" ng-if="isBlutgruppeEmptyBool">
 			Blutgruppe
 	</ion-item>
-
-	 <ion-item class="item" ng-repeat="blutgruppe in allBlutgruppe" ng-click="showDialogPrompt('Blutgruppe:', 'Titel', blutgruppe.name)">
+	
+	<ion-item class="item-divider" ng-if="!isBlutgruppeEmptyBool">
+			Blutgruppe
+	</ion-item>
+	
+	 <ion-item class="item" ng-repeat="blutgruppe in allBlutgruppe"  ng-click="changeBlutgruppe(blutgruppe)">
 			{{blutgruppe.name}}
 	 </ion-item>
-	 
-	 
+
 	<ion-item class="item-divider">
 		Allergie
 		<i class="ion-android-add-circle" ng-click="addNewAllergie()"></i>
