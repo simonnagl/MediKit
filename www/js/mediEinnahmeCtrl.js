@@ -134,6 +134,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
 //// Open the mediEinnahme_neu modal
   $scope.mediEinnahmeNeu = function() {
     $scope.isNewEin = true;             //kennzeichnet neue Einnahme
+    $scope.loadMedisForEinnahme();      //Liste von Medikament und Einnahmen laden
     $scope.id = $scope.creatId();
     $scope.einnahme = angular.copy(defaultEinnahme);
     $log.debug("Uhrzeit: " + $scope.einnahme.uhrzeit);
@@ -144,6 +145,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
 //// Open the mediEinnahme_edit modal
   $scope.mediEinnahmeEdit = function(editObject) {
     $scope.isNewEin = false;
+    $scope.loadMedisForEinnahme();      //Liste von Medikament und Einnahmen laden
       $log.info('Edit Object: ', editObject);
         
         //Falls $scope.einnahme aus irgendwelchen Gründen nicht vorhanden ist,
