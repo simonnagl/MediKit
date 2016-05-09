@@ -34,31 +34,31 @@
 	 
 	<ion-item class="item-divider">
 		Allergie
-		<i class="ion-android-add-circle" ng-click="addAllergie()"></i>
+		<i class="ion-android-add-circle" ng-click="addNewAllergie()"></i>
 	</ion-item>
 	
 
-	<ion-item class="item" ng-repeat="allergie in allAllergie"  ng-click="showDialogPrompt('Allergie:', 'Titel', allergie.name)">
+	<ion-item class="item" ng-repeat="allergie in allAllergie"  ng-click="changeAllergie(allergie)">
 			{{allergie.name}}
 	 </ion-item>
 	
 	
 	<ion-item class="item-divider">
 		Unverträglichkeit
-		<i class="ion-android-add-circle" ng-click="addUnvertraeglichkeit()"></i>
+		<i class="ion-android-add-circle" ng-click="addNewUnvertraeglichkeit()"></i>
 	</ion-item>
 	
-	<ion-item class="item" ng-repeat="unvertraeglichkeit in allUnvertraeglichkeit" ng-click="showDialogPrompt('Unverträglichkeit:', 'Titel', unvertraeglichkeit.name)">
+	<ion-item class="item" ng-repeat="unvertraeglichkeit in allUnvertraeglichkeit" ng-click="changeUnvertraeglichkeit(unvertraeglichkeit)">
 			{{unvertraeglichkeit.name}}
 	 </ion-item>
 	 
 	 
 	<ion-item class="item-divider">
 		Erkrankung
-		<i class="ion-android-add-circle" ng-click="addErkrankung()"></i>
+		<i class="ion-android-add-circle" ng-click="addNewErkrankung()"></i>
 	</ion-item>
 	
-	<ion-item class="item" ng-repeat="erkrankung in allErkrankung" ng-click="showDialogPrompt('Erkrankung:', 'Titel', erkrankung.name)">
+	<ion-item class="item" ng-repeat="erkrankung in allErkrankung" ng-click="changeErkrankung(erkrankung)">
 			{{erkrankung.name}}
 	 </ion-item>
 	 
