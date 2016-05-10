@@ -1,6 +1,6 @@
 angular.module('starter.historieCtrl', ['ionic'])
 
-.controller('HistorieCtrl', function($scope, $ionicModal, $timeout, $log) {
+.controller('HistorieCtrl', function($scope, $stateParams, $ionicModal, $timeout, $log) {
 
     //Controller historieCtrl
     
@@ -10,7 +10,11 @@ angular.module('starter.historieCtrl', ['ionic'])
     {id:"234", mediname:"Paracetamol", medidosis:"100mg", einnahmemenge:"1Tablette", einnahmezeitsoll:"02.04.2016 12:00", einnahmezeitist:"2.4.2016 12:05"}];
   
 
-       
+$scope.param = $stateParams.isNichtEingenommen;
+
+
+
+      
 $scope.currentDate = new Date();
 $scope.minDate = new Date(2000, 6, 1);
 $scope.maxDate = new Date();
