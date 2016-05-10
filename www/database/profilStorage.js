@@ -8,9 +8,10 @@ angular.module('starter.profilStorage', [])
         saveProfil : saveProfil,
 	}
     
+	//Übergabe egal...?
     function loadProfil(Profil) {
         $log.debug("WebStorage: loadProfil -> START");
-        var value = WebStorageMain.loadObject("profil");  
+        var value = WebStorageMain.loadObject(Profil);  
         
         if (value != null) {
             $log.debug("WebStorage: loadProfil -> END WITH SUCCESS");

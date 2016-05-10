@@ -13,12 +13,9 @@ angular.module('starter.userprofilCtrl', [])
         }   
      ];
      
-	 
-	$scope.allBlutgruppe = [];
-	$scope.allAllergie = [];
-    $scope.allUnvertraeglichkeit = [];
-    $scope.allErkrankung = [];
-	 
+
+
+	
 	$scope.showDialogPrompt= function(message, title, object) {
 		var deferred = $q.defer();
 		var tmpObject = object;
@@ -35,13 +32,9 @@ angular.module('starter.userprofilCtrl', [])
 					//Dialog Input leer
 					$log.debug("Dialog Input leer");
 					deferred.reject();
-					
-					//TODO:
-					// Löschfunktion implementieren
 				}
 			} else {
 				 $log.debug('Cancel');
-				 deferred.reject();
 			}
 		});
 		
@@ -74,6 +67,7 @@ angular.module('starter.userprofilCtrl', [])
 		$scope.showDialogPrompt("Geben Sie den Vorname ein.", "Nachname", vorname.vorname)
 		.then(function(result) {
 			vorname.vorname = result;
+			//save();
 		});
 	}
 	;
@@ -93,8 +87,21 @@ angular.module('starter.userprofilCtrl', [])
 	$scope.changeBlutgruppe = function(blutgruppe) {
 		$scope.showDialogPrompt("Geben Sie die Bezeichnung für die Blutgruppe ein.", "Blutgruppe", blutgruppe)
 		.then(function(result) {
+			//Positivfall (der showDialogPromt())
 			$log.debug("result = " + result);
-				blutgruppe.name = result;
+			blutgruppe.name = result;
+			$scope.saveUserprofil();
+		},function() {
+			//Negativfall
+			
+			$scope.allBlutgruppe.splice($scope.allBlutgruppe.indexOf(blutgruppe), 1);
+			$scope.isBlutgruppeEmptyBool = true;
+			
+			$log.debug("Wert gelöscht");
+			$log.debug("Inhalt allBlutgruppe: " + $scope.allBlutgruppe);
+			$log.debug("Länge: " + $scope.allBlutgruppe.length);
+			$log.debug("$scope.isBlutgruppeEmptyBool = " + $scope.isBlutgruppeEmptyBool);
+			$scope.saveUserprofil();
 		});
 	}
 	;
@@ -104,6 +111,7 @@ angular.module('starter.userprofilCtrl', [])
 		.then(function(result) {
 			$scope.allBlutgruppe.push({name:result})
 			$scope.isBlutgruppeEmptyBool = false;
+			$scope.saveUserprofil();
 		});
 	}
 	;
@@ -175,11 +183,17 @@ angular.module('starter.userprofilCtrl', [])
 	;
 
 // -------------------------------------------------------------------------------------------
-	
-	$scope.saveUserprofil = function(userprofil) {
+	$scope.allBlutgruppe = [];
+	$scope.saveUserprofil = function() {
 		// TODO: Save Funktion vollständig implementieren
 		// Wenn neuer Wert leer ist, heißt das, dass der Wert gelöscht werden soll
-		ProfilStorage.saveProfil(userprofil);
+		var profil = {
+				blutgruppe: $scope.allBlutgruppe,
+				allergie: $scope.allAllergie,
+				unvertraeglichkeit: $scope.allUnvertraeglichkeit,
+				erkrankung: $scope.allErkrankung
+		}
+		ProfilStorage.saveProfil(profil);
 		$log.debug("UserprofilCtrl: Save Userprofil -> END WITH SUCCESS");
 	}
 	;
@@ -187,19 +201,30 @@ angular.module('starter.userprofilCtrl', [])
 
 	$scope.loadUserprofil = function() {
 		$log.debug("UserprofilCtrl: Start loadUserprofil");
-		// Alles in ein Key/Value-Paar rein oder nach Persönliche Daten u. Gesunheitsdaten unterscheiden?
-		$scope.userprofilData = []; 
-		$scope.userprofilData = ProfilStorage.loadProfil(xxxx);
+		
+		//Profil aus Storage in UserprofilData Array speichern
+		$scope.userprofilData = ProfilStorage.loadProfil("profil");
+
+		$scope.allBlutgruppe = $scope.userprofilData.blutgruppe;
+
+		//$scope.allBlutgruppe = $scope.userprofilData.allBlutgruppe;
+		//$scope.allAllergie = $scope.userProfilData.allergie;
 		
 		// Prüfen zur Anpassung der View
-		$scope.isNachnameEmpty();
+		/*$scope.isNachnameEmpty();
 		$scope.isVornameEmpty();
-		$scope.isBlutgruppeEmpty(); 
-		
+		$scope.isBlutgruppeEmpty(); */
+	
 		$log.debug("UserprofilCtrl: Ende loadUserprofil");
 	}
 	;
-
+	
+	$scope.ausgabe = function() {
+		$log.debug("------------------------------------");
+		$log.debug("userprofilData = " + $scope.userprofilData);
+		$log.debug("$scope.allBlutgruppe = " + $scope.allBlutgruppe);
+		$log.debug("$scope.userprofilData.blutgruppe = " + $scope.userprofilData.blutgruppe);
+	};
 	
 	
 });
