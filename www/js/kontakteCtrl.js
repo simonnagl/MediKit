@@ -57,7 +57,9 @@ angular.module('starter.kontakteCtrl', [])
 	// Jedesmal das komplette allKontakt Array mit allen Objekten speichern
     $scope.addKontakt = function () {
 		 if($scope.isNewKontakt){
-			 //Ein neues Kontaktobjekt erstellen, pushen und speichern
+			//TODO:
+			//Validierung implementieren
+			 $scope.allKontakt.push($scope.selectedKontakt);
 			 $scope.kontakt.hide();
 			 $log.debug("KontakteCtrl: Add Kontakt -> END WITH SUCCESS");
 		 } else {
@@ -86,8 +88,8 @@ angular.module('starter.kontakteCtrl', [])
         return true;
     };
 
-	$scope.deleteKontakt = function () {
-		// TODO: Delete des Kontaktobjekts implementieren (splice?)
+	$scope.deleteKontakt = function (kontakt) {
+		$scope.allKontakt.splice($scope.allKontakt.indexOf(kontakt), 1);
 		$scope.kontakt.hide();
 		$log.debug("KontakteCtrl: Delete Kontakt -> END WITH SUCCESS");
 	}

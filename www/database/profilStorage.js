@@ -8,9 +8,10 @@ angular.module('starter.profilStorage', [])
         saveProfil : saveProfil,
 	}
     
+
     function loadProfil(Profil) {
         $log.debug("WebStorage: loadProfil -> START");
-        var value = WebStorageMain.loadObject("profil");  
+        var value = WebStorageMain.loadObject(Profil);  
         
         if (value != null) {
             $log.debug("WebStorage: loadProfil -> END WITH SUCCESS");
@@ -30,7 +31,7 @@ angular.module('starter.profilStorage', [])
      */   
     function saveProfil(Profil) {
         $log.debug("WebStorage: saveProfil -> START");                     
-        WebStorageMain.saveObject("profil");
+        WebStorageMain.saveObject("profil", Profil);
         $log.debug("WebStorage: saveProfil -> END WITH SUCCESS");     
     }
     ;
