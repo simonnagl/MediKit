@@ -3,6 +3,12 @@ angular.module('starter.userprofilCtrl', [])
 
 .controller('UserprofilCtrl', function($scope, $log, $ionicModal, $q, $cordovaDialogs, ProfilStorage){
     
+	$scope.$on('$ionicView.enter', function() {
+     // Code you want executed every time view is opened
+	 $scope.loadUserprofil()
+     console.log('Opened!')
+	})
+  
     $scope.allPersoenlicheDaten = [
         {
             nachname: "Schmidt",
@@ -12,10 +18,12 @@ angular.module('starter.userprofilCtrl', [])
 	        ort: "München" 
         }   
      ];
+ 
      
-
-
 	$scope.allBlutgruppe = [];
+	$scope.allAllergie = [];
+	$scope.allUnvertraeglichkeit = [];
+	$scope.allErkrankung = [];
 	
 	$scope.showDialogPrompt= function(message, title, object) {
 		var deferred = $q.defer();
@@ -49,6 +57,9 @@ angular.module('starter.userprofilCtrl', [])
 		$scope.showDialogPrompt("Geben Sie den Nachname ein.", "Nachname", nachname.nachname)
 		.then(function(result) {
 			nachname.nachname = result;
+		},function() {
+			//Negativfall
+			
 		});
 	}
 	;
@@ -58,7 +69,7 @@ angular.module('starter.userprofilCtrl', [])
 	;
 	
 	// Falls noch kein Profil gepflegt wurde
-	$scope.isNachnameEmptyBool = false; //noch auf true setzen wenn Storage auch für persönliche Daten sauber angebunden
+	$scope.isNachnameEmptyBool = false; //wieder auf true setzen, wenn geklärt wie view ausschauen soll bei leeren persönlichen Daten
 	$scope.isNachnameEmpty = function() {
 		if($scope.allPersoenlicheDaten.vorname.length > 0) {
 			//this array is not empty
@@ -74,7 +85,10 @@ angular.module('starter.userprofilCtrl', [])
 		$scope.showDialogPrompt("Geben Sie den Vorname ein.", "Nachname", vorname.vorname)
 		.then(function(result) {
 			vorname.vorname = result;
-			//save();
+			$scope.saveUserprofil();
+		},function() {
+			//Negativfall - gespeicherte leere Eingabe entspricht löschen
+			
 		});
 	}
 	;
@@ -84,7 +98,7 @@ angular.module('starter.userprofilCtrl', [])
 	;
 	
 	// Falls noch kein Profil gepflegt wurde
-	$scope.isVornameEmptyBool = false; //noch auf true setzen wenn Storage auch für persönliche Daten sauber angebunden
+	$scope.isVornameEmptyBool = false; //wieder auf true setzen, wenn geklärt wie view ausschauen soll bei leeren persönlichen Daten
 	$scope.isVornameEmpty = function() {
 		if($scope.allPersoenlicheDaten.vorname.length > 0) {
 			//this array is not empty
@@ -105,15 +119,10 @@ angular.module('starter.userprofilCtrl', [])
 			blutgruppe.name = result;
 			$scope.saveUserprofil();
 		},function() {
-			//Negativfall
-			
+			//Negativfall - gespeicherte leere Eingabe entspricht löschen
 			$scope.allBlutgruppe.splice($scope.allBlutgruppe.indexOf(blutgruppe), 1);
 			$scope.isBlutgruppeEmptyBool = true;
-			
 			$log.debug("Wert gelöscht");
-			$log.debug("Inhalt allBlutgruppe: " + $scope.allBlutgruppe);
-			$log.debug("Länge: " + $scope.allBlutgruppe.length);
-			$log.debug("$scope.isBlutgruppeEmptyBool = " + $scope.isBlutgruppeEmptyBool);
 			$scope.saveUserprofil();
 		});
 	}
@@ -147,6 +156,12 @@ angular.module('starter.userprofilCtrl', [])
 		$scope.showDialogPrompt("Geben Sie die Bezeichnung für die Allergie ein.", "Allergie", allergie)
 		.then(function(result) {
 			allergie.name = result;
+			$scope.saveUserprofil();
+		},function() {
+			//Negativfall - gespeicherte leere Eingabe entspricht löschen
+			$scope.allAllergie.splice($scope.allAllergie.indexOf(allergie), 1);
+			$log.debug("Wert gelöscht");
+			$scope.saveUserprofil();
 		});
 	}
 	;
@@ -155,6 +170,7 @@ angular.module('starter.userprofilCtrl', [])
 		$scope.showDialogPrompt("Geben Sie die Bezeichnung für die neue Allergie ein.", "Allergie", "")
 		.then(function(result) {
 			$scope.allAllergie.push({name:result})
+			$scope.saveUserprofil();
 		});
 	}
 	;
@@ -165,6 +181,12 @@ angular.module('starter.userprofilCtrl', [])
 		$scope.showDialogPrompt("Geben Sie die Bezeichnung für die Erkrankung ein.", "Erkrankung", erkrankung)
 		.then(function(result) {
 			erkrankung.name = result;
+			$scope.saveUserprofil();
+		},function() {
+			//Negativfall - gespeicherte leere Eingabe entspricht löschen
+			$scope.allErkrankung.splice($scope.allErkrankung.indexOf(erkrankung), 1);
+			$log.debug("Wert gelöscht");
+			$scope.saveUserprofil();
 		});
 	}
 	;
@@ -173,6 +195,7 @@ angular.module('starter.userprofilCtrl', [])
 		$scope.showDialogPrompt("Geben Sie die Bezeichnung für die neue Erkrankung ein.", "Erkrankung", "")
 		.then(function(result) {
 			$scope.allErkrankung.push({name:result})
+			$scope.saveUserprofil();
 		});
 	}
 	;
@@ -183,6 +206,12 @@ angular.module('starter.userprofilCtrl', [])
 		$scope.showDialogPrompt("Geben Sie die Bezeichnung für die Unvertraeglichkeit ein.", "Unvertraeglichkeit", unvertraeglichkeit)
 		.then(function(result) {
 			unvertraeglichkeit.name = result;
+			$scope.saveUserprofil();
+		},function() {
+			//Negativfall - gespeicherte leere Eingabe entspricht löschen
+			$scope.allUnvertraeglichkeit.splice($scope.allUnvertraeglichkeit.indexOf(unvertraeglichkeit), 1);
+			$log.debug("Wert gelöscht");
+			$scope.saveUserprofil();
 		});
 	}
 	;
@@ -191,6 +220,7 @@ angular.module('starter.userprofilCtrl', [])
 		$scope.showDialogPrompt("Geben Sie die Bezeichnung für die neue Unvertraeglichkeit ein.", "Unvertraeglichkeit", "")
 		.then(function(result) {
 			$scope.allUnvertraeglichkeit.push({name:result})
+			$scope.saveUserprofil();
 		});
 	}
 	;
@@ -198,11 +228,10 @@ angular.module('starter.userprofilCtrl', [])
 // -------------------------------------------------------------------------------------------
 
 	$scope.saveUserprofil = function() {
-		// TODO: Save Funktion vollständig implementieren
-		// Wenn neuer Wert leer ist, heißt das, dass der Wert gelöscht werden soll
 		var profil = {
-				//persönliche daten
-				//blutgruppe: $scope.allBlutgruppe,
+				//nachname:...
+				//vorname:...
+				//vorname: $scope.allPersoenlicheDaten.vorname,
 				blutgruppe: $scope.allBlutgruppe,
 				allergie: $scope.allAllergie,
 				unvertraeglichkeit: $scope.allUnvertraeglichkeit,
@@ -220,20 +249,26 @@ angular.module('starter.userprofilCtrl', [])
 		//Profil aus Storage in UserprofilData Array speichern
 		$scope.userprofilData = [];
 		$scope.userprofilData = ProfilStorage.loadProfil("profil");
-		$log.debug("$scope.userprofilData.blutgruppe = " + $scope.userprofilData);
-		$log.debug("$scope.userprofilData.blutgruppe = " + $scope.userprofilData.blutgruppe);
 		
-		//allBlutgruppe = [{name = ]
+		if($scope.userprofilData == null) {
+			//do initialize
+			$log.debug("do initialize");
+		} else {
+			//nachname
+			//vorname
+			//$scope.allPersoenlicheDaten.vorname = $scope.userprofilData.vorname;
+			$scope.allBlutgruppe = $scope.userprofilData.blutgruppe;
+			$scope.allAllergie = $scope.userprofilData.allergie;
+			$scope.allUnvertraeglichkeit = $scope.userprofilData.unvertraeglichkeit;
+			$scope.allErkrankung = $scope.userprofilData.erkrankung;
+			
+			// Prüfen zur Anpassung der View
+			//$scope.isNachnameEmpty();
+			//$scope.isVornameEmpty();
+			//$scope.isBlutgruppeEmpty();
 		
-		//$scope.allBlutgruppe.push($scope.userprofilData.blutgruppe);
-		$scope.allBlutgruppe = $scope.userprofilData.blutgruppe;
-		
-		// Prüfen zur Anpassung der View
-		/*$scope.isNachnameEmpty();
-		$scope.isVornameEmpty();
-		$scope.isBlutgruppeEmpty(); */
-	
-		$log.debug("UserprofilCtrl: Ende loadUserprofil");
+			$log.debug("UserprofilCtrl: Ende loadUserprofil");
+		}
 	}
 	;
 	
