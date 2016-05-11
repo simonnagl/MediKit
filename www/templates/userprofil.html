@@ -14,11 +14,12 @@
 			Persönliche Daten
 	</ion-item>
 
-	<ion-item class="item" ng-repeat="persoenlicheDaten in allPersoenlicheDaten" ng-click="changeNachname(persoenlicheDaten)">
+	<ion-item class="item" ng-repeat="persoenlicheDaten in allPersoenlicheDaten" ng-click="changeNachname(persoenlicheDaten)" ng-if="!isNachnameEmptyBool">
 			Nachname: {{persoenlicheDaten.nachname}}			
 	</ion-item>
+	
 		
-	<ion-item class="item" ng-repeat="persoenlicheDaten in allPersoenlicheDaten" ng-click="changeVorname(persoenlicheDaten)">
+	<ion-item class="item" ng-repeat="persoenlicheDaten in allPersoenlicheDaten" ng-click="changeVorname(persoenlicheDaten)" ng-if="!isVornameEmptyBool">
 			Vorname: {{persoenlicheDaten.vorname}}
 	</ion-item>
 

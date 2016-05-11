@@ -13,7 +13,7 @@ angular.module('starter.webStorageMain', [])
     function loadObject(key) {
         try {
             $log.debug("WebStorage: LoadObject -> START");
-            var value = $window.localStorage.getItem(key);  
+            var value = JSON.parse($window.localStorage.getItem(key));  
             $log.debug("WebStorage: LoadObject : ObjectKey -> " + JSON.stringify(key) + " ObjectValue -> " + JSON.stringify(value));
             $log.debug("WebStorage: LoadObject -> END WITH SUCCESS");
             return value;

@@ -15,6 +15,7 @@ angular.module('starter.userprofilCtrl', [])
      
 
 
+	$scope.allBlutgruppe = [];
 	
 	$scope.showDialogPrompt= function(message, title, object) {
 		var deferred = $q.defer();
@@ -57,8 +58,14 @@ angular.module('starter.userprofilCtrl', [])
 	;
 	
 	// Falls noch kein Profil gepflegt wurde
-	$scope.isNachnameEmptyBool = true;
+	$scope.isNachnameEmptyBool = false; //noch auf true setzen wenn Storage auch für persönliche Daten sauber angebunden
 	$scope.isNachnameEmpty = function() {
+		if($scope.allPersoenlicheDaten.vorname.length > 0) {
+			//this array is not empty
+			$scope.isNachnameEmptyBool = false;
+		} else {
+			//this array is empty
+		}
 	}
 	;
 // -------------------------------------------------------------------------------------------	
@@ -77,8 +84,14 @@ angular.module('starter.userprofilCtrl', [])
 	;
 	
 	// Falls noch kein Profil gepflegt wurde
-	$scope.isVornameEmptyBool = true;
+	$scope.isVornameEmptyBool = false; //noch auf true setzen wenn Storage auch für persönliche Daten sauber angebunden
 	$scope.isVornameEmpty = function() {
+		if($scope.allPersoenlicheDaten.vorname.length > 0) {
+			//this array is not empty
+			$scope.isVornameEmptyBool = false;
+		} else {
+			//this array is empty
+		}
 	}
 	;
 
@@ -183,11 +196,13 @@ angular.module('starter.userprofilCtrl', [])
 	;
 
 // -------------------------------------------------------------------------------------------
-	$scope.allBlutgruppe = [];
+
 	$scope.saveUserprofil = function() {
 		// TODO: Save Funktion vollständig implementieren
 		// Wenn neuer Wert leer ist, heißt das, dass der Wert gelöscht werden soll
 		var profil = {
+				//persönliche daten
+				//blutgruppe: $scope.allBlutgruppe,
 				blutgruppe: $scope.allBlutgruppe,
 				allergie: $scope.allAllergie,
 				unvertraeglichkeit: $scope.allUnvertraeglichkeit,
@@ -203,12 +218,15 @@ angular.module('starter.userprofilCtrl', [])
 		$log.debug("UserprofilCtrl: Start loadUserprofil");
 		
 		//Profil aus Storage in UserprofilData Array speichern
+		$scope.userprofilData = [];
 		$scope.userprofilData = ProfilStorage.loadProfil("profil");
-
+		$log.debug("$scope.userprofilData.blutgruppe = " + $scope.userprofilData);
+		$log.debug("$scope.userprofilData.blutgruppe = " + $scope.userprofilData.blutgruppe);
+		
+		//allBlutgruppe = [{name = ]
+		
+		//$scope.allBlutgruppe.push($scope.userprofilData.blutgruppe);
 		$scope.allBlutgruppe = $scope.userprofilData.blutgruppe;
-
-		//$scope.allBlutgruppe = $scope.userprofilData.allBlutgruppe;
-		//$scope.allAllergie = $scope.userProfilData.allergie;
 		
 		// Prüfen zur Anpassung der View
 		/*$scope.isNachnameEmpty();
@@ -222,8 +240,8 @@ angular.module('starter.userprofilCtrl', [])
 	$scope.ausgabe = function() {
 		$log.debug("------------------------------------");
 		$log.debug("userprofilData = " + $scope.userprofilData);
-		$log.debug("$scope.allBlutgruppe = " + $scope.allBlutgruppe);
 		$log.debug("$scope.userprofilData.blutgruppe = " + $scope.userprofilData.blutgruppe);
+		$log.debug("$scope.allBlutgruppe = " + $scope.allBlutgruppe);
 	};
 	
 	
