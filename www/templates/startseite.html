@@ -13,8 +13,8 @@
             <div class="item item-divider">
                 Nächste Medikamenteneinnahmen
             </div>
-            <ion-item class="item" ng-repeat="x in einnahme"" >
-                {{ x.medikament + ' um ' + x.uhrzeit }}
+            <ion-item class="item" ng-repeat="x in test" >
+                <!--{{ x.mediname + ' um ' }}-->{{x.zeitpunkt }}
             </ion-item>
         </ion-list>        
 
@@ -27,9 +27,9 @@
         <button class="button button-block button-positive" ng-click="navigate('/app/mediEinnahme')">
             Termin anlegen
         </button>
-        <button class="button button-block button-positive" ng-click="showPopup()">
+     <!--   <button class="button button-block button-positive" ng-click="showPopup()">
            Popup Anzeigen
         </button>
-        
+      -->  
     </ion-content>
 </ion-view>
