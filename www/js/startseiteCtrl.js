@@ -1,15 +1,21 @@
 angular.module('starter.startseiteCtrl', [])
 
-.controller('StartseiteCtrl', function($scope, $ionicModal, $timeout, $log, $location, $ionicPopup, $state) {
+.controller('StartseiteCtrl', function($scope, $ionicModal, $timeout, $log, $location, $ionicPopup, $state, EinnahmeStorage) {
+    
+    $scope.zukunftEinnahmen = [];    
+    $scope.$on("$ionicView.enter", function(){
+    $scope.zukunftEinnahmen = EinnahmeStorage.loadAllEinnahme();
+    })     
+      
+    $scope.test = $scope.zukunftEinnahmen.wanneinnahmen;     
+         
     $scope.seen = 'false';
     $scope.name = 'John';
     $scope.count = "3";
-    $scope.einnahme = [
-        {medikament:'Paracetamol',uhrzeit:'14:00'},
-        {medikament:'Antibiotika',uhrzeit:'16:00'},
-        {medikament:'Ibuprofen',uhrzeit:'17:30'}
-    ];
 
+    $log.debug("Ausgabe Einnahmen " + $scope.zukunftEinnahmen);
+        $log.debug("Ausgabe test " + $scope.test);
+    
     $scope.navigate = function(path) {
         $location.path(path);
     }
@@ -62,7 +68,7 @@ angular.module('starter.startseiteCtrl', [])
     ];
     
     
-    
+
 
 
 });
