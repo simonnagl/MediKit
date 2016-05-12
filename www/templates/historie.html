@@ -6,7 +6,7 @@
     <input type="text" placeholder="Suche" ng-model="searchText">
   </label>
 </div>
-<ion-toggle ng-model="nichtGenommen" toggle-class="toggle-positive">nicht genommene Medikamente</ion-toggle>
+<ion-toggle ng-model="nichtGenommen" ng-checked="nichtGenommen" ng-change="updateToggle()" toggle-class="toggle-positive">nicht genommene Medikamente</ion-toggle>
 
 
 <div class="row">
@@ -27,8 +27,10 @@
 
 <ion-list>
     <div class="item item-divider"> Medikamentenhistorie </div>
-    <ion-item ng-repeat="x in medicine | filter:searchText">
-       <i class="icon ion-checkmark-circled"></i> {{x.mediname}} {{x.medidosis}} {{x.einnahmezeitsoll}}
+    <ion-item ng-repeat="x in medicine | filter:searchText" | ng-if="checkFilter(x)">
+       <i class="icon ion-checkmark-circled" | ng-if="x.einnahmezeitist != ''"></i> 
+       <i class="icon ion-close-circled" | ng-if="x.einnahmezeitist == ''"></i>
+       {{x.mediname}} {{x.medidosis}} {{x.einnahmezeitsoll}}
     </ion-item>
 </ion-list>
 
