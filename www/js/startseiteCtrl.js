@@ -7,7 +7,7 @@ angular.module('starter.startseiteCtrl', [])
     $scope.zukunftEinnahmen = EinnahmeStorage.loadAllEinnahme();
     })     
       
-    $scope.test = $scope.zukunftEinnahmen.wanneinnahmen;     
+   
          
     $scope.seen = 'false';
     $scope.name = 'John';

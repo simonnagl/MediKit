@@ -13,8 +13,8 @@
             <div class="item item-divider">
                 Nächste Medikamenteneinnahmen
             </div>
-            <ion-item class="item" ng-repeat="x in test" >
-                <!--{{ x.mediname + ' um ' }}-->{{x.zeitpunkt }}
+            <ion-item class="item" ng-repeat="x in zukunftEinnahmen" >
+                <div>{{ x.mediname + ' um ' }}{{x.wanneinnahmen[0].zeitpunkt | date : "HH:mm"}}{{' am '}}{{ x.wanneinnahmen[0].zeitpunkt | date : "dd.MM"}}</div>
             </ion-item>
         </ion-list>        
 

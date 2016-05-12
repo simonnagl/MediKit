@@ -15,7 +15,7 @@ angular.module('starter.einnahmeStorage', [])
     function loadAllEinnahme() {
         $log.debug("WebStorage: loadAllEinnahme -> START");
         var allEinnahme = []; 
-        allEinnahme = WebStorageMain.loadAllObject('e-');
+        allEinnahme = WebStorageMain.loadAllObject('e-e-');
         $log.debug("WebStorage: loadAllEinnahme -> END WITH SUCCESS");
         return allEinnahme;
     }
