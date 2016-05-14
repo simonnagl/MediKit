@@ -6,7 +6,7 @@ angular.module('starter.userprofilCtrl', [])
 	$scope.$on('$ionicView.enter', function() {
      // Code you want executed every time view is opened
 	 $scope.loadUserprofil()
-     console.log('Opened!')
+     $log.debug("View opened");
 	})
   
     $scope.allPersoenlicheDaten = [
@@ -237,7 +237,7 @@ angular.module('starter.userprofilCtrl', [])
 				unvertraeglichkeit: $scope.allUnvertraeglichkeit,
 				erkrankung: $scope.allErkrankung
 		}
-		ProfilStorage.saveProfil(profil);
+		ProfilStorage.saveProfil("profil", profil);
 		$log.debug("UserprofilCtrl: Save Userprofil -> END WITH SUCCESS");
 	}
 	;

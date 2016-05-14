@@ -29,9 +29,9 @@ angular.module('starter.profilStorage', [])
      * Gibt TRUE zurück wenn alles ok ist
      * Gibt False zurück wenn der Key bereits vorhanden ist
      */   
-    function saveProfil(Profil) {
+    function saveProfil(Name, Profil) {
         $log.debug("WebStorage: saveProfil -> START");                     
-        WebStorageMain.saveObject("profil", Profil);
+        WebStorageMain.saveObject(Name, Profil);
         $log.debug("WebStorage: saveProfil -> END WITH SUCCESS");     
     }
     ;
