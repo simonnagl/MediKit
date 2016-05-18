@@ -1,15 +1,13 @@
 <ion-view view-title="Medi-Einnahme"> 
-  
-  
   <ion-nav-buttons side="secondary">
-      <button class="button button-icon ion-android-add-circle button-clear" ng-click="mediEinnahmeNeu()">
+      <button class="balanced button-icon ion-android-add-circle" ng-click="mediEinnahmeNeu()">
       </button>
     </ion-nav-buttons>
   <ion-content>
-<ion-list class="list list-inset">
-    <div class="item item-divider">
+<ion-list>
+    <ion-item class="item-divider">
     Aktuelle Einnahmen
-  </div>
+  </ion-item>
     <div class="item" ng-repeat="einnahm in mediEinnahmeData" ng-click="mediEinnahmeEdit(einnahm)">
         <div class="row">
             <div class="col">{{einnahm.uhrzeit | date : "HH:mm"}}</div>
