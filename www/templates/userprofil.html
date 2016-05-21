@@ -14,15 +14,28 @@
 			Persönliche Daten
 	</ion-item>
 
+<!-------------------------------------------------------------------------------- -->
 	<ion-item class="item" ng-repeat="persoenlicheDaten in allPersoenlicheDaten" ng-click="changeNachname(persoenlicheDaten)" ng-if="!isNachnameEmptyBool">
 			Nachname: {{persoenlicheDaten.nachname}}			
 	</ion-item>
 	
-		
+	<ion-item class="item" ng-if="isNachnameEmptyBool">
+			Nachname
+			<i class="ion-android-add-circle" ng-click="addNewNachname()"></i>			
+	</ion-item>
+	
+<!-------------------------------------------------------------------------------- -->
+	
 	<ion-item class="item" ng-repeat="persoenlicheDaten in allPersoenlicheDaten" ng-click="changeVorname(persoenlicheDaten)" ng-if="!isVornameEmptyBool">
 			Vorname: {{persoenlicheDaten.vorname}}
 	</ion-item>
 
+	<ion-item class="item" ng-if="isVornameEmptyBool">
+			Vorname
+			<i class="ion-android-add-circle" ng-click="addNewVorname()"></i>
+	</ion-item>
+	
+<!-------------------------------------------------------------------------------- -->
 
 	<ion-item class="item-divider" ng-click="addNewBlutgruppe()" ng-if="isBlutgruppeEmptyBool">
 			Blutgruppe
@@ -66,7 +79,8 @@
 			{{erkrankung.name}}
 	 </ion-item>
 	 
-	
+	<button class="button button-block button-positive"  ng-click="ausgabe()">Ausgabe</button>
+	<button class="button button-block button-positive"  ng-click="loadUserprofil()">loadUserprofil()</button>
 	</ion-content>
 
 </ion-view>

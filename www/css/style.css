@@ -28,3 +28,7 @@
 /* Icon eines Item-dividers rechtsbündig */
 .item-divider i {  
 	float: right; }
+
+/* Icon eines Item rechtsbündig */
+.item i {  
+	float: right; }
