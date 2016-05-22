@@ -52,6 +52,7 @@ angular.module('starter.kontakteCtrl', [])
         var emptyKontakt = {
             kontaktArt: "",
             arztArt: "",
+			kontaktBeziehung: "",
 			nachname: "",
             vorname: "", 
             strasse: "", 
@@ -60,7 +61,6 @@ angular.module('starter.kontakteCtrl', [])
             telefon: "", 
             email: ""
         };
-        
         return emptyKontakt;
     }
 	;
@@ -69,19 +69,23 @@ angular.module('starter.kontakteCtrl', [])
 	// Speichern eines neuen oder bearbeiteten Kontaktes
 	// Jedesmal das komplette allKontakt Array mit allen Objekten speichern
     $scope.addKontakt = function () {
-		 if($scope.isNewKontakt){
-			//TODO:
-			//Validierung implementieren
-			 $scope.allKontakt.push($scope.selectedKontakt);
-			 $scope.kontakt.hide();
-			 $log.debug("KontakteCtrl: Add Kontakt -> END WITH SUCCESS");
+		 if(validateKontakt()){
+			 if($scope.isNewKontakt){
+				 $scope.allKontakt.push($scope.selectedKontakt);
+				 $scope.kontakt.hide();
+				 $log.debug("KontakteCtrl: Add Kontakt -> END WITH SUCCESS");
+			 } else {
+				 //Aktualisierung eines Objektes, weil es nur bearbeitet wurde
+				 
+				 //TODO: Probleme mit dem doppelten Objekt / Hashkey beim speichern in den Localstorage beheben
+				 $scope.allKontakt.push($scope.selectedKontakt)
+				 $scope.kontakt.hide();
+				 $log.debug("KontakteCtrl: Edit Kontakt -> END WITH SUCCESS");
+			 }
+			$scope.saveUserprofil();
 		 } else {
-			 //Aktualisierung eines Objektes, weil es nur bearbeitet wurde
-			 $scope.allKontakt.push($scope.selectedKontakt)
-			 $scope.kontakt.hide();
-			 $log.debug("KontakteCtrl: Edit Kontakt -> END WITH SUCCESS");
-			 
-		 }
+			 $log.debug("Folgendes ist nicht valide: " + $scope.whichinvalid);
+		}
 	 }
 	 ;
 	 
@@ -99,14 +103,53 @@ angular.module('starter.kontakteCtrl', [])
 	}
 	;
 	
-    function validateKontakt(kontakt) {
-        // TODO: Validierung implementieren
-        return true;
+	$scope.whichinvalid = "";
+	
+    function validateKontakt() {
+
+		if($scope.selectedKontakt.kontaktArt == "") {
+			$scope.whichinvalid = "kontaktArt";
+			return false;
+		//wird nicht sauber geprüft, weil zu dem Zeitpunkt noch nichts in dem Array drinsteht... ?
+		} else if($scope.selectedKontakt.kontaktArt == "notfallkontakt" && $scope.selectedKontakt.kontaktBeziehung == "") {
+			$scope.whichinvalid = "kontaktBeziehung";
+			return false;	
+		} else if($scope.selectedKontakt.kontaktArt == "arzt" && $scope.selectedKontakt.arztArt == "") {
+			$scope.whichinvalid = "arztArt";
+			return false;
+		} else if($scope.selectedKontakt.kontaktArt == "apotheke"  && $scope.selectedKontakt.nachname == "") {
+			$scope.whichinvalid = "Apothekenname aka nachname";
+			return false;		
+		} else if ($scope.selectedKontakt.nachname == "") {
+			$scope.whichinvalid = "nachname";
+			return false;
+		} else if(($scope.selectedKontakt.kontaktArt == "notfallkontakt" || $scope.selectedKontakt.kontaktArt == "arzt") && $scope.selectedKontakt.vorname == "") {
+			$scope.whichinvalid = "vorname";
+			return false;		
+		} else if ($scope.selectedKontakt.strasse == "") {
+			$scope.whichinvalid = "strasse";
+			return false;
+		} else if ($scope.selectedKontakt.plz == "") {
+			$scope.whichinvalid = "plz";
+			return false;
+		} else if ($scope.selectedKontakt.ort == "") {
+			$scope.whichinvalid = "ort";
+			return false;
+		} else if ($scope.selectedKontakt.telefon == "") {
+			$scope.whichinvalid = "telefon";
+			return false;
+		} else if ($scope.selectedKontakt.email == "") {
+			$scope.whichinvalid = "email";
+			return false;			
+		}	else {
+			return true;
+		} 
     }
 	;
 
 	$scope.deleteKontakt = function (kontakt) {
 		$scope.allKontakt.splice($scope.allKontakt.indexOf(kontakt), 1);
+		$scope.saveUserprofil();
 		$scope.kontakt.hide();
 		$log.debug("KontakteCtrl: Delete Kontakt -> END WITH SUCCESS");
 	}

@@ -9,7 +9,7 @@
       
   </ion-header-bar>
 	
-	
+					 
 	<ion-content class="has-header">
 	    <form ng-submit="addKontakt()">
             <div class="list">
@@ -79,6 +79,7 @@
                 
 				<label class="item">
 				  <button class="button button-block button-positive" type="submit" ng-if="isNewKontakt">Hinzufügen</button>
+				  <button class="button button-block button-positive" type="submit" ng-if="!isNewKontakt">Bearbeiten speichern</button>
 				  <!-- Wird per Backbutton erledigt 
 				  <button class="button button-block button-positive" type="submit" ng-if="!isNewKontakt">Speichern</button>
 				  -->
@@ -89,6 +90,7 @@
 		
 		<label class="item">
 			<button class="button button-block ion-trash-b button-assertive" ng-click="deleteKontakt(selectedKontakt)" ng-if="!isNewKontakt">Kontakt löschen</button>
+			
 		</label>
 		
 	</ion-content>
