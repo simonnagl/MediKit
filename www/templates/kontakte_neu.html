@@ -27,13 +27,11 @@
                         <label class="item item-input" ng-if="selectedKontakt.kontaktArt == 'notfallkontakt'">
                             <span class="input-label">Beziehungsart:</span>
                             <input type="text" ng-model="selectedKontakt.kontaktBeziehung" placeholder="Vater, Mutter, Bruder, Partner,...">
-                            <!-- Verbesserung: Vordefinierte Werte per Combobox?-->
                         </label>
                         
                         <label class="item item-input" ng-if="selectedKontakt.kontaktArt == 'arzt'">
                             <span class="input-label">Arztart:</span>
                             <input type="text" ng-model="selectedKontakt.arztArt" placeholder="Allgemeinarzt, Orthopäde,...">
-                            <!-- Verbesserung: Vordefinierte Werte per Combobox?-->
                         </label>
                         
                         <label class="item item-input" ng-if="selectedKontakt.kontaktArt == 'notfallkontakt' || selectedKontakt.kontaktArt == 'arzt'">
@@ -72,25 +70,21 @@
                         </label>
                         
                         <label class="item item-input">
-                        <span class="input-label">Email:</span>
-                        <input type="text" ng-model="selectedKontakt.email" placeholder="mustermann@web.de"/> 
+							<span class="input-label">Email:</span>
+							<input type="text" ng-model="selectedKontakt.email" placeholder="mustermann@web.de"/> 
                         </label>
                 </div>
                 
 				<label class="item">
 				  <button class="button button-block button-positive" type="submit" ng-if="isNewKontakt">Hinzufügen</button>
-				  <button class="button button-block button-positive" type="submit" ng-if="!isNewKontakt">Bearbeiten speichern</button>
-				  <!-- Wird per Backbutton erledigt 
-				  <button class="button button-block button-positive" type="submit" ng-if="!isNewKontakt">Speichern</button>
-				  -->
+				  <button class="button button-block button-positive" type="submit" ng-if="!isNewKontakt">Bearbeitung speichern</button>
+				  <!-- Oder per Backbutton erledigen lassen? // Bisher wird bei Aufruf des Backbuttons nichts gespeichert  -->
 				</label>
             </div>
 	    </form>
 		
-		
 		<label class="item">
 			<button class="button button-block ion-trash-b button-assertive" ng-click="deleteKontakt(selectedKontakt)" ng-if="!isNewKontakt">Kontakt löschen</button>
-			
 		</label>
 		
 	</ion-content>

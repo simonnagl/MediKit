@@ -48,6 +48,8 @@
 	 <ion-item class="item" ng-repeat="blutgruppe in allBlutgruppe"  ng-click="changeBlutgruppe(blutgruppe)">
 			{{blutgruppe.name}}
 	 </ion-item>
+	 
+<!-------------------------------------------------------------------------------- -->
 
 	<ion-item class="item-divider">
 		Allergie
@@ -58,7 +60,8 @@
 	<ion-item class="item" ng-repeat="allergie in allAllergie"  ng-click="changeAllergie(allergie)">
 			{{allergie.name}}
 	 </ion-item>
-	
+
+<!-------------------------------------------------------------------------------- -->	 
 	
 	<ion-item class="item-divider">
 		Unverträglichkeit
@@ -68,7 +71,8 @@
 	<ion-item class="item" ng-repeat="unvertraeglichkeit in allUnvertraeglichkeit" ng-click="changeUnvertraeglichkeit(unvertraeglichkeit)">
 			{{unvertraeglichkeit.name}}
 	 </ion-item>
-	 
+
+<!-------------------------------------------------------------------------------- -->	 
 	 
 	<ion-item class="item-divider">
 		Erkrankung
@@ -79,8 +83,6 @@
 			{{erkrankung.name}}
 	 </ion-item>
 	 
-	<button class="button button-block button-positive"  ng-click="ausgabe()">Ausgabe</button>
-	<button class="button button-block button-positive"  ng-click="loadUserprofil()">loadUserprofil()</button>
 	</ion-content>
 
 </ion-view>
