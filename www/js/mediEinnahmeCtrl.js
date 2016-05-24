@@ -21,8 +21,8 @@ angular.module('starter.mediEinnahmeCtrl', [])
   var defaultEinnahme = {
         mediname : "",
         einnahmemenge : {
-            menge : undefined,
-            einheit : undefined
+            menge : 0.5,
+            einheit : "keine Ein."
         },
         uhrzeit : "",
         wiederholungstag : {

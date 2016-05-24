@@ -33,7 +33,7 @@
                  <option selected>1</option>
                  <option>2</option>
               </select>-->
-              <input type="number" name="Fmenge" ng-model="einnahme.einnahmemenge.menge" min="0.0" max="99.0" step="0.5" required autofocus>
+             <input class="col" type="number" name="Fmenge" ng-model="einnahme.einnahmemenge.menge" min="0.0" max="99.0" step="0.5" required autofocus>
              <span style="color:red" class="col" ng-show="einnahmeForm.Fmenge.$invalid">
                 <span ng-show="einnahmeForm.Fmenge.$error.required"> *</span>
              </span>              
@@ -46,7 +46,7 @@
                  <option>ml</option>
                  <option>mg</option>
               </select>-->
-              <span>{{einnahme.einnahmemenge.einheit}}</span>
+              <span class="button-clear button-light">{{einnahme.einnahmemenge.einheit}}</span>
          <span class="col" style="color:red" ng-show="einnahmeForm.Feinheitmenge.$invalid">     
           <span ng-show="einnahmeForm.Feinheitmenge.$error.required"> *</span>
          </span>
@@ -62,7 +62,7 @@
         
         <label class="item item-input">
           <span class="input-label col col-50">Wiederholung</span>
-          <button class = "button button-clear" ng-click ="showPopup()"><div class="col" ng-bind="getDayname(einnahme.wiederholungstag)"></div></button>
+          <button class = "button button-clear button-positive" ng-click ="showPopup()"><div class="col" ng-bind="getDayname(einnahme.wiederholungstag)"></div></button>
         </label>
         
         <label class="item item-input">
@@ -77,10 +77,11 @@
           <span class="input-label col col-50">Einnahme Ende</span>
           <input type="date" ng-model="einnahme.wiederholungsende">  
         </label>
-               
-        <ion-list>
-         <ion-checkbox ng-model="einnahme.vibration">Vibration</ion-checkbox>
-        </ion-list>
+     
+          <!--<ion-list>
+            <ion-checkbox ng-model="einnahme.vibration">Vibration</ion-checkbox>
+          </ion-list>-->
+        <ion-toggle ng-model="einnahme.vibration" toggle-class="toggle-positive">Vibration</ion-toggle>
       </div>
     </form>
   </ion-content>
