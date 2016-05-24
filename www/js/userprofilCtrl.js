@@ -4,22 +4,12 @@ angular.module('starter.userprofilCtrl', [])
 .controller('UserprofilCtrl', function($scope, $log, $ionicModal, $q, $cordovaDialogs, ProfilStorage){
     
 	$scope.$on('$ionicView.enter', function() {
-     // Code you want executed every time view is opened
-	 $scope.loadUserprofil()
-     console.log('Opened!')
+     // Code executed every time view is opened
+	 $scope.loadUserprofil()	
+     $log.debug("View opened");
 	})
-  
-    $scope.allPersoenlicheDaten = [
-        {
-            nachname: "Schmidt",
-            vorname: "Hans",
-            strasse: "Hauptstraße 3", 
-	        plz: "80331",
-	        ort: "München" 
-        }   
-     ];
- 
-     
+
+	$scope.allPersoenlicheDaten = [{nachname: "", vorname: ""}];
 	$scope.allBlutgruppe = [];
 	$scope.allAllergie = [];
 	$scope.allUnvertraeglichkeit = [];
@@ -29,14 +19,15 @@ angular.module('starter.userprofilCtrl', [])
 		var deferred = $q.defer();
 		var tmpObject = object;
 		
-		$cordovaDialogs.prompt(message, title, ['btn 1','btn 2'], tmpObject.name)
+		//$cordovaDialogs.prompt(message, title, ['btn 1','btn 2'], tmpObject.name)
+		$cordovaDialogs.prompt(message, title, ['btn 1','btn 2'], tmpObject)
 			.then(function(result) {
 		  
 			if (result.buttonIndex == 1) {
-				$log.debug('Eingabe: ' + result.input1);
+				
 				if(result.input1 != "") {
 					deferred.resolve(result.input1);
-					//$scope.saveUserprofil("testvalue");
+					
 				} else {
 					//Dialog Input leer
 					$log.debug("Dialog Input leer");
@@ -54,24 +45,36 @@ angular.module('starter.userprofilCtrl', [])
 // -------------------------------------------------------------------------------------------	
 
 	$scope.changeNachname = function(nachname) {
-		$scope.showDialogPrompt("Geben Sie den Nachname ein.", "Nachname", nachname.nachname)
+		$scope.showDialogPrompt("Geben Sie den NEUEN Nachname ein.", "Nachname", nachname.nachname)
 		.then(function(result) {
+			//Positivfall der showDialogPromt()
 			nachname.nachname = result;
+			$scope.saveUserprofil();
 		},function() {
-			//Negativfall
+			//Negativfall - gespeicherte leere Eingabe entspricht löschen
+			$scope.allPersoenlicheDaten[0].nachname = "";
+			$scope.isNachnameEmptyBool = true;
+			$log.debug("Wert gelöscht");
+			$scope.saveUserprofil();
 			
 		});
 	}
 	;
 	
 	$scope.addNewNachname = function() {
+		$scope.showDialogPrompt("Geben Sie einen Nachname ein.", "Nachname", "")
+		.then(function(result) {
+			$scope.allPersoenlicheDaten[0].nachname = result;
+			$scope.isNachnameEmptyBool = false;
+			$scope.saveUserprofil();
+		});
 	}
 	;
 	
 	// Falls noch kein Profil gepflegt wurde
-	$scope.isNachnameEmptyBool = false; //wieder auf true setzen, wenn geklärt wie view ausschauen soll bei leeren persönlichen Daten
+	$scope.isNachnameEmptyBool = true; 
 	$scope.isNachnameEmpty = function() {
-		if($scope.allPersoenlicheDaten.vorname.length > 0) {
+		if($scope.allPersoenlicheDaten[0].nachname.length > 0) {
 			//this array is not empty
 			$scope.isNachnameEmptyBool = false;
 		} else {
@@ -82,25 +85,35 @@ angular.module('starter.userprofilCtrl', [])
 // -------------------------------------------------------------------------------------------	
 
 	$scope.changeVorname = function(vorname) {
-		$scope.showDialogPrompt("Geben Sie den Vorname ein.", "Nachname", vorname.vorname)
+		$scope.showDialogPrompt("Geben Sie den NEUEN Vorname ein.", "Vorname", vorname.vorname)
 		.then(function(result) {
+			//Positivfall der showDialogPromt()
 			vorname.vorname = result;
 			$scope.saveUserprofil();
 		},function() {
 			//Negativfall - gespeicherte leere Eingabe entspricht löschen
-			
+			$scope.allPersoenlicheDaten[0].vorname = "";
+			$scope.isVornameEmptyBool = true;
+			$log.debug("Wert gelöscht");
+			$scope.saveUserprofil();
 		});
 	}
 	;
 	
 	$scope.addNewVorname = function() {
+		$scope.showDialogPrompt("Geben Sie einen Vorname ein.", "Vorname", "")
+		.then(function(result) {
+			$scope.allPersoenlicheDaten[0].vorname = result;
+			$scope.isVornameEmptyBool = false;
+			$scope.saveUserprofil();
+		});
 	}
 	;
 	
 	// Falls noch kein Profil gepflegt wurde
-	$scope.isVornameEmptyBool = false; //wieder auf true setzen, wenn geklärt wie view ausschauen soll bei leeren persönlichen Daten
+	$scope.isVornameEmptyBool = true; 
 	$scope.isVornameEmpty = function() {
-		if($scope.allPersoenlicheDaten.vorname.length > 0) {
+		if($scope.allPersoenlicheDaten[0].vorname.length > 0) {
 			//this array is not empty
 			$scope.isVornameEmptyBool = false;
 		} else {
@@ -112,10 +125,9 @@ angular.module('starter.userprofilCtrl', [])
 // -------------------------------------------------------------------------------------------
 	
 	$scope.changeBlutgruppe = function(blutgruppe) {
-		$scope.showDialogPrompt("Geben Sie die Bezeichnung für die Blutgruppe ein.", "Blutgruppe", blutgruppe)
+		$scope.showDialogPrompt("Geben Sie die Bezeichnung für die Blutgruppe ein.", "Blutgruppe", blutgruppe.name)
 		.then(function(result) {
-			//Positivfall (der showDialogPromt())
-			$log.debug("result = " + result);
+			//Positivfall der showDialogPromt()
 			blutgruppe.name = result;
 			$scope.saveUserprofil();
 		},function() {
@@ -140,21 +152,13 @@ angular.module('starter.userprofilCtrl', [])
 	
 	// Falls noch kein Profil gepflegt wurde
 	$scope.isBlutgruppeEmptyBool = true;
-	$scope.isBlutgruppeEmpty = function() {
-		if($scope.allBlutgruppe.length > 0){   
-			//this array is not empty 
-			$scope.isBlutgruppeEmptyBool = false;
-		}else{
-			//this array is empty
-		}
-	}
-	;
 
 // -------------------------------------------------------------------------------------------
 	
 	$scope.changeAllergie = function(allergie) {
-		$scope.showDialogPrompt("Geben Sie die Bezeichnung für die Allergie ein.", "Allergie", allergie)
+		$scope.showDialogPrompt("Geben Sie die Bezeichnung für die Allergie ein.", "Allergie", allergie.name)
 		.then(function(result) {
+			//Positivfall der showDialogPromt()
 			allergie.name = result;
 			$scope.saveUserprofil();
 		},function() {
@@ -178,8 +182,9 @@ angular.module('starter.userprofilCtrl', [])
 // -------------------------------------------------------------------------------------------
 	
 	$scope.changeErkrankung = function(erkrankung) {
-		$scope.showDialogPrompt("Geben Sie die Bezeichnung für die Erkrankung ein.", "Erkrankung", erkrankung)
+		$scope.showDialogPrompt("Geben Sie die Bezeichnung für die Erkrankung ein.", "Erkrankung", erkrankung.name)
 		.then(function(result) {
+			//Positivfall der showDialogPromt()
 			erkrankung.name = result;
 			$scope.saveUserprofil();
 		},function() {
@@ -203,8 +208,9 @@ angular.module('starter.userprofilCtrl', [])
 // -------------------------------------------------------------------------------------------
 	
 	$scope.changeUnvertraeglichkeit = function(unvertraeglichkeit) {
-		$scope.showDialogPrompt("Geben Sie die Bezeichnung für die Unvertraeglichkeit ein.", "Unvertraeglichkeit", unvertraeglichkeit)
+		$scope.showDialogPrompt("Geben Sie die Bezeichnung für die Unvertraeglichkeit ein.", "Unvertraeglichkeit", unvertraeglichkeit.name)
 		.then(function(result) {
+			//Positivfall der showDialogPromt()
 			unvertraeglichkeit.name = result;
 			$scope.saveUserprofil();
 		},function() {
@@ -229,15 +235,13 @@ angular.module('starter.userprofilCtrl', [])
 
 	$scope.saveUserprofil = function() {
 		var profil = {
-				//nachname:...
-				//vorname:...
-				//vorname: $scope.allPersoenlicheDaten.vorname,
+				persoenlicheDaten: $scope.allPersoenlicheDaten,
 				blutgruppe: $scope.allBlutgruppe,
 				allergie: $scope.allAllergie,
 				unvertraeglichkeit: $scope.allUnvertraeglichkeit,
 				erkrankung: $scope.allErkrankung
 		}
-		ProfilStorage.saveProfil(profil);
+		ProfilStorage.saveProfil("profil", profil);
 		$log.debug("UserprofilCtrl: Save Userprofil -> END WITH SUCCESS");
 	}
 	;
@@ -252,34 +256,22 @@ angular.module('starter.userprofilCtrl', [])
 		
 		if($scope.userprofilData == null) {
 			//do initialize
-			$log.debug("do initialize");
+			$log.debug("Profil leer / nicht vorhanden");
 		} else {
-			//nachname
-			//vorname
-			//$scope.allPersoenlicheDaten.vorname = $scope.userprofilData.vorname;
+			$scope.allPersoenlicheDaten = $scope.userprofilData.persoenlicheDaten;
 			$scope.allBlutgruppe = $scope.userprofilData.blutgruppe;
 			$scope.allAllergie = $scope.userprofilData.allergie;
 			$scope.allUnvertraeglichkeit = $scope.userprofilData.unvertraeglichkeit;
 			$scope.allErkrankung = $scope.userprofilData.erkrankung;
-			
-			// Prüfen zur Anpassung der View
-			//$scope.isNachnameEmpty();
-			//$scope.isVornameEmpty();
-			//$scope.isBlutgruppeEmpty();
-		
+				
 			$log.debug("UserprofilCtrl: Ende loadUserprofil");
+			
+			//Zum anpassen der view
+			$scope.isNachnameEmpty();
+			$scope.isVornameEmpty();
 		}
 	}
 	;
-	
-	$scope.ausgabe = function() {
-		$log.debug("------------------------------------");
-		$log.debug("userprofilData = " + $scope.userprofilData);
-		$log.debug("$scope.userprofilData.blutgruppe = " + $scope.userprofilData.blutgruppe);
-		$log.debug("$scope.allBlutgruppe = " + $scope.allBlutgruppe);
-	};
-	
-	
 });
 
     

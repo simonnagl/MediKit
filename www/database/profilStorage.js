@@ -10,11 +10,11 @@ angular.module('starter.profilStorage', [])
     
 
     function loadProfil(Profil) {
-        $log.debug("WebStorage: loadProfil -> START");
+       // $log.debug("WebStorage: loadProfil -> START");
         var value = WebStorageMain.loadObject(Profil);  
         
         if (value != null) {
-            $log.debug("WebStorage: loadProfil -> END WITH SUCCESS");
+          //  $log.debug("WebStorage: loadProfil -> END WITH SUCCESS");
             return value;
         } else {
             $log.debug("WebStorage: loadProfil -> END WITH INFO -> Profil not found");
@@ -29,10 +29,10 @@ angular.module('starter.profilStorage', [])
      * Gibt TRUE zurück wenn alles ok ist
      * Gibt False zurück wenn der Key bereits vorhanden ist
      */   
-    function saveProfil(Profil) {
-        $log.debug("WebStorage: saveProfil -> START");                     
-        WebStorageMain.saveObject("profil", Profil);
-        $log.debug("WebStorage: saveProfil -> END WITH SUCCESS");     
+    function saveProfil(Name, Profil) {
+       // $log.debug("WebStorage: saveProfil -> START");                     
+        WebStorageMain.saveObject(Name, Profil);
+       // $log.debug("WebStorage: saveProfil -> END WITH SUCCESS");     
     }
     ;
 
