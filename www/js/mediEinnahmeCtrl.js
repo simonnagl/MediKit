@@ -18,7 +18,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
   $scope.mediData = [];
   $scope.checkvalid = {};
   
-  defaultEinnahme = {
+  var defaultEinnahme = {
         mediname : "",
         einnahmemenge : {
             menge : undefined,
@@ -342,7 +342,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
         $log.info("addEinnahme: " + $scope.einnahme.med.mediname);
         
         // Eine neue Einnahmeobjekt erstellen, welches danach gepushed und gespeichert wird.  
-        mediEinnahmeToPush = {
+        var mediEinnahmeToPush = {
             "id": 'e-' + $scope.id,     //neue Id 
             "mediname": $scope.einnahme.med.mediname,
             "einnahmemenge": $scope.einnahme.einnahmemenge,
@@ -354,7 +354,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
         }
         // Eine neue Einnahme pushen/speichern
         $scope.mediEinnahmeData.push({ //Man könnte auch nur das Objekt $scope.user pushen.
-            mediEinnahmeToPush
+            mediEinnahmeToPush: mediEinnahmeToPush
         });
         
         // Neue Einnahme für das jeweilige Medikament in der Webstorage speichern

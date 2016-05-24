@@ -1,13 +1,24 @@
 angular.module('starter.startseiteCtrl', [])
 
-.controller('StartseiteCtrl', function($scope, $ionicModal, $timeout, $log, $location, $ionicPopup, $state, EinnahmeStorage) {
+.controller('StartseiteCtrl', function( $cordovaLocalNotification, 
+                                        $ionicPlatform,
+                                        $scope, 
+                                        $ionicModal, 
+                                        $timeout, 
+                                        $log, 
+                                        $location, 
+                                        $ionicPopup, 
+                                        $state, 
+                                        EinnahmeStorage) {
     
     $scope.zukunftEinnahmen = [];    
     $scope.$on("$ionicView.enter", function(){
-    $scope.zukunftEinnahmen = EinnahmeStorage.loadAllEinnahme();
-    })     
-      
-   
+        $scope.zukunftEinnahmen = EinnahmeStorage.loadAllEinnahme();
+    })
+    
+    $scope.$on("$cordovaLocalNotification:trigger", function(id, state, json) {
+        alert("Trigger a notification");
+    });     
          
     $scope.seen = 'false';
     $scope.name = 'John';

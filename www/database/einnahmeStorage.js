@@ -1,7 +1,7 @@
 angular.module('starter.einnahmeStorage', [])
 
-.factory('EinnahmeStorage', ['$window', '$log', 'WebStorageMain', 
-    function($window, $log, WebStorageMain) {
+.factory('EinnahmeStorage', ['$ionicPlatform', '$cordovaLocalNotification', '$window', '$log', 'WebStorageMain', 
+    function($ionicPlatform, $cordovaLocalNotification, $window, $log, WebStorageMain) {
     
 	var einnahmeStorage = {
         loadAllEinnahme : loadAllEinnahme,
@@ -50,8 +50,29 @@ angular.module('starter.einnahmeStorage', [])
     function saveEinnahme(einnahme) {
         $log.debug("WebStorage: saveEinnahme -> START");          
         WebStorageMain.saveObject("e-" + einnahme.id, einnahme);
-        $log.debug("WebStorage: saveEinnahme -> END WITH SUCCESS");                    
-
+        $log.debug("WebStorage: saveEinnahme -> END WITH SUCCESS");      
+                      
+        $ionicPlatform.ready(function () {
+            var now = new Date().getTime();
+            var _10SecondsFromNow = new Date(now + 10 * 1000);
+            var tmpAllEinnahme = einnahme.wanneinnahmen;
+            
+            for (var i = 0; i < tmpAllEinnahme.length; i++) {
+                // Hier ist noch keine implementierung wegen möglich, da
+                // ein Bug im Medieinnahmenverwaltung
+            }
+            
+            $cordovaLocalNotification.schedule({
+                id: einnahme.id,
+                title: 'Medikit',
+                text: 'Medikament: ' + einnahme.mediname + ' - '
+                        + einnahme.einnahmemenge.menge + ''
+                        + einnahme.einnahmemenge.einheit + ' einnehmen',
+                at: _10SecondsFromNow
+            }).then(function (result) {
+                $log.debug('Notification 2 triggered');
+            });
+    });
     }
     ;
     
