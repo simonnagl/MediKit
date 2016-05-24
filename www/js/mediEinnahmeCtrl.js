@@ -18,23 +18,23 @@ angular.module('starter.mediEinnahmeCtrl', [])
   $scope.mediData = [];
   $scope.checkvalid = {};
   
-  defaultEinnahme = {
+  var defaultEinnahme = {
         mediname : "",
         einnahmemenge : {
             menge : undefined,
             einheit : undefined
         },
-        uhrzeit : new Date(new Date().toString().slice(0,21)),
+        uhrzeit : "",
         wiederholungstag : {
-          mo : false,
-          di : false,
-          mi : false,
-          do : false,
-          fr : false,
-          sa : false,
-          so : false, 
+          mo : true,
+          di : true,
+          mi : true,
+          do : true,
+          fr : true,
+          sa : true,
+          so : true, 
         },
-        wiederholungsbeginn : new Date(),
+        wiederholungsbeginn : "",
         wiederholungsende : "",
         vibration : false,
     }
@@ -136,6 +136,10 @@ angular.module('starter.mediEinnahmeCtrl', [])
     $scope.isNewEin = true;             //kennzeichnet neue Einnahme
     $scope.loadMedisForEinnahme();      //Liste von Medikament und Einnahmen laden
     $scope.id = $scope.creatId();
+    defaultEinnahme.uhrzeit = new Date(new Date().toString().slice(0,21)); //auf die aktuelle Uhrzeit setzen
+    defaultEinnahme.wiederholungsbeginn = new Date(); 
+    defaultEinnahme.wiederholungsende = new Date(); 
+    defaultEinnahme.wiederholungsende.setHours(23,59,59); //auf Ende des Tages setzen
     $scope.einnahme = angular.copy(defaultEinnahme);
     $log.debug("Uhrzeit: " + $scope.einnahme.uhrzeit);
     $scope.einnahmeview.show();
@@ -226,7 +230,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
   
 //// Zukünftige Einnahmen berechnen und speichern
    $scope.setNextEinnahmen = function (nextMediEinnahme){
-     var tempNextEinnahme = nextMediEinnahme;
+     var tempNextEinnahme = angular.copy(nextMediEinnahme);
      nextMediEinnahme.wanneinnahmen = [];
      
      if (nextMediEinnahme.wiederholungstag.mo || nextMediEinnahme.wiederholungstag.di || nextMediEinnahme.wiederholungstag.mi || nextMediEinnahme.wiederholungstag.do || nextMediEinnahme.wiederholungstag.fr || nextMediEinnahme.wiederholungstag.sa || nextMediEinnahme.wiederholungstag.so ){
@@ -239,8 +243,9 @@ angular.module('starter.mediEinnahmeCtrl', [])
           var minusbeginnuhrzeit = nextMediEinnahme.wiederholungsbeginn.getHours()*60*60*1000 + nextMediEinnahme.wiederholungsbeginn.getMinutes()*60*1000 + nextMediEinnahme.wiederholungsbeginn.getMilliseconds();
           var minusuhrzeit = nextMediEinnahme.uhrzeit.getHours()*60*60*1000 + nextMediEinnahme.uhrzeit.getMinutes()*60*1000 + nextMediEinnahme.uhrzeit.getMilliseconds();
           var resttage = (nextMediEinnahme.wiederholungsbeginn.getTime() - minusbeginnuhrzeit) - (nextMediEinnahme.uhrzeit.getTime() - minusuhrzeit);
+          var tag = 1*24*60*60*1000; //Tag in Millisekunden
           
-          tempNextEinnahme.wiederholungsbeginn.setTime(nextMediEinnahme.uhrzeit.getTime() + resttage);
+          tempNextEinnahme.wiederholungsbeginn.setTime(nextMediEinnahme.uhrzeit.getTime() + resttage + tag);
           $log.debug("Welcher Zeitpunkt ist größer 'Beginn': " + tempNextEinnahme.wiederholungsbeginn);
           
           
@@ -342,7 +347,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
         $log.info("addEinnahme: " + $scope.einnahme.med.mediname);
         
         // Eine neue Einnahmeobjekt erstellen, welches danach gepushed und gespeichert wird.  
-        mediEinnahmeToPush = {
+        var mediEinnahmeToPush = {
             "id": 'e-' + $scope.id,     //neue Id 
             "mediname": $scope.einnahme.med.mediname,
             "einnahmemenge": $scope.einnahme.einnahmemenge,
@@ -352,10 +357,8 @@ angular.module('starter.mediEinnahmeCtrl', [])
             "wiederholungsende": $scope.einnahme.wiederholungsende,
             "vibration": $scope.einnahme.vibration
         }
-        // Eine neue Einnahme pushen/speichern
-        $scope.mediEinnahmeData.push({ //Man könnte auch nur das Objekt $scope.user pushen.
-            mediEinnahmeToPush
-        });
+        // Eine neue Einnahme pushen/speichern. 
+        $scope.mediEinnahmeData.push(mediEinnahmeToPush); //Könnte man weglassen, da eh zum Schluss neu geladen wird :D
         
         // Neue Einnahme für das jeweilige Medikament in der Webstorage speichern
           //1. Medikament suchen
@@ -521,6 +524,14 @@ angular.module('starter.mediEinnahmeCtrl', [])
     return dayAsString;
   }
 
+////
+  $scope.updateEinheit = function(me) {
+    if(me != undefined){
+      var med = JSON.parse(me);
+      $scope.einnahme.einnahmemenge.einheit = med.packungsgroesse.einheit;
+    }
+  
+  }
 
 ////Pupup
 
