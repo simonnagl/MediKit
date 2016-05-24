@@ -9,8 +9,8 @@
 <ion-toggle ng-model="nichtGenommen" ng-checked="nichtGenommen" ng-change="updateToggle()" toggle-class="toggle-positive">nicht genommene Medikamente</ion-toggle>
 
 
-<div class="row">
-  <div class="col">
+
+  <div>
           <onezone-datepicker datepicker-object="onezoneDatepickervon">
     <button class="button button-block button-positive show-onezone-datepicker">
         von: {{onezoneDatepickervon.date | date:'dd MMMM yyyy'}} 
@@ -18,19 +18,19 @@
 </onezone-datepicker>
   </div>
 
-  <div class="col"><onezone-datepicker datepicker-object="onezoneDatepickerbis">
+  <div><onezone-datepicker datepicker-object="onezoneDatepickerbis">
     <button class="button button-block button-positive show-onezone-datepicker">
         bis: {{onezoneDatepickerbis.date | date:'dd MMMM yyyy'}} 
     </button> 
-</onezone-datepicker></div>
+</onezone-datepicker>
 </div>
 
 <ion-list>
     <div class="item item-divider"> Medikamentenhistorie </div>
     <ion-item ng-repeat="x in medicine | filter:searchText" | ng-if="checkFilter(x)">
-       <i class="icon ion-checkmark-circled" | ng-if="x.einnahmezeitist != ''"></i> 
-       <i class="icon ion-close-circled" | ng-if="x.einnahmezeitist == ''"></i>
-       {{x.mediname}} {{x.medidosis}} {{x.einnahmezeitsoll}}
+       <i class="icon ion-checkmark-circled balanced" | ng-if="x.einnahmezeitist != ''"></i> 
+       <i class="icon ion-close-circled assertive" | ng-if="x.einnahmezeitist == ''"></i>
+       {{x.mediname}} {{x.medidosis}} {{x.einnahmezeitsoll | date:'dd MMMM yyyy H:mm'}} Uhr
     </ion-item>
 </ion-list>
 
