@@ -245,7 +245,12 @@ angular.module('starter.mediEinnahmeCtrl', [])
           var resttage = (nextMediEinnahme.wiederholungsbeginn.getTime() - minusbeginnuhrzeit) - (nextMediEinnahme.uhrzeit.getTime() - minusuhrzeit);
           var tag = 1*24*60*60*1000; //Tag in Millisekunden
           
+          if(resttage < tag){
           tempNextEinnahme.wiederholungsbeginn.setTime(nextMediEinnahme.uhrzeit.getTime() + resttage + tag);
+          } else {
+          tempNextEinnahme.wiederholungsbeginn.setTime(nextMediEinnahme.uhrzeit.getTime() + resttage);  
+          }
+          
           $log.debug("Welcher Zeitpunkt ist größer 'Beginn': " + tempNextEinnahme.wiederholungsbeginn);
           
           
