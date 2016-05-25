@@ -14,15 +14,28 @@
 			Persönliche Daten
 	</ion-item>
 
+<!-------------------------------------------------------------------------------- -->
 	<ion-item class="item" ng-repeat="persoenlicheDaten in allPersoenlicheDaten" ng-click="changeNachname(persoenlicheDaten)" ng-if="!isNachnameEmptyBool">
 			Nachname: {{persoenlicheDaten.nachname}}			
 	</ion-item>
 	
-		
+	<ion-item class="item" ng-if="isNachnameEmptyBool">
+			Nachname
+			<i class="ion-android-add-circle" ng-click="addNewNachname()"></i>			
+	</ion-item>
+	
+<!-------------------------------------------------------------------------------- -->
+	
 	<ion-item class="item" ng-repeat="persoenlicheDaten in allPersoenlicheDaten" ng-click="changeVorname(persoenlicheDaten)" ng-if="!isVornameEmptyBool">
 			Vorname: {{persoenlicheDaten.vorname}}
 	</ion-item>
 
+	<ion-item class="item" ng-if="isVornameEmptyBool">
+			Vorname
+			<i class="ion-android-add-circle" ng-click="addNewVorname()"></i>
+	</ion-item>
+	
+<!-------------------------------------------------------------------------------- -->
 
 	<ion-item class="item-divider" ng-click="addNewBlutgruppe()" ng-if="isBlutgruppeEmptyBool">
 			Blutgruppe
@@ -35,6 +48,8 @@
 	 <ion-item class="item" ng-repeat="blutgruppe in allBlutgruppe"  ng-click="changeBlutgruppe(blutgruppe)">
 			{{blutgruppe.name}}
 	 </ion-item>
+	 
+<!-------------------------------------------------------------------------------- -->
 
 	<ion-item class="item-divider">
 		Allergie
@@ -45,7 +60,8 @@
 	<ion-item class="item" ng-repeat="allergie in allAllergie"  ng-click="changeAllergie(allergie)">
 			{{allergie.name}}
 	 </ion-item>
-	
+
+<!-------------------------------------------------------------------------------- -->	 
 	
 	<ion-item class="item-divider">
 		Unverträglichkeit
@@ -55,7 +71,8 @@
 	<ion-item class="item" ng-repeat="unvertraeglichkeit in allUnvertraeglichkeit" ng-click="changeUnvertraeglichkeit(unvertraeglichkeit)">
 			{{unvertraeglichkeit.name}}
 	 </ion-item>
-	 
+
+<!-------------------------------------------------------------------------------- -->	 
 	 
 	<ion-item class="item-divider">
 		Erkrankung
@@ -66,7 +83,6 @@
 			{{erkrankung.name}}
 	 </ion-item>
 	 
-	
 	</ion-content>
 
 </ion-view>
