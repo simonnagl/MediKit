@@ -28,8 +28,8 @@
 <ion-list>
     <div class="item item-divider"> Medikamentenhistorie </div>
     <ion-item ng-repeat="x in medicine | filter:searchText" | ng-if="checkFilter(x)">
-       <i class="icon ion-checkmark-circled balanced" | ng-if="x.einnahmezeitist != ''"></i> 
-       <i class="icon ion-close-circled assertive" | ng-if="x.einnahmezeitist == ''"></i>
+       <i class="icon ion-checkmark-circled balanced" | ng-if="x.einnahmezeitist != null"></i> 
+       <i class="icon ion-close-circled assertive" | ng-if="x.einnahmezeitist == null"></i>
        {{x.mediname}} {{x.medidosis}} {{x.einnahmezeitsoll | date:'dd MMMM yyyy H:mm'}} Uhr
     </ion-item>
 </ion-list>

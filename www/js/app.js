@@ -7,6 +7,7 @@
 angular.module('starter', [ 'ionic', 
 			    'ngCordova',
                             'onezone-datepicker',
+                            'starter.einnahmeCtrl',
                             'starter.controllers',
                             'starter.einnahmeStorage',
                             'starter.historieCtrl',
@@ -15,11 +16,12 @@ angular.module('starter', [ 'ionic',
                             'starter.mediStorage',
                             'starter.mediVerwaltungCtrl',
                             'starter.profilStorage',
+                            'starter.historieStorage',
                             'starter.startseiteCtrl',
                             'starter.userprofilCtrl',
                             'starter.webStorageMain'])
 
-.run(function($ionicPlatform, $timeout, $rootScope) {
+.run(function($location, $ionicPlatform, $cordovaLocalNotification, $timeout, $rootScope, $log) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -34,16 +36,10 @@ angular.module('starter', [ 'ionic',
       StatusBar.styleDefault();
     }
   
-    window.plugin.notification.local.trigger = function (id, state, json) {
-      var notification = {
-          id: id,
-          state: state,
-          json: json
-      };
-      $timeout(function() {
-          $rootScope.$broadcast("$cordovaLocalNotification:trigger", notification);
-      });
-    };
+    cordova.plugins.notification.local.on("click", function (notification) {
+        $location.path('/app/einnahme/' + notification.id + ',' + notification.data );
+    });
+    
   });
 })
 
@@ -102,6 +98,16 @@ angular.module('starter', [ 'ionic',
         'menuContent': {
           templateUrl: 'templates/kontakte.html',
           controller: 'KontakteCtrl',
+        }
+      }
+    })
+    
+    .state('app.einnahme', {
+      url: '/einnahme/{notificationId},{terminIndex}',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/einnahme.html',
+          controller: 'EinnahmeCtrl',
         }
       }
     })

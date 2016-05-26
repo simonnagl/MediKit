@@ -353,7 +353,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
         
         // Eine neue Einnahmeobjekt erstellen, welches danach gepushed und gespeichert wird.  
         var mediEinnahmeToPush = {
-            "id": 'e-' + $scope.id,     //neue Id 
+            "id": $scope.id,     //neue Id 
             "mediname": $scope.einnahme.med.mediname,
             "einnahmemenge": $scope.einnahme.einnahmemenge,
             "uhrzeit": $scope.einnahme.uhrzeit,

@@ -15,14 +15,14 @@ angular.module('starter.einnahmeStorage', [])
     function loadAllEinnahme() {
         $log.debug("WebStorage: loadAllEinnahme -> START");
         var allEinnahme = []; 
-        allEinnahme = WebStorageMain.loadAllObject('e-e-');
+        allEinnahme = WebStorageMain.loadAllObject('e-');
         $log.debug("WebStorage: loadAllEinnahme -> END WITH SUCCESS");
         return allEinnahme;
     }
     
-    function loadEinnahme(einnahme) {
+    function loadEinnahme(einnahmeId) {
         $log.debug("WebStorage: loadEinnahme -> START");
-        var value = WebStorageMain.loadObject("e-" + einnahme.id);  
+        var value = WebStorageMain.loadObject("e-" + einnahmeId);  
         
         if (value != null) {
             $log.debug("WebStorage: loadEinnahme -> END WITH SUCCESS");
@@ -57,22 +57,18 @@ angular.module('starter.einnahmeStorage', [])
             var _10SecondsFromNow = new Date(now + 10 * 1000);
             var tmpAllEinnahme = einnahme.wanneinnahmen;
             
-            for (var i = 0; i < tmpAllEinnahme.length; i++) {
-                // Hier ist noch keine implementierung wegen möglich, da
-                // ein Bug im Medieinnahmenverwaltung
-            }
-            
             $cordovaLocalNotification.schedule({
                 id: einnahme.id,
                 title: 'Medikit',
                 text: 'Medikament: ' + einnahme.mediname + ' - '
                         + einnahme.einnahmemenge.menge + ''
                         + einnahme.einnahmemenge.einheit + ' einnehmen',
-                at: _10SecondsFromNow
+                at: _10SecondsFromNow,
+                json: 0
             }).then(function (result) {
                 $log.debug('Notification 2 triggered');
             });
-    });
+        });
     }
     ;
     

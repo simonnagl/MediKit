@@ -1,49 +1,41 @@
 angular.module('starter.historieCtrl', ['ionic'])
 
-.controller('HistorieCtrl', function($scope, $stateParams, $ionicModal, $timeout, $log) {
+.controller('HistorieCtrl', function($scope, $stateParams, $ionicModal, $timeout, $log, HistorieStorage) {
 
     //Controller historieCtrl
     
-    $scope.medicine = [{id:"123", mediname:"Aspirin", medidosis:"200mg", einnahmemenge:"2Tabletten", einnahmezeitsoll:new Date(Date.parse("2016-04-01T12:00:00+0000")), einnahmezeitist:""},
-    {id:"1234", mediname:"Aspirin", medidosis:"200mg", einnahmemenge:"2Tabletten", einnahmezeitsoll:new Date(Date.parse("2016-03-01T18:00:00+0000")), einnahmezeitist:"TEst"},
-    {id:"12345", mediname:"Aspirin", medidosis:"200mg", einnahmemenge:"2Tabletten", einnahmezeitsoll:new Date(Date.parse("2016-03-23T18:00:00+0000")), einnahmezeitist:""},
-    {id:"234", mediname:"Paracetamol", medidosis:"100mg", einnahmemenge:"1Tablette", einnahmezeitsoll:new Date(Date.parse("2016-03-12T18:00:00+0000")), einnahmezeitist:"2.4.2016 12:05"}];
+    $scope.medicine = HistorieStorage.loadAll;
   
 
 $scope.params = $stateParams.isNichtEingenommen;
-if($scope.params == "true")
-{
+if ($scope.params == "true") {
     $scope.nichtGenommen = true;
-
-}else{
+} else {
     $scope.nichtGenommen = false;
 }
 
 $scope.updateToggle = function() {
-    if($scope.nichtGenommen == false){
+    if($scope.nichtGenommen == false) {
         $scope.nichtGenommen = true;
-    }else{
+    } else {
         $scope.nichtGenommen = false;
     }
 }
 
 $scope.checkFilter = function(x) {
-    if((x.einnahmezeitsoll >= $scope.onezoneDatepickervon.date) && (x.einnahmezeitsoll <= $scope.onezoneDatepickerbis.date)){
-        if($scope.nichtGenommen == true)
-        {
-            if(x.einnahmezeitist == ''){
+    if ((x.einnahmezeitsoll >= $scope.onezoneDatepickervon.date) && (x.einnahmezeitsoll <= $scope.onezoneDatepickerbis.date)){
+        if ($scope.nichtGenommen == true) {
+            if (x.einnahmezeitist == ''){
                 return true;
-            }else{
+            } else {
                 return false;
             }
-        }else{
+        } else {
             return true;
-        }
-        
-    }else{
+        }   
+    } else {
         return false;
-    }
-    
+    }   
 }
 
 
