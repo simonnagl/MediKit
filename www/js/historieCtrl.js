@@ -4,7 +4,7 @@ angular.module('starter.historieCtrl', ['ionic'])
 
     //Controller historieCtrl
     
-    $scope.medicine = HistorieStorage.loadAll;
+    $scope.medicine = HistorieStorage.loadAll();
   
 
 $scope.params = $stateParams.isNichtEingenommen;
@@ -23,9 +23,12 @@ $scope.updateToggle = function() {
 }
 
 $scope.checkFilter = function(x) {
-    if ((x.einnahmezeitsoll >= $scope.onezoneDatepickervon.date) && (x.einnahmezeitsoll <= $scope.onezoneDatepickerbis.date)){
+    var vonDateValue = $scope.onezoneDatepickervon.date.valueOf();
+    var bisDateValue = $scope.onezoneDatepickerbis.date.valueOf();
+    // TODO: Für Testzwecke wurde die bisZeit auskommentiert
+    if ((x.einnahmezeitsoll >= vonDateValue) /*&& (x.einnahmezeitsoll <= maxDateValue)**/){
         if ($scope.nichtGenommen == true) {
-            if (x.einnahmezeitist == ''){
+            if (x.einnahmezeitist == null){
                 return true;
             } else {
                 return false;
