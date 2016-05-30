@@ -8,3 +8,5 @@ resources/
 
 # OS dependent files
 .DS_Store
+typings/angularjs/angular.d.ts
+typings/cordova/cordova.d.ts
