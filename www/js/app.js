@@ -7,6 +7,7 @@
 angular.module('starter', [ 'ionic', 
 			    'ngCordova',
                             'onezone-datepicker',
+                            'uiGmapgoogle-maps',
                             'starter.einnahmeCtrl',
                             'starter.controllers',
                             'starter.einnahmeStorage',
@@ -19,6 +20,7 @@ angular.module('starter', [ 'ionic',
                             'starter.historieStorage',
                             'starter.startseiteCtrl',
                             'starter.userprofilCtrl',
+                            'starter.navigationCtrl',
                             'starter.webStorageMain'])
 
 .run(function($location, $ionicPlatform, $cordovaLocalNotification, $timeout, $rootScope, $log) {
@@ -98,6 +100,16 @@ angular.module('starter', [ 'ionic',
         'menuContent': {
           templateUrl: 'templates/kontakte.html',
           controller: 'KontakteCtrl',
+        }
+      }
+    })
+    
+    .state('app.navigation', {
+      url: '/navigation',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/navigation.html',
+          controller: 'NavigationCtrl',
         }
       }
     })
