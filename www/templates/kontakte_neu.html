@@ -75,16 +75,16 @@
                         </label>
                 </div>
                 
-				<label class="item">
-				  <button class="button button-block button-positive" type="submit" ng-if="isNewKontakt">Hinzufügen</button>
-				  <button class="button button-block button-positive" type="submit" ng-if="!isNewKontakt">Bearbeitung speichern</button>
+				
+				  <button class="button button-block button-dark" type="submit" ng-if="isNewKontakt">Hinzufügen</button>
+				  <button class="button button-block button-dark" type="submit" ng-if="!isNewKontakt">Bearbeitung speichern</button>
 				  <!-- Oder per Backbutton erledigen lassen? // Bisher wird bei Aufruf des Backbuttons nichts gespeichert  -->
-				</label>
+				
             </div>
 	    </form>
 		
-		<label class="item">
-			<button class="button button-block ion-trash-b button-assertive" ng-click="deleteKontakt(selectedKontakt)" ng-if="!isNewKontakt">Kontakt löschen</button>
+		<label class="item" ng-if="!isNewKontakt">
+			<button class="button button-block ion-trash-b button-assertive" ng-click="deleteKontakt(selectedKontakt)">Kontakt löschen</button>
 		</label>
 		
 	</ion-content>
