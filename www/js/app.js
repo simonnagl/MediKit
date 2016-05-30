@@ -21,7 +21,7 @@ angular.module('starter', [ 'ionic',
                             'starter.userprofilCtrl',
                             'starter.webStorageMain'])
 
-.run(function($location, $ionicPlatform, $cordovaLocalNotification, $timeout, $rootScope, $log) {
+.run(function($location, $ionicPlatform, $cordovaLocalNotification, $cordovaSplashscreen, $timeout, $rootScope, $log) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)

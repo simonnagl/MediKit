@@ -2,7 +2,22 @@
     <ion-nav-bar class="bar-stable">
         <ion-nav-back-button hide-back-button="true"></ion-nav-back-button>
     </ion-nav-bar>
-	<ion-content>      
+	<ion-content> 
+        <div class="card">
+            <div class="item item-divider">
+                Einnahme Bestätigen
+            </div>
+            <div class="item item-text-wrap">
+                Bitte bestätigen Sie die Einahme des Medikamentes 
+            </div>
+            <div class="item item-text-wrap">
+                Bezeichnung: {{termin.mediname}}
+            </div>
+            <div class="item item-text-wrap">
+                Menge: {{termin.medidosis}}
+            </div>
+        </div>
+             
         <button class="button button-block button-positive" ng-click="einnahmeBestaetigen()">
             Bestätigen
         </button>

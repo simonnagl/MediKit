@@ -18,7 +18,7 @@ angular.module('starter.einnahmeCtrl', ['ionic'])
 	var einnahme = EinnahmeStorage.loadEinnahme($scope.einnahmeId);
 	var einnahmeTermin = einnahme.wanneinnahmen[$scope.terminIndex];
     $log.debug(einnahme);
-	var termin = {	id: $scope.einnahmeId, 
+	$scope.termin = {	id: $scope.einnahmeId, 
 					mediname: einnahme.mediname, 
 					medidosis:"200mg", 
 					einnahmemenge: einnahme.einnahmemenge.menge + "" + einnahme.einnahmemenge.einheit,
@@ -28,8 +28,8 @@ angular.module('starter.einnahmeCtrl', ['ionic'])
 	$scope.einnahmeBestaetigen = function() {
 		$log.debug("Einnahme bestätigt");
 		setNextTerminNotification();
-		termin.einnahmezeitist = new Date().getTime();
-		HistorieStorage.addTermin(termin);
+		$scope.termin.einnahmezeitist = new Date().getTime();
+		HistorieStorage.addTermin($scope.termin);
         trackMedimenge();
         $ionicHistory.goBack();
 	}
@@ -37,7 +37,7 @@ angular.module('starter.einnahmeCtrl', ['ionic'])
 	$scope.einnahmeAblehnen = function() {
 		$log.debug("Einnahme abgelehnt");
 		setNextTerminNotification()
-		HistorieStorage.addTermin(termin);
+		HistorieStorage.addTermin($scope.termin);
         sendSmsToAllNotfallkontakt('Medikament wurde nicht eingenommen');
         $ionicHistory.goBack();
 	}
