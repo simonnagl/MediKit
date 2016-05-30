@@ -363,6 +363,8 @@ angular.module('starter.mediEinnahmeCtrl', [])
             "id": $scope.id,     //neue Id 
             "mediname": $scope.einnahme.med.mediname,
             "einnahmemenge": $scope.einnahme.einnahmemenge,
+            "packungsgroesse": $scope.einnahme.med.packungsgroesse.menge,
+            "snoozemin": $scope.einnahme.med.snoozemin,
             "uhrzeit": $scope.einnahme.uhrzeit,
             "wiederholungstag": $scope.einnahme.wiederholungstag,
             "wiederholungsbeginn": $scope.einnahme.wiederholungsbeginn,

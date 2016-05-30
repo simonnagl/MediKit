@@ -1,4 +1,7 @@
 <ion-view view-title="Einnahme Bestätigen">
+    <ion-nav-bar class="bar-stable">
+        <ion-nav-back-button hide-back-button="true"></ion-nav-back-button>
+    </ion-nav-bar>
 	<ion-content>      
         <button class="button button-block button-positive" ng-click="einnahmeBestaetigen()">
             Bestätigen
@@ -6,7 +9,7 @@
         <button class="button button-block button-positive" ng-click="einnahmeAblehnen()">
             Ignorieren
         </button>
-        <button class="button button-full button-positive">
+        <button class="button button-full button-positive" ng-click="einnahmeVerschieben()">
 			Verschieben
         </button> 
     </ion-content>
