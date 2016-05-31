@@ -9,23 +9,23 @@ angular.module('starter.startseiteCtrl', [])
                                         $location, 
                                         $ionicPopup, 
                                         $state, 
-                                        EinnahmeStorage) {
+                                        EinnahmeStorage,
+                                        HistorieStorage) {
     
     $scope.zukunftEinnahmen = [];    
     $scope.$on("$ionicView.enter", function(){
         $scope.zukunftEinnahmen = EinnahmeStorage.loadAllEinnahme();
+        $scope.historieEinnamen = HistorieStorage.loadAll();
     })
     
-    $scope.$on("$cordovaLocalNotification:trigger", function(id, state, json) {
-        alert("Trigger a notification");
-    });     
+   
          
     $scope.seen = 'false';
     $scope.name = 'John';
     $scope.count = "3";
 
     $log.debug("Ausgabe Einnahmen " + $scope.zukunftEinnahmen);
-        $log.debug("Ausgabe test " + $scope.test);
+    $log.debug("Ausgabe test " + $scope.historieEinnamen);
     
     $scope.navigate = function(path) {
         $location.path(path);
