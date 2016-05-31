@@ -5,17 +5,20 @@
     </ion-nav-buttons>
     
     <ion-content>
-        <ion-list>
+        <ion-list can-swipe="true">
             <ion-item class="item-divider">
                 <div class="row">
                     <div class="col">Bez.</div>
                     <div class="col">Packungsgröße</div></div>
             </ion-item>
-            <ion-item ng-repeat="medi in medis" ng-click="openEditMedi(medi)">
-                <div class="row">
+			<ion-item ng-repeat="medi in medis" ng-click="openEditMedi(medi)">
+				<div class="row" >
                     <div class="col">{{medi.mediname}}</div>
                     <div class="col">{{medi.packungsgroesse.menge}} {{medi.packungsgroesse.einheit}}</div>
                 </div>
+				<ion-option-button class="button-negative" ng-click="deleteMediFromList(medi)">
+					Löschen
+				</ion-option-button>
             </ion-item>
         </ion-list>
     </ion-content>

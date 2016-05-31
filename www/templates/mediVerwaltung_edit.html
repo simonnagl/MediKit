@@ -2,7 +2,8 @@
     <ion-header-bar>
         <button class="button button-icon ion-reply button-clear" ng-click="saveMedi()"/>
         <h1 class="title">Medikament</h1>
-        <button ng-if=!isNewMedi class="button button-icon ion-trash-b button-clear" ng-click="deleteMedi()" />
+		<button ng-if=!isNewMedi class="button button-icon ion-trash-b 
+		button-clear" ng-click="deleteMedi($scope.medi)" />
         <button ng-if=isNewMedi class="button button-icon ion-close-round button-clear" ng-click="deleteMedi()" />
     </ion-header-bar>
     
@@ -10,7 +11,8 @@
         <div class="list">
             <label class="item item-input">
                 <span class="input-label">Name</span>
-                <input type="text" ng-model="medi.mediname" required>
+				<input type="text" ng-model="medi.mediname" required 
+					   align="right">
             </label>
             <label class="item item-input">
                 <span class="input-label">Packungsgröße</span>
@@ -25,7 +27,7 @@
                 </select>
             </label>
             <label class="item item-input">
-                <span class="input-label">Snoozezeit</span>
+				<span class="input-label" placeholder="Minuten">Snoozezeit</span>
                 <input type="number" min="0" ng-model="medi.snoozemin">
             </label>
             <label class="item item-input item-stacked-label">

@@ -115,6 +115,12 @@ angular.module('starter.mediVerwaltungCtrl', [])
 
 	};
 
+	$scope.deleteMediFromList = function(medi) {
+		$log.debug("Swipe");
+		MediStorage.deleteMedikament(medi);
+		$scope.medis = MediStorage.loadAllMedikament();
+	};
+
 	// Open the medimedikament_neu modal
 	$scope.openNewMedi = function() {
 		$scope.isNewMedi = true;
