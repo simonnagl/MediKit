@@ -2,12 +2,15 @@
     <ion-content class="has-header" padding="true">
         <ion-list class="list list-inset">
             <div class="item item-divider">
-                    Hallo {{ name }}
+                    Hallo {{ user.persoenlicheDaten }}
             </div>
             <div class="item">
                     Sie haben <strong>{{count}}</strong> nicht genommene Medikamente.
             </div>
         </ion-list>
+        <button class="button button-block button-dark" ng-click="navigate('/app/mediEinnahme')">
+            Termin anlegen
+        </button>
         <ion-list  class="list list-inset">
             <div class="item item-divider">
                 Nächste Medikamenteneinnahmen
@@ -17,9 +20,7 @@
             </ion-item>
         </ion-list>        
 
-        <button class="button button-block button-dark" ng-click="navigate('/app/mediEinnahme')">
-            Termin anlegen
-        </button>
+
 
      <!--   <button class="button button-block button-positive" ng-click="showPopup()">
            Popup Anzeigen

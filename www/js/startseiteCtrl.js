@@ -10,22 +10,29 @@ angular.module('starter.startseiteCtrl', [])
                                         $ionicPopup, 
                                         $state, 
                                         EinnahmeStorage,
-                                        HistorieStorage) {
+                                        HistorieStorage,
+                                        ProfilStorage) {
     
-    $scope.zukunftEinnahmen = [];    
+    $scope.zukunftEinnahmen = [];
+    $scope.historieEinnahmen = [];
+    $scope.user =[];    
     $scope.$on("$ionicView.enter", function(){
         $scope.zukunftEinnahmen = EinnahmeStorage.loadAllEinnahme();
-        $scope.historieEinnamen = HistorieStorage.loadAll();
+        $scope.historieEinnahmen = HistorieStorage.loadAll();
+        $scope.user = ProfilStorage.loadProfil();
     })
-    
+    $scope.count = "0";
    
-         
-    $scope.seen = 'false';
-    $scope.name = 'John';
-    $scope.count = "3";
+   $scope.historieEinnahmen.forEach(function Einnahme() {
+       if (einnahmezeitist == null) {
+           $scope.count ++;
+       }
+   })
 
-    $log.debug("Ausgabe Einnahmen " + $scope.zukunftEinnahmen);
-    $log.debug("Ausgabe test " + $scope.historieEinnamen);
+    $scope.seen = 'false';
+ 
+    
+
     
     $scope.navigate = function(path) {
         $location.path(path);
@@ -53,7 +60,7 @@ angular.module('starter.startseiteCtrl', [])
             { text: 'Abbrechen',
                }, {
                text: '<b>Historie anzeigen</b>',
-               type: 'button-positive',
+               type: 'button-positive button-dark',
                   onTap: function(e) {
                        
 						 $scope.navigate('/app/historie/true')      
