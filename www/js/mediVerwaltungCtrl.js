@@ -1,36 +1,11 @@
 angular.module('starter.mediVerwaltungCtrl', [])
 
 .controller('mediVerwaltungCtrl', function($scope, $ionicModal, $log, MediStorage) {
-    $scope.medis = [
-        {
-            mediname : "Aspirin",
-            packungsgroesse : {
-                menge : 150,
-                einheit : "ml"
-            },
-            snoozemin : 50,
-        },
-        {
-            mediname : "Citerizin",
-            packungsgroesse : {
-                menge : 150,
-                einheit : "ml"
-            },
-            snoozemin : 65,
-        },
-        {
-            mediname : "Nikotin",
-            packungsgroesse : {
-                menge : 30,
-                einheit : "Tabletten"
-            },
-            snoozemin : 65,
-        }
-    ];
+    $scope.medis = [];
 
 	$scope.medis = MediStorage.loadAllMedikament();
 
-    default_medi = {
+    defaultMedi = {
 		id : "",
         mediname : "",
         packungsgroesse : {
@@ -45,7 +20,7 @@ angular.module('starter.mediVerwaltungCtrl', [])
         scope: $scope
     }).then(function(modal) {
         $scope.medikament = modal;
-                                                });
+    });
             
     // Triggered in the medimedikament_neu modal to close it
     $scope.saveMedi = function() {
@@ -61,16 +36,17 @@ angular.module('starter.mediVerwaltungCtrl', [])
     };
 
     $scope.deleteMedi = function() {
-        index = $scope.medis.indexOf($scope.medi);
-        $scope.medis.splice(index, 1);
         $scope.medikament.hide();
+        MediStorage.deleteMedikament($scope.medi);
         $scope.isNewMedi = undefined;
+        $scope.medis = MediStorage.loadAllMedikament();
+        
     };
             
     // Open the medimedikament_neu modal
     $scope.openNewMedi = function() {
         $scope.isNewMedi = true;
-        $scope.medi = angular.copy(default_medi);
+        $scope.medi = angular.copy(defaultMedi);
 		$scope.medi.id = Date.now();
         $scope.medikament.show();
     };
