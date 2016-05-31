@@ -138,7 +138,7 @@ angular.module('starter.navigationCtrl', ['ionic'])
 	$scope.getContactAdressForMap = function() {
 
 		$scope.contactData = ProfilStorage.loadProfil("kontakt");
-		if ($scope.contactData.length > 0){
+		if ($scope.contactData != null){
 			var convertedCoord = "";
 			for (var i=0; i < $scope.contactData.length; i++){
 				$scope.convertToCoords($scope.contactData[i].kontaktArt, $scope.contactData[i].nachname ,$scope.contactData[i].plz + '+' + $scope.contactData[i].ort + '+' + $scope.contactData[i].strasse);					
