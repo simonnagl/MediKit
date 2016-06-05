@@ -52,7 +52,8 @@ angular.module('starter.kontakteCtrl', [])
             plz: "", 
             ort: "", 
             telefon: "", 
-            email: ""
+            email: "",
+            notfallkontakt: false
         };
         return emptyKontakt;
     }

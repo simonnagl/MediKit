@@ -8,21 +8,20 @@
 </div>
 <ion-toggle ng-model="nichtGenommen" ng-checked="nichtGenommen" ng-change="updateToggle()" toggle-class="toggle-dark">nicht genommene Medikamente</ion-toggle>
 
-
-
   <div>
-          <onezone-datepicker datepicker-object="onezoneDatepickervon">
-    <button class="button button-block button-dark show-onezone-datepicker">
-        von: {{onezoneDatepickervon.date | date:'dd MMMM yyyy'}} 
-    </button>
-</onezone-datepicker>
+    <onezone-datepicker datepicker-object="onezoneDatepickervon">
+        <button class="button button-block button-dark show-onezone-datepicker">
+            von: {{onezoneDatepickervon.date | date:'dd MMMM yyyy'}} 
+        </button>
+    </onezone-datepicker>
   </div>
 
-  <div><onezone-datepicker datepicker-object="onezoneDatepickerbis">
-    <button class="button button-block button-dark show-onezone-datepicker">
-        bis: {{onezoneDatepickerbis.date | date:'dd MMMM yyyy'}} 
-    </button> 
-</onezone-datepicker>
+<div>
+    <onezone-datepicker datepicker-object="onezoneDatepickerbis">
+        <button class="button button-block button-dark show-onezone-datepicker">
+            bis: {{onezoneDatepickerbis.date | date:'dd MMMM yyyy'}} 
+        </button> 
+    </onezone-datepicker>
 </div>
 
 <ion-list>

@@ -9,24 +9,37 @@ angular.module('starter.einnahmeCtrl', ['ionic'])
 										$log, 
                                         $ionicHistory,
 										EinnahmeStorage,
-										HistorieStorage) {
+										HistorieStorage,
+                                        ProfilStorage) {
 	
+    // Die NotificationID und der TerminIndex werden über StateParams ausgelesen
 	$scope.einnahmeId = $stateParams.notificationId;
 	$scope.terminIndex = $stateParams.terminIndex;
-    $log.debug($scope.terminIndex);
-	
+	$log.debug("EinnahmeCtrl: INIT StateParams -> EinnahmeID: " + $scope.einnahmeId + " TerminIndex: " + $scope.terminIndex);
+    
+    // Anhand der EinnahmeID == NotificationID wird die Einahme aus dem Storage geladen
 	var einnahme = EinnahmeStorage.loadEinnahme($scope.einnahmeId);
 	var einnahmeTermin = einnahme.wanneinnahmen[$scope.terminIndex];
-    $log.debug(einnahme);
+    $log.debug("EinnahmeCtrl: INIT Einahme" + JSON.stringify(einnahme));
+    
+    // Ein neues Terminobjekt wird erzeugt. Dieses wird nach der Bearbeitung in den HistorieStorage gespeichert
 	$scope.termin = {	id: $scope.einnahmeId, 
-					mediname: einnahme.mediname, 
-					medidosis:"200mg", 
-					einnahmemenge: einnahme.einnahmemenge.menge + "" + einnahme.einnahmemenge.einheit,
-	 				einnahmezeitsoll: einnahmeTermin.zeitpunkt, 
-					einnahmezeitist: null};
-	
+                        mediname: einnahme.mediname, 
+                        medidosis:"200mg", 
+                        einnahmemenge: einnahme.einnahmemenge.menge + "" + einnahme.einnahmemenge.einheit,
+                        einnahmezeitsoll: einnahmeTermin.zeitpunkt, 
+                        einnahmezeitist: null
+                    };
+	$log.debug("EinnahmeCtrl: INIT Termin" + JSON.stringify($scope.termin));
+    
+    /**
+	 * @ngdoc method
+	 * @name $scope.einnahmeBestaetigen
+	 * @methodOf Medikit.controller: EinnahmeCtrl
+	 * @description Wird beim Bestaetigen einer Einnahme ausgeführt
+	 */
 	$scope.einnahmeBestaetigen = function() {
-		$log.debug("Einnahme bestätigt");
+		$log.debug("EinnahmeCtrl: Einahme wurde bestätigt");
 		setNextTerminNotification();
 		$scope.termin.einnahmezeitist = new Date().getTime();
 		HistorieStorage.addTermin($scope.termin);
@@ -34,15 +47,28 @@ angular.module('starter.einnahmeCtrl', ['ionic'])
         $ionicHistory.goBack();
 	}
 	
+    /**
+	 * @ngdoc method
+	 * @name $scope.einnahmeAblehnen
+	 * @methodOf Medikit.controller: EinnahmeCtrl
+	 * @description Wird beim Ablehnen einer Einnahme ausgeführt
+	 */
 	$scope.einnahmeAblehnen = function() {
-		$log.debug("Einnahme abgelehnt");
+		$log.debug("EinnahmeCtrl: Einahme wurde abgelehnt");
 		setNextTerminNotification()
 		HistorieStorage.addTermin($scope.termin);
         sendSmsToAllNotfallkontakt('Medikament wurde nicht eingenommen');
         $ionicHistory.goBack();
 	}
     
+    /**
+	 * @ngdoc method
+	 * @name $scope.einnahmeVerschieben
+	 * @methodOf Medikit.controller: EinnahmeCtrl
+	 * @description Wird beim Verschieben einer Einnahme ausgeführt
+	 */
     $scope.einnahmeVerschieben = function() {
+        $log.debug("EinnahmeCtrl: Einahme wurde verschoben");
         $ionicPlatform.ready(function () {
             var now = new Date().getTime();
             snoozemin = parseInt(einnahme.snoozemin);
@@ -63,6 +89,12 @@ angular.module('starter.einnahmeCtrl', ['ionic'])
         $ionicHistory.goBack();
     }
 	
+    /**
+	 * @ngdoc method
+	 * @name $scope.setNextTerminNotification
+	 * @methodOf Medikit.controller: EinnahmeCtrl
+	 * @description Funktion für das setzten der Nächsten Terminnotification
+	 */
 	function setNextTerminNotification() {
 		if(einnahme.wanneinnahmen[parseInt($scope.terminIndex) + 1] != undefined) {	
 			$ionicPlatform.ready(function () {
@@ -86,6 +118,15 @@ angular.module('starter.einnahmeCtrl', ['ionic'])
 		}		
 	};
     
+    
+    /**
+	 * @ngdoc method
+	 * @name $scope.trackMedimenge
+	 * @methodOf Medikit.controller: EinnahmeCtrl
+	 * @description Überprüft den aktuellen Packungsinhalt nach einer Einahme.
+     *              Wenn der stand des Packungsinhalt gering ist wird eine Notification
+     *              ausgelöst und eine SMS an alle Kontaktpersonen versendet. 
+	 */
     function trackMedimenge () {
         $log.debug("Alter Packungsinhalt" + einnahme.packungsgroesse);
         $log.debug(einnahme.packungsgroesse);
@@ -117,24 +158,40 @@ angular.module('starter.einnahmeCtrl', ['ionic'])
         EinnahmeStorage.updateEinnahme(einnahme);
     }
     
+    
+    /**
+	 * @ngdoc method
+	 * @name $scope.sendSmsToAllNotfallkontakt
+	 * @methodOf Medikit.controller: EinnahmeCtrl
+	 * @description Überprüft die Kontakte auf Notfallkontakte und sendet falls welche 
+     *              vorhanden ist an diese eine SMS mit dem übergebenen Text.
+	 */
     function sendSmsToAllNotfallkontakt (msg) {
-        document.addEventListener("deviceready", function () {
+        // Alle Kontakte laden
+        var allKontakt = ProfilStorage.loadProfil("kontakt");
+        $log.debug(allKontakt);
+        
+        // Wenn noch keine Kontakte angelegt wurden passiert nichts weiter...
+        if (allKontakt != null) {
+            var options = {replaceLineBreaks: false, android: {intent: ''}};
             
-            var options = {
-                replaceLineBreaks: false, // true to replace \n by a new line, false by default
-                android: {
-                intent: '' // send SMS with the native android SMS messaging
-                    //intent: '' // send SMS without open any other app
-                    //intent: 'INTENT' // send SMS inside a default SMS app
-                }
-            };
-            
-            $cordovaSms.send('01707303365', msg, options)
-            .then(function() {
-                $log.debug("SMS wurde versendet");
-            }, function(error) {
-                $log.debug("SMS konnte nicht gesendet werden!")
-            });
-        });
+            // ... sonst wird bei jedem Kontakt überprüft ob es sich um einen Notfallkontakt handelt
+            allKontakt.forEach(function(kontakt) {
+                if (kontakt.notfallkontakt == true) {
+                    $log.debug("EinnahmeCtrl: SendSmsToAllNotfallkontakt -> SMS an " + kontakt.nachname + " wird gesendet.");
+                    // Wenn es ein Notallkontakt ist wird eine SMS an diesen Kontakt versendet
+                    document.addEventListener("deviceready", function () { 
+                        $cordovaSms.send(kontakt.telefon, msg, options)
+                        .then(function() {
+                            $log.debug("EinnahmeCtrl: SendSmsToAllNotfallkontakt -> SMS wurde versendet.");
+                        }, function(error) {
+                            $log.debug("EinnahmeCtrl: SendSmsToAllNotfallkontakt -> SMS konnte nicht gesendet werden.");
+                        });
+                    });  
+                }         
+            });   
+        } else {
+            $log.debug("EinnahmeCtrl: SendSmsToAllNotfallkontakt -> Keine Kontakte vorhanden");
+        }   
     }    
 })
