@@ -11,6 +11,10 @@ angular.module('starter.einnahmeCtrl', ['ionic'])
 										EinnahmeStorage,
 										HistorieStorage,
                                         ProfilStorage) {
+                                            
+    $scope.$on('$ionicView.beforeEnter', function (e,config) {
+        config.enableBack = false;
+    });                                        
 	
     // Die NotificationID und der TerminIndex werden über StateParams ausgelesen
 	$scope.einnahmeId = $stateParams.notificationId;
@@ -24,9 +28,8 @@ angular.module('starter.einnahmeCtrl', ['ionic'])
     
     // Ein neues Terminobjekt wird erzeugt. Dieses wird nach der Bearbeitung in den HistorieStorage gespeichert
 	$scope.termin = {	id: $scope.einnahmeId, 
-                        mediname: einnahme.mediname, 
-                        medidosis:"200mg", 
-                        einnahmemenge: einnahme.einnahmemenge.menge + "" + einnahme.einnahmemenge.einheit,
+                        mediname: einnahme.mediname,
+                        einnahmemenge: einnahme.einnahmemenge.menge + " " + einnahme.einnahmemenge.einheit,
                         einnahmezeitsoll: einnahmeTermin.zeitpunkt, 
                         einnahmezeitist: null
                     };

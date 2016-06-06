@@ -23,7 +23,7 @@ angular.module('starter', [ 'ionic',
                             'starter.navigationCtrl',
                             'starter.webStorageMain'])
 
-.run(function($location, $ionicPlatform, $cordovaLocalNotification, $cordovaSplashscreen, $timeout, $rootScope, $log) {
+.run(function($location, $ionicPlatform, $cordovaLocalNotification, $cordovaSplashscreen, $timeout, $rootScope, $log, EinnahmeStorage, HistorieStorage) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -40,6 +40,39 @@ angular.module('starter', [ 'ionic',
   
     cordova.plugins.notification.local.on("click", function (notification) {
         $location.path('/app/einnahme/' + notification.id + ',' + notification.data );
+    });
+    
+    cordova.plugins.notification.local.on("clear", function(notification) {
+        $log.debug("On Run: Einahme wurde abgelehnt");
+        var einnahme = EinnahmeStorage.loadEinnahme(notification.id);
+        var einnahmeTermin = einnahme.wanneinnahmen[notification.data];
+        
+        var termin = {	id: notification.id, 
+                            mediname: einnahme.mediname,
+                            einnahmemenge: einnahme.einnahmemenge.menge + " " + einnahme.einnahmemenge.einheit,
+                            einnahmezeitsoll: einnahmeTermin.zeitpunkt, 
+                            einnahmezeitist: null
+                        };
+        
+		if(einnahme.wanneinnahmen[parseInt(notification.data) + 1] != undefined) {	
+			$ionicPlatform.ready(function () {
+				var now = new Date().getTime();
+				var _10SecondsFromNow = new Date(now + 10 * 1000);
+				
+				$cordovaLocalNotification.schedule({
+					id: einnahme.id,
+					title: 'Medikit',
+					text: 'Medikament: ' + einnahme.mediname + ' - '
+							+ einnahme.einnahmemenge.menge + ''
+							+ einnahme.einnahmemenge.einheit + ' einnehmen',
+					at: _10SecondsFromNow,
+					json: parseInt(notification.data) + 1
+				}).then(function (result) {
+					$log.debug('Notification triggered');
+				});
+			});
+		}
+		HistorieStorage.addTermin(termin);
     });
     
   });
