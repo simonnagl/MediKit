@@ -1,26 +1,22 @@
 <ion-view view-title="Medi-Einnahme"> 
-  <ion-nav-buttons side="secondary">
-      <button class="button button-clear button-icon ion-android-add-circle" ng-click="mediEinnahmeNeu()">
-      </button>
+    <ion-nav-buttons side="secondary">
+        <button class="button button-clear button-icon ion-android-add-circle" ng-click="mediEinnahmeNeu()"></button>
     </ion-nav-buttons>
-  <ion-content>
-    <ion-list>
-        <ion-item class="item-divider">
-        Aktuelle Einnahmen
-    </ion-item>
-        <div class="item" ng-repeat="einnahm in mediEinnahmeData" ng-click="mediEinnahmeEdit(einnahm)">
-            <div class="row">
-                <div class="col">{{einnahm.uhrzeit | date : "HH:mm"}}</div>
-                <div class="col">{{einnahm.mediname}}</div>
-                <div class="col">{{einnahm.einnahmemenge.menge + einnahm.einnahmemenge.einheit}}</div> 
+    <ion-content>
+        <ion-list>
+            <div class="item" ng-repeat="einnahm in mediEinnahmeData" ng-click="mediEinnahmeEdit(einnahm)">
+                <div class="row">
+                    <div class="col">{{einnahm.uhrzeit | date : "HH:mm"}}</div>
+                    <div class="col">{{einnahm.mediname}}</div>
+                    <div class="col">{{einnahm.einnahmemenge.menge + einnahm.einnahmemenge.einheit}}</div> 
+                </div>
+                <div class="row">
+                    <div class="col" ng-bind="getDayname(einnahm.wiederholungstag)"></div>
+                </div> 
+                <div class="row">
+                    <div class="col">{{einnahm.wiederholungsbeginn | date : "dd.MM.yyyy"}}  -  {{einnahm.wiederholungsende | date : "dd.MM.yyyy"}}</div>
+                </div>
             </div>
-            <div class="row">
-            <div class="col" ng-bind="getDayname(einnahm.wiederholungstag)"></div>
-            </div> 
-            <div class="row">
-            <div class="col">{{einnahm.wiederholungsbeginn | date : "dd.MM.yyyy"}}  -  {{einnahm.wiederholungsende | date : "dd.MM.yyyy"}}</div>
-            </div>
-        </div>
-    </ion-list>
-  </ion-content>
+        </ion-list>
+    </ion-content>
 </ion-view>

@@ -1,16 +1,9 @@
 <ion-view view-title="Medikamente">
     <ion-nav-buttons side="secondary">
-        <button class="button button-clear button-icon ion-android-add-circle" ng-click="openNewMedi()">
-        </button>
-    </ion-nav-buttons>
-    
+        <button class="button button-clear button-icon ion-android-add-circle" ng-click="openNewMedi()"></button>
+    </ion-nav-buttons> 
     <ion-content>
         <ion-list can-swipe="true">
-            <ion-item class="item-divider">
-                <div class="row">
-                    <div class="col">Bez.</div>
-                    <div class="col">Packungsgröße</div></div>
-            </ion-item>
 			<ion-item ng-repeat="medi in medis" ng-click="openEditMedi(medi)">
 				<div class="row" >
                     <div class="col">{{medi.mediname}}</div>

@@ -1,38 +1,40 @@
 <ion-view view-title="Medikamentenhistorie">
-  <ion-content>
-<div class="list list-inset">
-  <label class="item item-input">
-    <i class="icon ion-search placeholder-icon"></i>
-    <input type="text" placeholder="Suche" ng-model="searchText">
-  </label>
-</div>
-<ion-toggle ng-model="nichtGenommen" ng-checked="nichtGenommen" ng-change="updateToggle()" toggle-class="toggle-dark">nicht genommene Medikamente</ion-toggle>
+    <ion-nav-buttons side="secondary">
+        <button class="button button-clear button-icon ion-gear-a" ng-click="toggleOptionNav()"></button>
+    </ion-nav-buttons>
+    <ion-content has-header="true">
+        <ion-list ng-if="optionNav">   
+            <div class="item item-divider"> Filtereinstellungen </div>
+        </ion-list>
+      
+        <div class="list list-inset" ng-if="optionNav">
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="Suche" ng-model="searchText">
+            </label>
+        </div>
+        
+        <ion-toggle ng-model="nichtGenommen" ng-checked="nichtGenommen" ng-change="updateToggle()" toggle-class="toggle-dark" ng-if="optionNav">Nur verpasste Einnahmen</ion-toggle>
 
-  <div>
-    <onezone-datepicker datepicker-object="onezoneDatepickervon">
-        <button class="button button-block button-dark show-onezone-datepicker">
-            von: {{onezoneDatepickervon.date | date:'dd MMMM yyyy'}} 
-        </button>
-    </onezone-datepicker>
-  </div>
-
-<div>
-    <onezone-datepicker datepicker-object="onezoneDatepickerbis">
-        <button class="button button-block button-dark show-onezone-datepicker">
-            bis: {{onezoneDatepickerbis.date | date:'dd MMMM yyyy'}} 
-        </button> 
-    </onezone-datepicker>
-</div>
-
-<ion-list>
-    <div class="item item-divider"> Medikamentenhistorie </div>
-    <ion-item ng-repeat="x in medicine | filter:searchText" | ng-if="checkFilter(x)">
-       <i class="icon ion-checkmark-circled balanced" | ng-if="x.einnahmezeitist != null"></i> 
-       <i class="icon ion-close-circled assertive" | ng-if="x.einnahmezeitist == null"></i>
-       {{x.mediname}} {{x.medidosis}} {{x.einnahmezeitsoll | date:'dd MMMM yyyy H:mm'}} Uhr
-    </ion-item>
-</ion-list>
-
-
-  </ion-content>
+        <onezone-datepicker datepicker-object="onezoneDatepickervon" ng-if="optionNav">
+            <button class="button button-full button-dark show-onezone-datepicker">
+                von: {{onezoneDatepickervon.date | date:'dd MMMM yyyy'}} 
+            </button>
+        </onezone-datepicker>
+    
+        <onezone-datepicker datepicker-object="onezoneDatepickerbis" ng-if="optionNav">
+            <button class="button button-full button-dark show-onezone-datepicker">
+                bis: {{onezoneDatepickerbis.date | date:'dd MMMM yyyy'}} 
+            </button> 
+        </onezone-datepicker>        
+        
+        <ion-list>
+            <div class="item item-divider"> Medikamentenhistorie </div>
+            <ion-item ng-repeat="x in medicine | filter:searchText" | ng-if="checkFilter(x)">
+                <i class="icon ion-checkmark-circled balanced" | ng-if="x.einnahmezeitist != null"></i> 
+                <i class="icon ion-close-circled assertive" | ng-if="x.einnahmezeitist == null"></i>
+                {{x.mediname}} {{x.medidosis}} {{x.einnahmezeitsoll | date:'dd MMMM yyyy H:mm'}} Uhr
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>
