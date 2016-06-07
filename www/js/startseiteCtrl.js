@@ -16,23 +16,21 @@ angular.module('starter.startseiteCtrl', [])
     $scope.zukunftEinnahmen = [];
     $scope.historieEinnahmen = [];
     $scope.user =[];    
+    $scope.count = 0;
+    
     $scope.$on("$ionicView.enter", function(){
         $scope.zukunftEinnahmen = EinnahmeStorage.loadAllEinnahme();
         $scope.historieEinnahmen = HistorieStorage.loadAll();
+        $scope.historieEinnahmen.forEach(function(einnahme) {
+            if (einnahme.einnahmezeitist == null) {
+                $scope.count++;
+            }
+        })
         $scope.user = ProfilStorage.loadProfil();
     })
-    $scope.count = "0";
-   
-   $scope.historieEinnahmen.forEach(function Einnahme() {
-       if (einnahmezeitist == null) {
-           $scope.count ++;
-       }
-   })
-
-    $scope.seen = 'false';
- 
     
 
+    $scope.seen = 'false';
     
     $scope.navigate = function(path) {
         $location.path(path);

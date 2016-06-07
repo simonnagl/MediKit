@@ -1,10 +1,9 @@
 <ion-modal-view view-title="Medikament">
     <ion-header-bar>
-        <button class="button button-icon ion-reply button-clear" ng-click="saveMedi()"/>
+        <button class="button button-icon ion-reply balanced" ng-click="saveMedi()"/>
         <h1 class="title">Medikament</h1>
-		<button ng-if=!isNewMedi class="button button-icon ion-trash-b 
-		button-clear" ng-click="deleteMedi($scope.medi)" />
-        <button ng-if=isNewMedi class="button button-icon ion-close-round button-clear" ng-click="deleteMedi()" />
+		<button ng-if=!isNewMedi class="button button-icon ion-trash-b assertive" ng-click="deleteMedi($scope.medi)" />
+        <button ng-if=isNewMedi class="button button-icon ion-close-round assertive" ng-click="deleteMedi()" />
     </ion-header-bar>
     
     <ion-content>

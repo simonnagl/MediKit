@@ -172,6 +172,8 @@ angular.module('starter.mediEinnahmeCtrl', [])
         $scope.einnahme.wiederholungsende = new Date(editObject.wiederholungsende);
         $scope.einnahme.vibration = editObject.vibration;
         $log.debug("Einnahme: " + $scope.einnahme);
+        $scope.tmpPackungsgroesse = editObject.packungsgroesse;
+
         
         //wichtig für später zur Überprüfung ob Medikament für eine vorhandene Einnahme geändert wurde. 
         $scope.tempMediId = $scope.einnahme.med.id;
@@ -545,6 +547,13 @@ angular.module('starter.mediEinnahmeCtrl', [])
       $scope.einnahme.einnahmemenge.einheit = med.packungsgroesse.einheit;
     }
   
+  }
+  
+  $scope.addNewMediPackung = function() {
+     var einnahme = EinnahmeStorage.loadEinnahme($scope.einnahme.id);
+     var neuPackungsinhalt = einnahme.packungsgroesse + $scope.tmpPackungsgroesse;
+     einnahme.packungsgroesse = neuPackungsinhalt;
+     EinnahmeStorage.updateEinnahme(einnahme);
   }
 
 ////Pupup

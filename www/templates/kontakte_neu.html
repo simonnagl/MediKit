@@ -1,5 +1,5 @@
 <ion-modal-view>
-  <ion-header-bar>  
+  <ion-header-bar class="bar-stable">  
     <div class="buttons">
         <button class="button button-icon ion-reply button-clear" ng-click="closeKontaktModal()"></button>
     </div> 
@@ -16,7 +16,7 @@
                 <label class="item item-input">
                     <span class="input-label">Kontaktart</span>
                         <select ng-model="selectedKontakt.kontaktArt">
-                            <option value="notfallkontakt">Notfallkontakt</option>
+                            <option value="notfallkontakt">Freunde/Familie</option>
                             <option value="arzt">Arzt</option>
                             <option value="apotheke">Apotheke</option>
                         </select>

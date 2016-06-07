@@ -1,88 +1,81 @@
 <ion-view view-title="Userprofil">
+	<ion-nav-buttons side="secondary"></ion-nav-buttons>
+	
+	<ion-content class="has-header">	
+	    <ion-list>
+            <ion-item class="item-divider">
+                    Persönliche Daten
+            </ion-item>
 
+        <!-------------------------------------------------------------------------------- -->
+            <ion-item class="item" ng-repeat="persoenlicheDaten in allPersoenlicheDaten" ng-click="changeNachname(persoenlicheDaten)" ng-if="!isNachnameEmptyBool">
+                    Nachname: {{persoenlicheDaten.nachname}}			
+            </ion-item>
+            
+            <ion-item class="item" ng-if="isNachnameEmptyBool">
+                    Nachname
+                    <i class="ion-android-add-circle" ng-click="addNewNachname()"></i>			
+            </ion-item>
+            
+        <!-------------------------------------------------------------------------------- -->
+            
+            <ion-item class="item" ng-repeat="persoenlicheDaten in allPersoenlicheDaten" ng-click="changeVorname(persoenlicheDaten)" ng-if="!isVornameEmptyBool">
+                    Vorname: {{persoenlicheDaten.vorname}}
+            </ion-item>
 
-	<ion-nav-buttons side="secondary">
-           
-	</ion-nav-buttons>
-	
-	<ion-content class="has-header">
-    
-	
-	<ion-list class="list list-inset">
-	
-	<ion-item class="item-divider">
-			Persönliche Daten
-	</ion-item>
+            <ion-item class="item" ng-if="isVornameEmptyBool">
+                    Vorname
+                    <i class="ion-android-add-circle" ng-click="addNewVorname()"></i>
+            </ion-item>
+            
+        <!-------------------------------------------------------------------------------- -->
 
-<!-------------------------------------------------------------------------------- -->
-	<ion-item class="item" ng-repeat="persoenlicheDaten in allPersoenlicheDaten" ng-click="changeNachname(persoenlicheDaten)" ng-if="!isNachnameEmptyBool">
-			Nachname: {{persoenlicheDaten.nachname}}			
-	</ion-item>
-	
-	<ion-item class="item" ng-if="isNachnameEmptyBool">
-			Nachname
-			<i class="ion-android-add-circle" ng-click="addNewNachname()"></i>			
-	</ion-item>
-	
-<!-------------------------------------------------------------------------------- -->
-	
-	<ion-item class="item" ng-repeat="persoenlicheDaten in allPersoenlicheDaten" ng-click="changeVorname(persoenlicheDaten)" ng-if="!isVornameEmptyBool">
-			Vorname: {{persoenlicheDaten.vorname}}
-	</ion-item>
+            <ion-item class="item-divider" ng-click="addNewBlutgruppe()" ng-if="isBlutgruppeEmptyBool">
+                    Blutgruppe
+            </ion-item>
+            
+            <ion-item class="item-divider" ng-if="!isBlutgruppeEmptyBool">
+                    Blutgruppe
+            </ion-item>
+            
+            <ion-item class="item" ng-repeat="blutgruppe in allBlutgruppe"  ng-click="changeBlutgruppe(blutgruppe)">
+                    {{blutgruppe.name}}
+            </ion-item>
+            
+        <!-------------------------------------------------------------------------------- -->
 
-	<ion-item class="item" ng-if="isVornameEmptyBool">
-			Vorname
-			<i class="ion-android-add-circle" ng-click="addNewVorname()"></i>
-	</ion-item>
-	
-<!-------------------------------------------------------------------------------- -->
+            <ion-item class="item-divider">
+                Allergie
+                <i class="ion-android-add-circle" ng-click="addNewAllergie()"></i>
+            </ion-item>
+            
 
-	<ion-item class="item-divider" ng-click="addNewBlutgruppe()" ng-if="isBlutgruppeEmptyBool">
-			Blutgruppe
-	</ion-item>
-	
-	<ion-item class="item-divider" ng-if="!isBlutgruppeEmptyBool">
-			Blutgruppe
-	</ion-item>
-	
-	 <ion-item class="item" ng-repeat="blutgruppe in allBlutgruppe"  ng-click="changeBlutgruppe(blutgruppe)">
-			{{blutgruppe.name}}
-	 </ion-item>
-	 
-<!-------------------------------------------------------------------------------- -->
+            <ion-item class="item" ng-repeat="allergie in allAllergie"  ng-click="changeAllergie(allergie)">
+                    {{allergie.name}}
+            </ion-item>
 
-	<ion-item class="item-divider">
-		Allergie
-		<i class="ion-android-add-circle" ng-click="addNewAllergie()"></i>
-	</ion-item>
-	
+        <!-------------------------------------------------------------------------------- -->	 
+            
+            <ion-item class="item-divider">
+                Unverträglichkeit
+                <i class="ion-android-add-circle" ng-click="addNewUnvertraeglichkeit()"></i>
+            </ion-item>
+            
+            <ion-item class="item" ng-repeat="unvertraeglichkeit in allUnvertraeglichkeit" ng-click="changeUnvertraeglichkeit(unvertraeglichkeit)">
+                    {{unvertraeglichkeit.name}}
+            </ion-item>
 
-	<ion-item class="item" ng-repeat="allergie in allAllergie"  ng-click="changeAllergie(allergie)">
-			{{allergie.name}}
-	 </ion-item>
-
-<!-------------------------------------------------------------------------------- -->	 
-	
-	<ion-item class="item-divider">
-		Unverträglichkeit
-		<i class="ion-android-add-circle" ng-click="addNewUnvertraeglichkeit()"></i>
-	</ion-item>
-	
-	<ion-item class="item" ng-repeat="unvertraeglichkeit in allUnvertraeglichkeit" ng-click="changeUnvertraeglichkeit(unvertraeglichkeit)">
-			{{unvertraeglichkeit.name}}
-	 </ion-item>
-
-<!-------------------------------------------------------------------------------- -->	 
-	 
-	<ion-item class="item-divider">
-		Erkrankung
-		<i class="ion-android-add-circle" ng-click="addNewErkrankung()"></i>
-	</ion-item>
-	
-	<ion-item class="item" ng-repeat="erkrankung in allErkrankung" ng-click="changeErkrankung(erkrankung)">
-			{{erkrankung.name}}
-	 </ion-item>
-	 
+        <!-------------------------------------------------------------------------------- -->	 
+            
+            <ion-item class="item-divider">
+                Erkrankung
+                <i class="ion-android-add-circle" ng-click="addNewErkrankung()"></i>
+            </ion-item>
+            
+            <ion-item class="item" ng-repeat="erkrankung in allErkrankung" ng-click="changeErkrankung(erkrankung)">
+                    {{erkrankung.name}}
+            </ion-item>
+            
+        </ion-list> 
 	</ion-content>
-
 </ion-view>

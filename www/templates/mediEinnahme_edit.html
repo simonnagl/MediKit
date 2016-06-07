@@ -78,10 +78,8 @@
           <input type="date" ng-model="einnahme.wiederholungsende">  
         </label>
      
-          <!--<ion-list>
-            <ion-checkbox ng-model="einnahme.vibration">Vibration</ion-checkbox>
-          </ion-list>-->
-        <ion-toggle ng-model="einnahme.vibration" toggle-class="toggle-positive">Vibration</ion-toggle>
+        <button class="button button-block button-dark"  ng-click="addNewMediPackung()" ng-if="isNewEin == false">Weitere Packung hinzufügen</button>
+        
       </div>
     </form>
   </ion-content>

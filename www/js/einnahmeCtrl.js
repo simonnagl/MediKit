@@ -117,7 +117,7 @@ angular.module('starter.einnahmeCtrl', ['ionic'])
 				});
 			});
 		} else {
-			sendSmsToAllNotfallkontakt("Einnahme abgeschlossen");
+			sendSmsToAllNotfallkontakt("MEDIKIT - Einnahme des Medikamentes: " + einnahme.mediname + " abgeschlossen");
 		}		
 	};
     
@@ -153,7 +153,7 @@ angular.module('starter.einnahmeCtrl', ['ionic'])
                     });
                 });
                 
-                sendSmsToAllNotfallkontakt ('Medikament: ' + einnahme.mediname + ', muss gekauft werden');
+                sendSmsToAllNotfallkontakt('MEDIKIT - Medikament: ' + einnahme.mediname + ', muss gekauft werden');
             }
         }
         

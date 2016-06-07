@@ -1,6 +1,6 @@
 angular.module('starter.historieCtrl', ['ionic'])
 
-.controller('HistorieCtrl', function($scope, $stateParams, $ionicModal, $timeout, $log, HistorieStorage) {
+.controller('HistorieCtrl', function($scope, $stateParams, $ionicModal, $timeout, $log, $cordovaDialogs, HistorieStorage) {
     
     $scope.medicine = HistorieStorage.loadAll();
     $scope.optionNav = false;
@@ -104,5 +104,22 @@ angular.module('starter.historieCtrl', ['ionic'])
         callback: function(value){}
     }
     ;
+    
+    $scope.changeEinnahmeStatus = function(einnahme) {
+        if (einnahme.einnahmezeitist == null){
+            $cordovaDialogs.confirm('Möchten Sie die Einnahme des Medikamentes bestätigen?', 'Einnahme bestätigen', ['JA','NEIN'])
+            .then(function(buttonIndex) {
+                // no button = 0, 'eingenommen' = 1, 'nichtGenommen' = 2
+                var btnIndex = buttonIndex;
+                if(btnIndex == 1) {
+                    einnahme.einnahmezeitist = new Date().getTime();
+                } else {
+                    einnahme.einnahmezeitist = null;
+                }
+                EinnahmeStorage.updateEinnahme(einnahme);
+            });
+        }
+    }
+
     
 });
