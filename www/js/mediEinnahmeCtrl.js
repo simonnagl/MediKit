@@ -263,7 +263,6 @@ angular.module('starter.mediEinnahmeCtrl', [])
         }
         
         var tag = 1*24*60*60*1000; //Tag in Millisekunden
-        var zweistunden = 2*60*60*1000; //Zwei Stunden in Millisekunden
         var diffTage =  (((((tempNextEinnahme.wiederholungsende.getTime() - tempNextEinnahme.wiederholungsbeginn.getTime())/24)/60)/60)/1000);
         $log.debug("diffTage: " + diffTage);
         
@@ -272,49 +271,49 @@ angular.module('starter.mediEinnahmeCtrl', [])
           if (tempNextEinnahme.wiederholungsbeginn.getDay() == 0 && nextMediEinnahme.wiederholungstag.so){
             //Einnahme speichern und einen Tag hochzählen
             $log.debug("Einnahmezeitpunkt So: " + tempNextEinnahme.wiederholungsbeginn);
-            var termin = new Date(tempNextEinnahme.wiederholungsbeginn.getTime() + zweistunden);
+            var termin = new Date(tempNextEinnahme.wiederholungsbeginn.getTime());
             nextMediEinnahme.wanneinnahmen.push({zeitpunkt: termin.valueOf(), genommen: false});
             tempNextEinnahme.wiederholungsbeginn.setTime(tempNextEinnahme.wiederholungsbeginn.getTime() + tag);
           
           } else if (tempNextEinnahme.wiederholungsbeginn.getDay() == 1 && nextMediEinnahme.wiederholungstag.mo){
             //Einnahme speichern und einen Tag hochzählen
             $log.debug("Einnahmezeitpunkt Mo: " + tempNextEinnahme.wiederholungsbeginn);
-            var termin = new Date(tempNextEinnahme.wiederholungsbeginn.getTime() + zweistunden);
+            var termin = new Date(tempNextEinnahme.wiederholungsbeginn.getTime());
             nextMediEinnahme.wanneinnahmen.push({zeitpunkt: termin.valueOf(), genommen: false});
             tempNextEinnahme.wiederholungsbeginn.setTime(tempNextEinnahme.wiederholungsbeginn.getTime() + tag);
           
           } else if (tempNextEinnahme.wiederholungsbeginn.getDay() == 2 && nextMediEinnahme.wiederholungstag.di){
             //Einnahme speichern und einen Tag hochzählen
             $log.debug("Einnahmezeitpunkt Di: " + tempNextEinnahme.wiederholungsbeginn);
-            var termin = new Date(tempNextEinnahme.wiederholungsbeginn.getTime() + zweistunden);
+            var termin = new Date(tempNextEinnahme.wiederholungsbeginn.getTime());
             nextMediEinnahme.wanneinnahmen.push({zeitpunkt: termin.valueOf(), genommen: false});
             tempNextEinnahme.wiederholungsbeginn.setTime(tempNextEinnahme.wiederholungsbeginn.getTime() + tag);
           
           } else if (tempNextEinnahme.wiederholungsbeginn.getDay() == 3 && nextMediEinnahme.wiederholungstag.mi){
             //Einnahme speichern und einen Tag hochzählen
             $log.debug("Einnahmezeitpunkt Mi: " + tempNextEinnahme.wiederholungsbeginn);
-            var termin = new Date(tempNextEinnahme.wiederholungsbeginn.getTime() + zweistunden);
+            var termin = new Date(tempNextEinnahme.wiederholungsbeginn.getTime());
             nextMediEinnahme.wanneinnahmen.push({zeitpunkt: termin.valueOf(), genommen: false});
             tempNextEinnahme.wiederholungsbeginn.setTime(tempNextEinnahme.wiederholungsbeginn.getTime() + tag);
           
           } else if (tempNextEinnahme.wiederholungsbeginn.getDay() == 4 && nextMediEinnahme.wiederholungstag.do){
             //Einnahme speichern und einen Tag hochzählen
             $log.debug("Einnahmezeitpunkt Do: " + tempNextEinnahme.wiederholungsbeginn);
-            var termin = new Date(tempNextEinnahme.wiederholungsbeginn.getTime() + zweistunden);
+            var termin = new Date(tempNextEinnahme.wiederholungsbeginn.getTime());
             nextMediEinnahme.wanneinnahmen.push({zeitpunkt: termin.valueOf(), genommen: false});
             tempNextEinnahme.wiederholungsbeginn.setTime(tempNextEinnahme.wiederholungsbeginn.getTime() + tag);
           
           } else if (tempNextEinnahme.wiederholungsbeginn.getDay() == 5 && nextMediEinnahme.wiederholungstag.fr){
             //Einnahme speichern und einen Tag hochzählen
             $log.debug("Einnahmezeitpunkt Fr: " + tempNextEinnahme.wiederholungsbeginn);
-            var termin = new Date(tempNextEinnahme.wiederholungsbeginn.getTime() + zweistunden);
+            var termin = new Date(tempNextEinnahme.wiederholungsbeginn.getTime());
             nextMediEinnahme.wanneinnahmen.push({zeitpunkt: termin.valueOf(), genommen: false});
             tempNextEinnahme.wiederholungsbeginn.setTime(tempNextEinnahme.wiederholungsbeginn.getTime() + tag);
           
           } else if (tempNextEinnahme.wiederholungsbeginn.getDay() == 6 && nextMediEinnahme.wiederholungstag.sa){
             //Einnahme speichern und einen Tag hochzählen
             $log.debug("Einnahmezeitpunkt Sa: " + tempNextEinnahme.wiederholungsbeginn);
-            var termin = new Date(tempNextEinnahme.wiederholungsbeginn.getTime() + zweistunden);
+            var termin = new Date(tempNextEinnahme.wiederholungsbeginn.getTime());
             nextMediEinnahme.wanneinnahmen.push({zeitpunkt: termin.valueOf(), genommen: false});
             tempNextEinnahme.wiederholungsbeginn.setTime(tempNextEinnahme.wiederholungsbeginn.getTime() + tag);
           
