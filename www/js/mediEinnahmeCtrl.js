@@ -566,7 +566,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
       var myPopup = $ionicPopup.show({
          //template: '<input type = "text" ng-model = "data.model">',
          //könnte man in eine templateUrl umändern und den viewcode extra auslagern.
-         template: '<ion-list><ion-checkbox ng-model="data.model.mo">Montag</ion-checkbox><ion-checkbox ng-model="data.model.di">Dienstag</ion-checkbox><ion-checkbox ng-model="data.model.mi">Mittwoch</ion-checkbox><ion-checkbox ng-model="data.model.do">Donnerstag</ion-checkbox><ion-checkbox ng-model="data.model.fr">Freitag</ion-checkbox><ion-checkbox ng-model="data.model.sa">Samstag</ion-checkbox><ion-checkbox ng-model="data.model.so">Sonntag</ion-checkbox></ion-list>',
+         template: '<ion-list class="checkbox-balanced"><ion-checkbox ng-model="data.model.mo">Montag</ion-checkbox><ion-checkbox ng-model="data.model.di">Dienstag</ion-checkbox><ion-checkbox ng-model="data.model.mi">Mittwoch</ion-checkbox><ion-checkbox ng-model="data.model.do">Donnerstag</ion-checkbox><ion-checkbox ng-model="data.model.fr">Freitag</ion-checkbox><ion-checkbox ng-model="data.model.sa">Samstag</ion-checkbox><ion-checkbox ng-model="data.model.so">Sonntag</ion-checkbox></ion-list>',
          title: 'Wiederholen',
          subTitle: '',
          scope: $scope,
@@ -574,7 +574,7 @@ angular.module('starter.mediEinnahmeCtrl', [])
          buttons: [
             { text: 'Abbrechen' }, {
                text: '<b>Ok</b>',
-               type: 'button-positive',
+               type: 'button-positive button-dark',
                   onTap: function(e) {
 						
                       //Ok button wurde gedrückt, übernehme dein Werte

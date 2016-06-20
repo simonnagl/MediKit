@@ -50,7 +50,7 @@ angular.module('starter.startseiteCtrl', [])
       // Custom popup
       var myPopup = $ionicPopup.show({
          templateUrl:'templates/startseitepopup.html', 
-         title: 'Erinerung',
+         title: 'Erinnerung',
          subTitle: '',
          scope: $scope,
 			
